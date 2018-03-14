@@ -1,0 +1,113 @@
+commit 18c6fb0f05bdef2c132dfddd33e3783c8b300e44
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 16:02:22 2018 +0200
+
+    Mokking about in the file system
+
+ tiedostoja/file2.txt                 | 0
+ tiedostoja/{file1.txt => file22.txt} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 70ca13f3a0a88012b4a5abe095529340aa06bf4c
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:56:33 2018 +0200
+
+    Some files for the sake of something
+
+ tiedostoja/file1.txt | 0
+ tiedostoja/file2.txt | 0
+ tiedostoja/file3.txt | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 094b3b94f5a84add207d9d9b042dae3f6e302c07
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:52:19 2018 +0200
+
+    Säätelyy tekstissä
+
+ eka.txt    | 11 ++---------
+ kolmas.txt |  2 ++
+ 2 files changed, 4 insertions(+), 9 deletions(-)
+
+commit 3928e2ba75e439f093fd3a54209a0a38b25bfdc1
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:50:24 2018 +0200
+
+    renamed tiedosto to eka
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 574c888159c330d5140784cb4f67ed64b7181bc9
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:49:15 2018 +0200
+
+    toinen poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 37b533ca94f2c33eb910ea38793f01df44f3fd2e
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:47:00 2018 +0200
+
+    Lisää ja pois
+
+ tiedosto.txt | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+commit 474a332512265ef3fb24e28cd395e85841d3957b
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:45:49 2018 +0200
+
+    Turhaa tekstiä
+
+ tiedosto.txt | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+commit 4b710ad13735d97bdcb54822b1596adbe40bc07d
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:44:13 2018 +0200
+
+    Hypättiin askeleen yli
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit ee5459413021c6dbfde979c9745528d1c1316bd1
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:42:10 2018 +0200
+
+    Uusi hakemisto
+
+ stuff/someFile.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit e31911914bd4e3bbc717d41f6c070e2fb26aa900
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:41:03 2018 +0200
+
+    Lisää tiedostoja
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 3f428b9d09bb4573de7349c131490013f9512137
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:40:05 2018 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 20301a428e1801e49f0b80d37d21160494874ba5
+Author: stadibo <jesperleonard@gmail.com>
+Date:   Wed Mar 14 15:38:53 2018 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
