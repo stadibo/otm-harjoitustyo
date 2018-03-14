@@ -4,3 +4,5 @@ En jaksanut kirjoittaa enempää joten tässä lista adjektiivin *hyvä* vertail
 * Hyvä
 	* Parempi
 		* Paras
+
+[Linkki tämän viikon tiedostoihin](https://github.com/stadibo/otm-harjoitustyo/tree/master/laskarit/viikko1)
