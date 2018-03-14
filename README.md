@@ -8,4 +8,5 @@ En jaksanut kirjoittaa enempää joten tässä lista adjektiivin *hyvä* vertail
 		* Paras
 
 [komentorivi.txt](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+
 [gitlog.txt](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
