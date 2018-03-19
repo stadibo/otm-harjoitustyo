@@ -2,3 +2,8 @@
 /laskarit/viikko2/Maksukortti/target/
 /laskarit/viikko2/Unicafe/target
 /laskarit/viikko2/Unicafe/nbproject/
+.DS_Store
+/laskarit/.DS_Store
+/laskarit/viikko2/.DS_Store
+/laskarit/viikko2/Unicafe/.DS_Store
+/laskarit/viikko2/Unicafe/nbactions.xml
