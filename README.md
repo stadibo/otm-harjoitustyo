@@ -8,3 +8,10 @@ Hyvä > *Parempi* > **Paras**
 [komentorivi.txt](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
 [gitlog.txt](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+
+# Viikko 2
+JUnit ohjeen [MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Maksukortti/src/test/java/MaksukorttiTest.java)
+
+[MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/MaksukorttiTest.java)
+
+[KassapaateTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/KassapaateTest.java)
