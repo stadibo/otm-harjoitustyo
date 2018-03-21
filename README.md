@@ -10,8 +10,10 @@ Hyvä > *Parempi* > **Paras**
 [gitlog.txt](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
 # Viikko 2
-JUnit ohjeen [MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Maksukortti/src/test/java/MaksukorttiTest.java)
+**1.** JUnit ohjeen [MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Maksukortti/src/test/java/MaksukorttiTest.java)
 
-[MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/MaksukorttiTest.java)
+**2.** Testit kortille [MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/MaksukorttiTest.java)
 
-[KassapaateTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/KassapaateTest.java)
+**3.** Testikattavuus screenshot [Jacoco raportti]()
+
+**5.** Kassapäätteen testit [KassapaateTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/KassapaateTest.java)
