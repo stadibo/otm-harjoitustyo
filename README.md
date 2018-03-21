@@ -12,9 +12,7 @@ Hyvä > *Parempi* > **Paras**
 # Viikko 2
 **1.** JUnit ohjeen [MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Maksukortti/src/test/java/MaksukorttiTest.java)
 
-**2.** Testit luokille
-
-[MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/MaksukorttiTest.java)
+**2.** Testit kortille [MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/MaksukorttiTest.java)
 
 **3.** Testikattavuus screenshot [Jacoco raportti]()
 
