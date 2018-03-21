@@ -14,6 +14,6 @@ Hyvä > *Parempi* > **Paras**
 
 **2.** Testit kortille [MaksukorttiTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/MaksukorttiTest.java) ja [.gitignore](https://github.com/stadibo/otm-harjoitustyo/blob/master/.gitignore)
 
-**3.** Testikattavuus screenshot [Jacoco raportti](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Testikattavuus_jacoco_screenshot.png)
+**3. ja 6.** Testikattavuus screenshot [Jacoco raportti](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Testikattavuus_jacoco_screenshot.png)
 
 **5.** Kassapäätteen testit [KassapaateTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/KassapaateTest.java)
