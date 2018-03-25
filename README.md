@@ -1,14 +1,12 @@
-# OTM-harjoitustyö
+# HabitRPG
 
-## HabitRPG
-
-### Documentation
+## Documentation
 
 [Requirements specification](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/requirements-specification.md)
 
 [Time tracking](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/time-tracking.md)
 
-## Tehtävät
+# Tehtävät
 ### Viikko 1
 Tämä on erittäin tavalllinen tekstipätkä jota seuraa hyvinkin erikoiset **lihavoidut** ja *kursivoidut* osuudet.
 En jaksanut kirjoittaa enempää joten tässä lista adjektiivin *hyvä* vertailuasteet:
