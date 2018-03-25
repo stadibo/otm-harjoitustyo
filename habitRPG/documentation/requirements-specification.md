@@ -9,11 +9,11 @@ In the early stages of development there will only be one type of user role: *no
 
 ## UI draft
 
-<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/documentation/img/UI_darft_p1.jpg" width="750">
+<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/UI_darft_p1.jpg" width="750">
 
 The application opens to a login screen, from where you can either login or create a user, in the create user view. After a successful login the dashboard view of the user is shown. The dashboard includes tracked habits, daily tasks and occasional todos, as well as, current stats for the accompanying game. 
 
-<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/documentation/img/UI_draft_p2.jpg" width="750">
+<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/UI_draft_p2.jpg" width="750">
 
 From the dashboard there is button to move to the play view, where a text based rpg can be played. The interface options change based on what the player is doing.
 
