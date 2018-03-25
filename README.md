@@ -1,4 +1,13 @@
 ### OTM-harjoitustyö
+
+## HabitRPG
+
+# Documentation
+
+[Requirements specification](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/requirements-specification.md)
+
+[Time tracking](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/time-tracking.md)
+
 ## Tehtävät
 # Viikko 1
 Tämä on erittäin tavalllinen tekstipätkä jota seuraa hyvinkin erikoiset **lihavoidut** ja *kursivoidut* osuudet.
