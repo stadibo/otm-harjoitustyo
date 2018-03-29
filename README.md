@@ -24,3 +24,14 @@ Hyvä > *Parempi* > **Paras**
 **3. ja 6.** Testikattavuus screenshot [Jacoco raportti](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Testikattavuus_jacoco_screenshot.png)
 
 **5.** Kassapäätteen testit [KassapaateTest.java](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/KassapaateTest.java)
+
+
+### Viikko 3
+**1.** [Yksinkertainen Monopoly UML](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko3/Monopoly_UML_1.png)
+
+**2.** [Laajennettu Monopoly UML](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko3/Monopoly_UML_2.png)
+
+**3.** [Koneen luominen ja ajaminen - sekvenssikaavio](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko3/Koneen%20luominen%20ja%20ajaminen.png)
+
+**4.** [HSL main luokan suoritus - sekvenssikaavio](https://github.com/stadibo/otm-harjoitustyo/blob/master/laskarit/viikko3/HSL%20systeemin%20Main%20luokan%20suoritus.png)
+
