@@ -1,0 +1,34 @@
+CREATE TABLE IF NOT EXISTS User (
+username TEXT PRIMARY KEY,
+name TEXT NOT NULL,
+motto TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Todo (
+id INTEGER PRIMARY KEY,
+username TEXT,
+content TEXT NOT NULL,
+complete INTEGER NOT NULL,
+difficulty INTEGER NOT NULL,
+FOREIGN KEY (username) REFERENCES User (username)
+);
+
+CREATE TABLE IF NOT EXISTS Habit (
+id INTEGER PRIMARY KEY,
+username TEXT,
+content TEXT NOT NULL,
+complete INTEGER NOT NULL,
+difficulty INTEGER NOT NULL,
+streak INTEGER NOT NULL,
+FOREIGN KEY (username) REFERENCES User (username)
+);
+
+CREATE TABLE IF NOT EXISTS Daily (
+id INTEGER PRIMARY KEY,
+username TEXT,
+content TEXT NOT NULL,
+complete INTEGER NOT NULL,
+difficulty INTEGER NOT NULL,
+date REAL
+FOREIGN KEY (username) REFERENCES User (username)
+);
