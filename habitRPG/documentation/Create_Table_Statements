@@ -10,6 +10,7 @@ username TEXT,
 content TEXT NOT NULL,
 complete INTEGER NOT NULL,
 difficulty INTEGER NOT NULL,
+date TEXT,
 FOREIGN KEY (username) REFERENCES User (username)
 );
 
@@ -17,9 +18,10 @@ CREATE TABLE IF NOT EXISTS Habit (
 id INTEGER PRIMARY KEY,
 username TEXT,
 content TEXT NOT NULL,
-complete INTEGER NOT NULL,
+retired INTEGER NOT NULL,
 difficulty INTEGER NOT NULL,
 streak INTEGER NOT NULL,
+date TEXT,
 FOREIGN KEY (username) REFERENCES User (username)
 );
 
@@ -29,6 +31,6 @@ username TEXT,
 content TEXT NOT NULL,
 complete INTEGER NOT NULL,
 difficulty INTEGER NOT NULL,
-date REAL
+date TEXT,
 FOREIGN KEY (username) REFERENCES User (username)
 );

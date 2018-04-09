@@ -5,6 +5,8 @@
  */
 package domain;
 
+import java.util.Date;
+
 /**
  *
  * @author peje
@@ -13,13 +15,15 @@ public class Habit {
     private int id;
     private String content;
     private int difficulty;
+    private boolean retired; 
     //private Integer type; // 1 = to cultivate (good), 0 = to break (bad)
     private int currentStreak;
     private User user;
     
-    public Habit(int id, String content, int diff, int streak, User user) {
+    public Habit(int id, String content, boolean ret, int diff, int streak, User user) {
         this.id = id;
         this.content = content;
+        this.retired = ret;
         this.difficulty = diff;
         this.currentStreak = streak;
         this.user = user;
@@ -27,9 +31,18 @@ public class Habit {
     
     public Habit(String content, int diff, User user) {
         this.content = content;
+        this.retired = false;
         this.difficulty = diff;
         this.user = user;
         this.currentStreak = 0;
+    }
+
+    public boolean isRetired() {
+        return retired;
+    }
+
+    public void setRetired(boolean retired) {
+        this.retired = retired;
     }
 
     public int getId() {

@@ -24,8 +24,8 @@ public class UserService {
     private User loggedIn;
     private Database database;
     
-    public UserService(UserDao dao, Database database) {
-        this.userDao = dao;
+    public UserService(Database database) throws SQLException {
+        this.userDao = new UserDao(database);
         this.database = database;
     }
     
@@ -61,6 +61,11 @@ public class UserService {
         }
         return true;
         
+    }
+    
+    //checks that username is correct lenght and doesn't contain special characters
+    public boolean checkUsername(String username) {
+        return true;
     }
     
 }

@@ -15,10 +15,10 @@ public class Daily {
     private String content;
     private boolean complete;
     private int difficulty;
-    private int date;
+    private String date;
     private User user;
     
-    public Daily(int id, String cont, boolean comp, int diff, int date, User user) {
+    public Daily(int id, String cont, boolean comp, int diff, String date, User user) {
         this.id = id;
         this.content = cont;
         this.complete = comp;
@@ -27,7 +27,7 @@ public class Daily {
         this.user = user;
     }
     
-    public Daily(String cont, int diff, int date, User user) {
+    public Daily(String cont, int diff, String date, User user) {
         this.content = cont;
         this.difficulty = diff;
         this.date = date;
@@ -59,7 +59,7 @@ public class Daily {
         return difficulty;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 

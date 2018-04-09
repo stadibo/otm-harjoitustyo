@@ -6,7 +6,10 @@
 package dao;
 
 import domain.Todo;
+import domain.User;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -14,11 +17,17 @@ import java.util.List;
  * @author peje
  */
 public class TodoDao implements Dao<Todo, Integer> {
-    
+
     private Database database;
-    
-    public TodoDao(Database database) {
+    private User user;
+
+    public TodoDao(Database database, User user) {
         this.database = database;
+        this.user = user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -37,13 +46,32 @@ public class TodoDao implements Dao<Todo, Integer> {
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
+    public boolean delete(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setDone(Integer key) throws SQLException {
+    public boolean setDone(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    private void createTable() throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS Todo (\n"
+                + "id INTEGER PRIMARY KEY,\n"
+                + "username TEXT,\n"
+                + "content TEXT NOT NULL,\n"
+                + "complete INTEGER NOT NULL,\n"
+                + "difficulty INTEGER NOT NULL,\n"
+                + "date TEXT,\n"
+                + "FOREIGN KEY (username) REFERENCES User (username)\n"
+                + ");";
+
+        try (Connection conn = database.getConnection();
+                Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (Exception e) {
+
+        }
+    }
+
 }

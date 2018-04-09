@@ -6,6 +6,7 @@
 package dao;
 
 import domain.Daily;
+import domain.User;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,9 +17,15 @@ import java.util.List;
 public class DailyDao implements Dao<Daily, Integer> {
     
     private Database database;
+    private User user;
     
-    public DailyDao(Database database) {
+    public DailyDao(Database database, User user) {
         this.database = database;
+        this.user = user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -37,12 +44,12 @@ public class DailyDao implements Dao<Daily, Integer> {
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
+    public boolean delete(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setDone(Integer key) throws SQLException {
+    public boolean setDone(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

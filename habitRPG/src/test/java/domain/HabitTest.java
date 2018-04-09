@@ -1,0 +1,46 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package domain;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author peje
+ */
+public class HabitTest {
+    
+    @Test
+    public void equalWhenSameId() {
+        User user = new User("username", "name", "motto");
+        Habit habit1 = new Habit(1, "stuff", false, 1, 0, user);
+        Habit habit2 = new Habit(1, "stuff", false, 1, 0, user);
+        assertEquals(true, habit1.equals(habit2));
+    }
+  
+    @Test
+    public void notEqualWhenDifferentId() {
+        User user = new User("username", "name", "motto");
+        Habit habit1 = new Habit(1, "stuff", false, 1, 0, user);
+        Habit habit2 = new Habit(2, "no stuff", false, 1, 0, user);
+        assertEquals(false, habit1.equals(habit2));
+    }   
+    
+    @Test
+    public void nonEqualWhenDifferentType() {
+        User user = new User("username", "name", "motto");
+        Habit habit = new Habit(1, "stuff", false, 1, 0, user);
+        Object obj = new Object();
+        assertEquals(false, habit.equals(obj));
+    }
+
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
+}

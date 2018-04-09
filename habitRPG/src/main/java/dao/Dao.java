@@ -22,8 +22,8 @@ public interface Dao<T, K> {
     
     T create(T object) throws SQLException;
     
-    void delete(K key) throws SQLException;
+    boolean delete(K key) throws SQLException;
     
-    void setDone(K key) throws SQLException;
+    boolean setDone(K key) throws SQLException;
     
 }
