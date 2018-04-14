@@ -3,32 +3,46 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domain;
+package habitrpg.domain;
+
+import java.util.Date;
 
 /**
  *
  * @author peje
  */
-public class Todo {
-    
+public class Habit {
     private int id;
     private String content;
-    private boolean complete;
     private int difficulty;
+    private boolean retired; 
+    //private Integer type; // 1 = to cultivate (good), 0 = to break (bad)
+    private int currentStreak;
     private User user;
     
-    public Todo(int id, String content, boolean complete, int diff, User user) {
+    public Habit(int id, String content, boolean ret, int diff, int streak, User user) {
         this.id = id;
         this.content = content;
-        this.complete = complete;
+        this.retired = ret;
         this.difficulty = diff;
+        this.currentStreak = streak;
         this.user = user;
     }
     
-    public Todo(String content, User user) {
+    public Habit(String content, int diff, User user) {
         this.content = content;
+        this.retired = false;
+        this.difficulty = diff;
         this.user = user;
-        this.complete = false;
+        this.currentStreak = 0;
+    }
+
+    public boolean isRetired() {
+        return retired;
+    }
+
+    public void setRetired(boolean retired) {
+        this.retired = retired;
     }
 
     public int getId() {
@@ -43,18 +57,18 @@ public class Todo {
         return content;
     }
 
-    public boolean isComplete() {
-        return complete;
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
-    }
-
     public int getDifficulty() {
         return difficulty;
     }
-    
+
+    public int getCurrentStreak() {
+        return currentStreak;
+    }
+
+    public void setCurrentStreak(int currentStreak) {
+        this.currentStreak = currentStreak;
+    }
+
     public User getUser() {
         return user;
     }
@@ -71,7 +85,7 @@ public class Todo {
             return false;
         }
         
-        Todo other = (Todo) obj;
+        Habit other = (Habit) obj;
         if (this.id != other.id) {
             return false;
         }

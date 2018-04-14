@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domain;
+package habitrpg.domain;
 
-import dao.Database;
-import dao.UserDao;
+import habitrpg.dao.Database;
+import habitrpg.dao.UserDao;
 import java.sql.SQLException;
 
 /**
@@ -56,7 +56,7 @@ public class UserService {
         User newUser = new User(username, name, motto);
         try {
             userDao.create(newUser);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
         return true;

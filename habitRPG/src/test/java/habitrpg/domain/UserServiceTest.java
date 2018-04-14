@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domain;
+package habitrpg.domain;
 
-import dao.Database;
-import dao.UserDao;
+import habitrpg.dao.Database;
+import habitrpg.dao.UserDao;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;

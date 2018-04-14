@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package habitrpg.dao;
 
 import java.io.File;
 import java.sql.Connection;
@@ -32,7 +32,7 @@ public class Database {
     }
     
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite:"+path);
+        return DriverManager.getConnection("jdbc:sqlite:" + path);
     }
     
     public void createDatabase(String fileName) throws SQLException {
