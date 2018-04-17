@@ -38,4 +38,4 @@ The checks defined in the file [checkstyle.xml](https://github.com/mluukkai/OtmT
  mvn jxr:jxr checkstyle:checkstyle
 ```
 
-Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
+Potential error messages are shown by opening the file _target/site/checkstyle.html_ in a web-browser
