@@ -1,4 +1,4 @@
-##Text UI usage instructions
+## Text UI usage instructions
 
 _Letters and digits on the left side of the listed commands are to be input into the console to execute functions._
 
