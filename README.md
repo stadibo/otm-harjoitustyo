@@ -12,6 +12,8 @@ will mirror you progressing, cultivating good habits and being productive.
 
 [Time tracking](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/time-tracking.md)
 
+[How to use text based UI](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/text_ui_instructions.md)
+
 ## Command Line operations
 
 ### Testing
