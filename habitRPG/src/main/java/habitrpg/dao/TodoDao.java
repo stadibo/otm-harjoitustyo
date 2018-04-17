@@ -138,13 +138,13 @@ public class TodoDao implements Dao<Todo, Integer> {
 
     @Override
     public boolean setDone(Integer key) {
-        String sql = "UPDATE Habit SET complete = ? WHERE username = ? AND id = ?";
+        String sql = "UPDATE Todo SET complete = ? WHERE username = ? AND id = ?";
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             //set value
             stmt.setBoolean(1, true);
-            stmt.setString(2, user.getUsername());
+            stmt.setString(2, this.user.getUsername());
             stmt.setInt(3, key);
             stmt.executeUpdate();
 
