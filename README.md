@@ -32,7 +32,7 @@ The coverage report can be viewed by opening the file _target/site/jacoco/index.
 
 ### Checkstyle
 
-The checks defined in the file [checkstyle.xml](https://github.com/mluukkai/OtmTodoApp/blob/master/checkstyle.xml) are run with the command
+The checks defined in the file [checkstyle.xml](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/checkstyle.xml) are run with the command
 
 ```
  mvn jxr:jxr checkstyle:checkstyle
