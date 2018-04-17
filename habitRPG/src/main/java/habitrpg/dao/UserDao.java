@@ -21,13 +21,13 @@ public class UserDao implements Dao<User, String> {
 
     private Database database;
 
-    public UserDao(Database database) throws SQLException {
+    public UserDao(Database database) {
         this.database = database;
         createTable();
     }
 
     @Override
-    public User getOne(String key) throws SQLException {
+    public User getOne(String key) {
         User found = null;
         String sql = "SELECT username, name, motto "
                 + "FROM User WHERE username = ?";
@@ -53,12 +53,12 @@ public class UserDao implements Dao<User, String> {
     }
 
     @Override
-    public List<User> getAll() throws SQLException {
+    public List<User> getAll() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public User create(User object) throws SQLException {
+    public User create(User object) {
         String sql = "INSERT INTO "
                 + "User(username, name, motto) "
                 + "VALUES (?, ?, ?)";
@@ -79,7 +79,7 @@ public class UserDao implements Dao<User, String> {
     }
 
     @Override
-    public boolean delete(String key) throws SQLException {
+    public boolean delete(String key) {
         String sql = "DELETE FROM User WHERE username = ?";
 
         try (Connection conn = database.getConnection();
@@ -98,11 +98,11 @@ public class UserDao implements Dao<User, String> {
     }
 
     @Override
-    public boolean setDone(String key) throws SQLException {
+    public boolean setDone(String key) {
         throw new UnsupportedOperationException("Not supported.");
     }
 
-    private void createTable() throws SQLException {
+    private void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS User (\n"
                 + "username TEXT PRIMARY KEY,\n"
                 + "name TEXT NOT NULL,\n"

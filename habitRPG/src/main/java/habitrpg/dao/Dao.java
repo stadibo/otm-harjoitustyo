@@ -16,14 +16,14 @@ import java.util.*;
 
 public interface Dao<T, K> {
     
-    T getOne(K key) throws SQLException;
+    T getOne(K key);
     
-    List<T> getAll() throws SQLException;
+    List<T> getAll();
     
-    T create(T object) throws SQLException;
+    T create(T object);
     
-    boolean delete(K key) throws SQLException;
+    boolean delete(K key);
     
-    boolean setDone(K key) throws SQLException;
+    boolean setDone(K key);
     
 }

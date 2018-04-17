@@ -7,65 +7,55 @@ package habitrpg.domain;
 
 import habitrpg.dao.Database;
 import habitrpg.dao.UserDao;
-import java.sql.SQLException;
 
 /**
  *
  * @author peje
  */
-
 /**
- * Class responsible for actions aimed at user objects 
+ * Class responsible for actions aimed at user objects
  */
-
 public class UserService {
-    
+
     private UserDao userDao;
     private User loggedIn;
     private Database database;
-    
-    public UserService(Database database) throws SQLException {
+
+    public UserService(Database database) {
         this.userDao = new UserDao(database);
         this.database = database;
     }
-    
-    public boolean login(String username) throws SQLException {
+
+    public boolean login(String username) {
         User user = userDao.getOne(username);
-        
+
         if (user == null) {
             return false;
         }
-        
+
         this.loggedIn = user;
         return true;
     }
-    
+
     public User getLoggedUser() {
         return this.loggedIn;
     }
-    
+
     public void logout() {
         loggedIn = null;
     }
-    
-    public boolean newUser(String username, String name, String motto) throws SQLException {
+
+    public boolean newUser(String username, String name, String motto) {
         if (userDao.getOne(username) != null) {
             return false;
         }
-        
-        User newUser = new User(username, name, motto);
-        try {
-            userDao.create(newUser);
-        } catch (Exception e) {
-            return false;
-        }
+        userDao.create(new User(username, name, motto));
         return true;
-        
     }
-    
+
     //checks that username is correct lenght and doesn't contain special characters
     public boolean checkUsername(String username) {
         return true;
     }
-    
+
 }

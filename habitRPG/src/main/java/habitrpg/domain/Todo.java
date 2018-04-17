@@ -25,9 +25,9 @@ public class Todo {
         this.user = user;
     }
     
-    public Todo(String content, User user) {
+    public Todo(String content, int diff) {
         this.content = content;
-        this.user = user;
+        this.difficulty = diff;
         this.complete = false;
     }
 
@@ -77,6 +77,11 @@ public class Todo {
         }
         
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Todo: " + content + "\n\tdifficulty=" + difficulty;
     }
     
 }

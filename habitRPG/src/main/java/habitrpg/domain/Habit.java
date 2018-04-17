@@ -29,11 +29,10 @@ public class Habit {
         this.user = user;
     }
     
-    public Habit(String content, int diff, User user) {
+    public Habit(String content, int diff) {
         this.content = content;
         this.retired = false;
         this.difficulty = diff;
-        this.user = user;
         this.currentStreak = 0;
     }
 
@@ -92,5 +91,12 @@ public class Habit {
         
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Habit: " + content + "\n\tdifficulty: " + difficulty + "\n\tcurrentStreak: " + currentStreak;
+    }
+    
+    
     
 }

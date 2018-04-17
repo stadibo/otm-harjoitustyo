@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
  * @author peje
  */
 public class UserServiceTest {
-    
+
     private UserService us;
     private UserDao userDao;
 
@@ -50,10 +50,7 @@ public class UserServiceTest {
     @Before
     public void setUp() {
         User user = new User("tester", "elon musk", "going to mars");
-        try {
-            userDao.create(user);
-        } catch (SQLException e) {
-        }
+        userDao.create(user);
     }
 
     @After
@@ -65,19 +62,50 @@ public class UserServiceTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-     @Test
-     public void hello() {}
-     
-     @Test
-     public void userCanLogIn() {
-         String username = "tester";
-        try {
-            us.login(username);
-        } catch (SQLException e) {
-        }
+//    @Test
+//    public void hello() {
+//    }
+
+    @Test
+    public void userCanLogIn() {
+        String username = "tester";
+        us.login(username);
         assertEquals("tester", us.getLoggedUser().getUsername());
         assertEquals("elon musk", us.getLoggedUser().getName());
         assertEquals("going to mars", us.getLoggedUser().getMotto());
-         
-     }
+    }
+    
+    @Test
+    public void userNotExistsAtLoginReturnFalse() {
+        String username = "nope";
+        boolean userExists = us.login(username);
+        assertFalse(userExists);
+    }
+    
+    @Test
+    public void userCanLogOut() {
+        String username = "tester";
+        us.login(username);
+        us.logout();
+        assertEquals(null, us.getLoggedUser());
+    }
+    
+    @Test
+    public void canSuccessfullyCreateNewUniqueUser() {
+        String username = "tester2";
+        String name = "mister mister";
+        String motto = "always testing";
+        boolean success = us.newUser(username, name, motto);
+        assertTrue(success);
+    }
+    
+    @Test
+    public void canOnlyCreateUserUniqueUsername() {
+        String username = "tester";
+        String name = "elon tusk";
+        String motto = "always testing";
+        boolean success = us.newUser(username, name, motto);
+        assertFalse(success);
+    }
+    
 }

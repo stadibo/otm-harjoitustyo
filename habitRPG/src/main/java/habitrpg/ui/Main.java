@@ -24,7 +24,7 @@ public class Main {
             TrackerTextUi ui = new TrackerTextUi(scanner, db);
             ui.run();
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Critical error. Contact creator for fix. Thank you.");
+            System.out.println("Critical error. Contact creator for fix. Sorry.");
         }
         
     }

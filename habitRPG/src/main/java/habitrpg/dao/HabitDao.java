@@ -24,7 +24,7 @@ public class HabitDao implements Dao<Habit, Integer> {
     private Database database;
     private User user;
 
-    public HabitDao(Database database, User user) throws SQLException {
+    public HabitDao(Database database, User user) {
         this.database = database;
         this.user = user;
         createTable();
@@ -35,7 +35,7 @@ public class HabitDao implements Dao<Habit, Integer> {
     }
 
     @Override
-    public Habit getOne(Integer key) throws SQLException {
+    public Habit getOne(Integer key) {
         Habit found = null;
         String sql = "SELECT id, content, retired, difficulty, streak "
                 + "FROM Habit WHERE id = ? AND username = ?";
@@ -58,7 +58,7 @@ public class HabitDao implements Dao<Habit, Integer> {
                     this.user);
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
 
         return found;
@@ -66,7 +66,7 @@ public class HabitDao implements Dao<Habit, Integer> {
     }
 
     @Override
-    public List<Habit> getAll() throws SQLException {
+    public List<Habit> getAll() {
         List<Habit> habits = new ArrayList<>();
         String sql = "SELECT id, content, retired, difficulty, streak "
                 + "FROM Habit WHERE username = ?";
@@ -90,18 +90,14 @@ public class HabitDao implements Dao<Habit, Integer> {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        if (habits.isEmpty()) {
-            return null;
-        } else {
-            return habits;
-        }
+        
+        return habits;
     }
 
     @Override
-    public Habit create(Habit object) throws SQLException {
+    public Habit create(Habit object) {
         String sql = "INSERT INTO "
-                + "Habit(content, retired, difficulty, streak) "
+                + "Habit(content, retired, difficulty, streak, username) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = database.getConnection();
@@ -118,14 +114,14 @@ public class HabitDao implements Dao<Habit, Integer> {
             int rowAffected = stmt.executeUpdate();
             object.setId(rowAffected);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
 
         return object;
     }
 
     @Override
-    public boolean delete(Integer key) throws SQLException {
+    public boolean delete(Integer key) {
         String sql = "DELETE FROM Habit WHERE username = ? AND id = ?";
 
         try (Connection conn = database.getConnection();
@@ -137,7 +133,7 @@ public class HabitDao implements Dao<Habit, Integer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             return false;
         }
 
@@ -145,7 +141,7 @@ public class HabitDao implements Dao<Habit, Integer> {
     }
 
     @Override
-    public boolean setDone(Integer key) throws SQLException {
+    public boolean setDone(Integer key) {
         String sql = "UPDATE Habit SET retired = ? WHERE username = ? AND id = ?";
 
         try (Connection conn = database.getConnection();
@@ -158,14 +154,14 @@ public class HabitDao implements Dao<Habit, Integer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             return false;
         }
 
         return true;
     }
 
-    public boolean addToStreak(Integer key, Habit object) throws SQLException {
+    public boolean addToStreak(Integer key, Habit object) {
         String sql = "UPDATE Habit SET streak = ? WHERE username = ? AND id = ?";
 
         try (Connection conn = database.getConnection();
@@ -178,15 +174,14 @@ public class HabitDao implements Dao<Habit, Integer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            createTable();
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             return false;
         }
 
         return true;
     }
 
-    private void createTable() throws SQLException {
+    private void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS Habit (\n"
                 + "id INTEGER PRIMARY KEY,\n"
                 + "username TEXT,\n"

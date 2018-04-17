@@ -23,10 +23,10 @@ public class User {
         this.motto = motto;
     }
     
-    public User(String username, String name) {
-        this.name = name;
-        this.username = username;
-    }
+//    public User(String username, String name) {
+//        this.name = name;
+//        this.username = username;
+//    }
 
     public String getName() {
         return name;
@@ -40,9 +40,9 @@ public class User {
         return motto;
     }
 
-    public void setMotto(String motto) {
-        this.motto = motto;
-    }
+//    public void setMotto(String motto) {
+//        this.motto = motto;
+//    }
 
     @Override
     public boolean equals(Object obj) {

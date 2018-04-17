@@ -29,27 +29,27 @@ public class DailyDao implements Dao<Daily, Integer> {
     }
 
     @Override
-    public Daily getOne(Integer key) throws SQLException {
+    public Daily getOne(Integer key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Daily> getAll() throws SQLException {
+    public List<Daily> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Daily create(Daily object) throws SQLException {
+    public Daily create(Daily object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean delete(Integer key) throws SQLException {
+    public boolean delete(Integer key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean setDone(Integer key) throws SQLException {
+    public boolean setDone(Integer key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
