@@ -4,7 +4,7 @@ The structure of habitRPG adheres to the following structure, and the package st
 
 <img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/package_diagram.png" width="200">
 
-habitrpg.ui contains a text based ui, habitrpg.domain contains software logic, and habitrpg.dao contains classes for interfacing with the database.
+_habitrpg.ui_ contains a text based ui, _habitrpg.domain_ contains software logic, and _habitrpg.dao_ contains classes for interfacing with the database.
 
 ## Software logic
 
