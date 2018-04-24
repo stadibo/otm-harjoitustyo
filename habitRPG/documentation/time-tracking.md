@@ -12,4 +12,8 @@
 |      | 2    | expanding text ui to work with habits and todos |
 | 17.4.| 1    | added tests |
 | 17.4.| .5   | architecture-description |
-| tot  | 17   |
+| 23.4.| 4    | designed GUI |
+|      | 1    | research and create time class using joda-time library |
+| 24.4.| 3    | cleaning up code, writing tests |
+|      | 1    | looking for and fixing bug making tests fail on windows |
+| tot  | 26   |
