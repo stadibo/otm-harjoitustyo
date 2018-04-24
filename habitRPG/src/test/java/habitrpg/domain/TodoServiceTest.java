@@ -21,44 +21,43 @@ import static org.junit.Assert.*;
  * @author peje
  */
 public class TodoServiceTest {
-    
+
     private TodoService ts;
     private TodoDao todoDao;
-    
+
     public TodoServiceTest() {
-        
-        
+
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
-        
+
     }
-    
+
     @Before
     public void setUp() {
         Database db = new Database();
         db.createDatabase("test.db");
         ts = new TodoService(db);
         todoDao = new TodoDao(db);
-        
+
         User user = new User("tester", "elon musk", "going to mars");
         ts.updateUser(user);
-        
+
         todoDao.setUser(user);
         todoDao.create(new Todo("Run", 1));
     }
-    
+
     @After
     public void tearDown() {
         File file = new File("test.db");
         file.delete();
     }
-    
+
     @Test
     public void canCreateNewTodoSuccess() {
         assertTrue(ts.createTodo("Fight", 2));
@@ -74,13 +73,13 @@ public class TodoServiceTest {
         assertEquals(false, todos.get(0).isComplete());
         assertEquals("tester", todos.get(0).getUser().getUsername());
     }
-    
+
     @Test
     public void canMarkTodoAsComplete() {
         assertTrue(ts.setDoneGui(1));
         assertTrue(todoDao.getOne(1).isComplete());
     }
-    
+
     @Test
     public void canDeleteTodo() {
         todoDao.create(new Todo("Walk", 3));
@@ -88,5 +87,5 @@ public class TodoServiceTest {
         assertTrue(ts.deleteTodoGui(2));
         assertEquals(null, todoDao.getOne(2));
     }
-    
+
 }

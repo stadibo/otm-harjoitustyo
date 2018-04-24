@@ -203,8 +203,8 @@ public class TrackerUi extends Application {
         nameInput.setPromptText("tester name");
         logingrid.setConstraints(nameInput, 1, 0);
 
-        Button loginButt = new Button("login");
-        Button createButt = new Button("create new user");
+        Button loginButt = new Button("Login");
+        Button createButt = new Button("Create new user");
         logingrid.setConstraints(loginButt, 1, 1);
         logingrid.setConstraints(createButt, 1, 2);
 
@@ -330,7 +330,7 @@ public class TrackerUi extends Application {
         newTodoGrid.setVgap(8);
         newTodoGrid.setHgap(10);
 
-        Label newTodoLabel = new Label("to-do");
+        Label newTodoLabel = new Label("To-do");
         newTodoGrid.setConstraints(newTodoLabel, 0, 0);
 
         TextField newTodoInput = new TextField();
@@ -346,10 +346,10 @@ public class TrackerUi extends Application {
 
         difficultyBox.setValue("Easy");
 
-        Button createNewTodoButt = new Button("create");
+        Button createNewTodoButt = new Button("Create");
         newTodoGrid.setConstraints(createNewTodoButt, 1, 2);
 
-        Button cancelNewTodoButt = new Button("go back");
+        Button cancelNewTodoButt = new Button("Go back");
         newTodoGrid.setConstraints(cancelNewTodoButt, 1, 3);
 
         Label todoCreationMsg = new Label();
@@ -415,7 +415,7 @@ public class TrackerUi extends Application {
         newHabitGrid.setVgap(8);
         newHabitGrid.setHgap(10);
 
-        Label newHabitLabel = new Label("habit");
+        Label newHabitLabel = new Label("Habit");
         newHabitGrid.setConstraints(newHabitLabel, 0, 0);
 
         TextField newHabitInput = new TextField();
@@ -433,10 +433,10 @@ public class TrackerUi extends Application {
 
         habitDifficultyBox.setValue("Easy");
 
-        Button createNewHabitButt = new Button("create");
+        Button createNewHabitButt = new Button("Create");
         newHabitGrid.setConstraints(createNewHabitButt, 1, 2);
 
-        Button cancelNewHabitButt = new Button("go back");
+        Button cancelNewHabitButt = new Button("Go back");
         newHabitGrid.setConstraints(cancelNewHabitButt, 1, 3);
 
         Label habitCreationMsg = new Label();
@@ -584,16 +584,10 @@ public class TrackerUi extends Application {
         dailyScrollbar.setMinWidth(320);
 
         // setup primary stage
-        primaryStage.setTitle("HabitTracker");
+        primaryStage.setTitle("Habit Tracker");
         primaryStage.setScene(loginScene);
         primaryStage.setResizable(false);
         primaryStage.show();
-    }
-
-    @Override
-    public void stop() {
-        // tee lopetustoimenpiteet täällä
-        //System.out.println("goodbye");
     }
 
     public static void main(String[] args) {

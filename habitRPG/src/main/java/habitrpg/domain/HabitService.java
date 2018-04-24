@@ -20,12 +20,6 @@ public class HabitService {
     private HabitDao habitDao;
     private Database database;
     private List<Habit> habits;
-
-//    public HabitService(Database database, User user) {
-//        this.habitDao = new HabitDao(database, user);
-//        this.database = database;
-//        this.habits = new ArrayList<>();
-//    }
     
     public HabitService(Database database) {
         this.habitDao = new HabitDao(database);
@@ -57,15 +51,6 @@ public class HabitService {
             return true;
         }
     }
-
-//    public boolean setDone(Integer key) {
-//        boolean success = false;
-//        try {
-//            success = habitDao.setDone(habits.get(key - 1).getId());
-//        } catch (Exception e) {
-//        }
-//        return success;
-//    }
     
     public boolean untrack(Integer key) {
         boolean success = false;
@@ -75,17 +60,6 @@ public class HabitService {
         }
         return success;
     }
-
-//    public boolean addToStreak(Integer key) {
-//        boolean success = false;
-//        Habit toDelete;
-//        try {
-//            toDelete = this.habits.get(key - 1);
-//            success = habitDao.addToStreak(toDelete.getId(), toDelete);
-//        } catch (Exception e) {
-//        }
-//        return success;
-//    }
     
     public boolean addToStreakGui(Integer key) {
         boolean success = false;
@@ -97,15 +71,6 @@ public class HabitService {
         }
         return success;
     }
-
-//    public boolean deleteHabit(Integer key) {
-//        boolean success = false;
-//        try {
-//            success = habitDao.delete(habits.get(key - 1).getId());
-//        } catch (Exception e) {
-//        }
-//        return success;
-//    }
     
     public boolean deleteHabitGui(Integer key) {
         boolean success = false;

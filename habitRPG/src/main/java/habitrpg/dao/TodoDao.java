@@ -29,7 +29,6 @@ public class TodoDao implements Dao<Todo, Integer> {
 //        this.user = user;
 //        createTable();
 //    }
-
     public TodoDao(Database database) {
         this.database = database;
         createTable();
@@ -60,7 +59,7 @@ public class TodoDao implements Dao<Todo, Integer> {
                     res.getBoolean("complete"),
                     res.getInt("difficulty"),
                     this.user);
-            
+
         } catch (SQLException e) {
             //System.out.println(e.getMessage());
         }

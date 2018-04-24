@@ -29,7 +29,6 @@ public class HabitDao implements Dao<Habit, Integer> {
 //        this.user = user;
 //        createTable();
 //    }
-
     public HabitDao(Database database) {
         this.database = database;
         createTable();
