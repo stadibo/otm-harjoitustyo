@@ -27,14 +27,11 @@ public class HabitServiceTest {
     
     public HabitServiceTest() {
         
-        try {
-            Database db = new Database();
-            db.createDatabase("test.db");
-            User user = new User("tester", "elon musk", "going to mars");
-            hs = new HabitService(db, user);
-            habitDao = new HabitDao(db, user);
-        } catch (SQLException e) {
-        }
+        Database db = new Database();
+        db.createDatabase("test.db");
+        User user = new User("tester", "elon musk", "going to mars");
+        hs = new HabitService(db, user);
+        habitDao = new HabitDao(db, user);
         
     }
     
