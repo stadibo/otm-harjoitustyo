@@ -12,7 +12,9 @@ will mirror you progressing, cultivating good habits and being productive.
 
 [Time tracking](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/time-tracking.md)
 
-[How to use text based UI](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/text_ui_instructions.md)
+## Releases
+
+[Viikko 5](https://github.com/stadibo/otm-harjoitustyo/releases/tag/viikko5)
 
 ## Command Line operations
 
@@ -41,3 +43,13 @@ The checks defined in the file [checkstyle.xml](https://github.com/stadibo/otm-h
 ```
 
 Potential error messages are shown by opening the file _target/site/checkstyle.html_ in a web-browser
+
+### Generating an executable jar
+
+Command
+
+```
+mvn package
+```
+
+generoi hakemistoon _target_ suoritettavan jar-tiedoston _OtmTodoApp-1.0-SNAPSHOT.jar_
