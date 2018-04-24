@@ -46,10 +46,10 @@ Potential error messages are shown by opening the file _target/site/checkstyle.h
 
 ### Generating an executable jar
 
-Command
+The command
 
 ```
 mvn package
 ```
 
-generoi hakemistoon _target_ suoritettavan jar-tiedoston _OtmTodoApp-1.0-SNAPSHOT.jar_
+generates an executable file jar-tiedoston _OtmTodoApp-1.0-SNAPSHOT.jar_ into the directory _target_
