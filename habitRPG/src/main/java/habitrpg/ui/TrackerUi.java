@@ -6,13 +6,11 @@
 package habitrpg.ui;
 
 import habitrpg.dao.Database;
-import habitrpg.domain.Daily;
 import habitrpg.domain.Habit;
 import habitrpg.domain.HabitService;
 import habitrpg.domain.Todo;
 import habitrpg.domain.TodoService;
 import habitrpg.domain.UserService;
-import java.io.File;
 import java.util.List;
 import javafx.application.Application;
 import javafx.geometry.Insets;

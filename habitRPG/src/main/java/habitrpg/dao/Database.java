@@ -36,13 +36,15 @@ public class Database {
     
     public void createDatabase(String fileName) {
         String url = fileName;
-        
+        Connection conn = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:" + url);
+            conn = DriverManager.getConnection("jdbc:sqlite:" + url);
+            conn.close();
         } catch (Exception e) {
             //System.out.println(e.getMessage());
         } finally {
+            
             this.setPath(url);
         }
     }

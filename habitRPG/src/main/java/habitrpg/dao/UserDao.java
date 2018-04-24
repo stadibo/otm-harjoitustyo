@@ -88,6 +88,7 @@ public class UserDao implements Dao<User, String> {
             //set value
             stmt.setString(1, key);
             stmt.executeUpdate();
+            
 
         } catch (SQLException e) {
             //System.out.println(e.getMessage());
@@ -112,6 +113,7 @@ public class UserDao implements Dao<User, String> {
         try (Connection conn = database.getConnection();
                 Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
+            
         } catch (Exception e) {
 
         }
