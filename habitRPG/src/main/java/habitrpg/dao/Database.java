@@ -7,7 +7,6 @@ package habitrpg.dao;
 
 import java.io.File;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -38,16 +37,12 @@ public class Database {
     public void createDatabase(String fileName) {
         String url = fileName;
         
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try {
             Class.forName("org.sqlite.JDBC");
-            if (conn != null) {
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-            }
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:" + url);
         } catch (Exception e) {
             //System.out.println(e.getMessage());
         } finally {
-            
             this.setPath(url);
         }
     }

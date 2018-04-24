@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package habitrpg.ui;
+/*package habitrpg.ui;
 
 import habitrpg.dao.Database;
 import habitrpg.domain.Habit;
@@ -21,6 +21,8 @@ import java.util.TreeMap;
  *
  * @author peje
  */
+/*
+
 public class TrackerTextUi {
 
     private UserService userService;
@@ -442,3 +444,5 @@ public class TrackerTextUi {
     }
 
 }
+
+*/

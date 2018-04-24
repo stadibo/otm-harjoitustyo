@@ -25,14 +25,6 @@ public class UserServiceTest {
     private UserDao userDao;
 
     public UserServiceTest() {
-        
-        Database db = new Database();
-        db.createDatabase("test.db");
-        us = new UserService(db);
-        userDao = new UserDao(db);
-        
-        User user = new User("tester", "elon musk", "going to mars");
-        userDao.create(user);
 
     }
 
@@ -42,18 +34,25 @@ public class UserServiceTest {
 
     @AfterClass
     public static void tearDownClass() {
-        File file = new File("test.db");
-        file.delete();
+
     }
 
     @Before
     public void setUp() {
+        Database db = new Database();
+        db.createDatabase("test.db");
+        us = new UserService(db);
+        userDao = new UserDao(db);
+
+        User user = new User("tester", "elon musk", "going to mars");
+        userDao.create(user);
     }
 
     @After
     public void tearDown() {
-//        File file = new File("db", "test.db");
-//        file.delete();
+
+        File file = new File("test.db");
+        file.delete();
     }
 
     @Test
@@ -64,14 +63,14 @@ public class UserServiceTest {
         assertEquals("elon musk", us.getLoggedUser().getName());
         assertEquals("going to mars", us.getLoggedUser().getMotto());
     }
-    
+
     @Test
     public void userNotExistsAtLoginReturnFalse() {
         String username = "nope";
         boolean userExists = us.login(username);
         assertFalse(userExists);
     }
-    
+
     @Test
     public void userCanLogOut() {
         String username = "tester";
@@ -79,7 +78,7 @@ public class UserServiceTest {
         us.logout();
         assertEquals(null, us.getLoggedUser());
     }
-    
+
     @Test
     public void canSuccessfullyCreateNewUniqueUser() {
         String username = "tester2";
@@ -87,13 +86,13 @@ public class UserServiceTest {
         String motto = "always testing";
         boolean success = us.newUser(username, name, motto);
         assertTrue(success);
-        
+
         us.login(username);
         assertEquals("tester2", us.getLoggedUser().getUsername());
         assertEquals("mister mister", us.getLoggedUser().getName());
         assertEquals("always testing", us.getLoggedUser().getMotto());
     }
-    
+
     @Test
     public void canOnlyCreateUserUniqueUsername() {
         String username = "tester";
@@ -102,5 +101,5 @@ public class UserServiceTest {
         boolean success = us.newUser(username, name, motto);
         assertFalse(success);
     }
-    
+
 }

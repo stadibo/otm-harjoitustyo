@@ -21,11 +21,11 @@ public class TodoService {
     private Database database;
     private List<Todo> todos;
 
-    public TodoService(Database database, User user) {
-        this.todoDao = new TodoDao(database, user);
-        this.database = database;
-        this.todos = new ArrayList<>();
-    }
+//    public TodoService(Database database, User user) {
+//        this.todoDao = new TodoDao(database, user);
+//        this.database = database;
+//        this.todos = new ArrayList<>();
+//    }
     
     public TodoService(Database database) {
         this.todoDao = new TodoDao(database);
@@ -58,14 +58,14 @@ public class TodoService {
         }
     }
 
-    public boolean setDone(Integer key) {
-        boolean success = false;
-        try {
-            success = todoDao.setDone(todos.get(key - 1).getId());
-        } catch (Exception e) {
-        }
-        return success;
-    }
+//    public boolean setDone(Integer key) {
+//        boolean success = false;
+//        try {
+//            success = todoDao.setDone(todos.get(key - 1).getId());
+//        } catch (Exception e) {
+//        }
+//        return success;
+//    }
     
     public boolean setDoneGui(Integer key) {
         boolean success = false;
@@ -76,14 +76,14 @@ public class TodoService {
         return success;
     }
 
-    public boolean deleteTodo(Integer key) {
-        boolean success = false;
-        try {
-            success = todoDao.delete(todos.get(key - 1).getId());
-        } catch (Exception e) {
-        }
-        return success;
-    }
+//    public boolean deleteTodo(Integer key) {
+//        boolean success = false;
+//        try {
+//            success = todoDao.delete(todos.get(key - 1).getId());
+//        } catch (Exception e) {
+//        }
+//        return success;
+//    }
     
     public boolean deleteTodoGui(Integer key) {
         boolean success = false;

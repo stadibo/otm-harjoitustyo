@@ -24,12 +24,12 @@ public class HabitDao implements Dao<Habit, Integer> {
     private Database database;
     private User user;
 
-    public HabitDao(Database database, User user) {
-        this.database = database;
-        this.user = user;
-        createTable();
-    }
-    
+//    public HabitDao(Database database, User user) {
+//        this.database = database;
+//        this.user = user;
+//        createTable();
+//    }
+
     public HabitDao(Database database) {
         this.database = database;
         createTable();
@@ -94,7 +94,7 @@ public class HabitDao implements Dao<Habit, Integer> {
             }
         } catch (SQLException e) {
         }
-        
+
         return habits;
     }
 
@@ -127,21 +127,25 @@ public class HabitDao implements Dao<Habit, Integer> {
     @Override
     public boolean delete(Integer key) {
         String sql = "DELETE FROM Habit WHERE username = ? AND id = ?";
-
+        int deleted = 0;
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             //set value
             stmt.setString(1, this.user.getUsername());
             stmt.setInt(2, key);
-            stmt.executeUpdate();
+            deleted = stmt.executeUpdate();
 
         } catch (SQLException e) {
             //System.out.println(e.getMessage());
             return false;
         }
 
-        return true;
+        if (deleted == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override

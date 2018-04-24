@@ -146,25 +146,23 @@ public class TrackerUi extends Application {
         return box;
     }
 
-    public Node createDailyNode(Daily daily) {
-        HBox box = new HBox(10);
-        Label label = new Label(daily.getContent());
-        label.setMinHeight(28);
-        Button button = new Button("done");
-        button.setOnAction(e -> {
-            habitService.setDone(daily.getId());
-            redrawlist(3);
-        });
-
-        Button deleteButton = new Button("del");
-
-//        Region spacer = new Region();
-//        HBox.setHgrow(spacer, Priority.ALWAYS);
-        box.setPadding(new Insets(0, 5, 0, 5));
-
-        box.getChildren().addAll(button, label, deleteButton);
-        return box;
-    }
+//    public Node createDailyNode(Daily daily) {
+//        HBox box = new HBox(10);
+//        Label label = new Label(daily.getContent());
+//        label.setMinHeight(28);
+//        Button button = new Button("done");
+//        button.setOnAction(e -> {
+//            habitService.untrack(daily.getId());
+//            redrawlist(3);
+//        });
+//
+//        Button deleteButton = new Button("del");
+//
+//        box.setPadding(new Insets(0, 5, 0, 5));
+//
+//        box.getChildren().addAll(button, label, deleteButton);
+//        return box;
+//    }
 
     public void redrawlist(int type) {
         switch (type) {

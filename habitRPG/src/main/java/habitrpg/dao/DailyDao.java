@@ -19,9 +19,8 @@ public class DailyDao implements Dao<Daily, Integer> {
     private Database database;
     private User user;
     
-    public DailyDao(Database database, User user) {
+    public DailyDao(Database database) {
         this.database = database;
-        this.user = user;
     }
 
     public void setUser(User user) {
