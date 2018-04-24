@@ -10,6 +10,7 @@ import habitrpg.domain.Habit;
 import habitrpg.domain.HabitService;
 import habitrpg.domain.Todo;
 import habitrpg.domain.TodoService;
+import habitrpg.domain.User;
 import habitrpg.domain.UserService;
 import java.util.List;
 import javafx.application.Application;
@@ -189,34 +190,35 @@ public class TrackerUi extends Application {
     public void start(Stage primaryStage) {
 
         // login                                                     -------------------------------
-        GridPane logingrid = new GridPane();
-        logingrid.setPadding(new Insets(10, 10, 10, 10));
-        logingrid.setVgap(8);
-        logingrid.setHgap(10);
+        GridPane loginGrid = new GridPane();
+        loginGrid.setPadding(new Insets(10, 10, 10, 10));
+        loginGrid.setVgap(8);
+        loginGrid.setHgap(10);
 
         menuLabel.setStyle("-fx-font-size: 20px;");
 
         Label nameLabel = new Label("Username");
-        logingrid.setConstraints(nameLabel, 0, 0);
+        loginGrid.setConstraints(nameLabel, 0, 0);
 
         TextField nameInput = new TextField();
         nameInput.setPromptText("tester name");
-        logingrid.setConstraints(nameInput, 1, 0);
+        loginGrid.setConstraints(nameInput, 1, 0);
 
-        Button loginButt = new Button("Login");
-        Button createButt = new Button("Create new user");
-        logingrid.setConstraints(loginButt, 1, 1);
-        logingrid.setConstraints(createButt, 1, 2);
+        Button loginButton = new Button("Login");
+        Button createButton = new Button("Create new user");
+        loginGrid.setConstraints(loginButton, 1, 1);
+        loginGrid.setConstraints(createButton, 1, 2);
 
         Label loginMessage = new Label();
-        logingrid.setConstraints(loginMessage, 1, 3);
+        loginGrid.setConstraints(loginMessage, 1, 3);
 
-        loginButt.setOnAction(e -> {
+        loginButton.setOnAction(e -> {
             String username = nameInput.getText();
             menuLabel.setText(username + " : logged in");
             if (userService.login(username)) {
-                todoService.updateUser(userService.getLoggedUser());
-                habitService.updateUser(userService.getLoggedUser());
+                User user = userService.getLoggedUser();
+                todoService.updateUser(user);
+                habitService.updateUser(user);
                 loginMessage.setText("");
                 redrawlist(1);
                 redrawlist(2);
@@ -228,20 +230,20 @@ public class TrackerUi extends Application {
             }
         });
 
-        createButt.setOnAction(e -> {
+        createButton.setOnAction(e -> {
             nameInput.setText("");
             primaryStage.setScene(newUserScene);
         });
 
-        logingrid.getChildren().addAll(loginMessage,
+        loginGrid.getChildren().addAll(loginMessage,
                 nameInput,
                 nameLabel,
-                loginButt,
-                createButt);
+                loginButton,
+                createButton);
 
-        logingrid.setAlignment(Pos.CENTER);
+        loginGrid.setAlignment(Pos.CENTER);
 
-        loginScene = new Scene(logingrid, 1000, 600);
+        loginScene = new Scene(loginGrid, 1000, 600);
 
         // new user                                                -------------------------------
         GridPane newUserGrid = new GridPane();
