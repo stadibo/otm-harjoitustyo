@@ -12,4 +12,4 @@ _habitrpg.ui_ contains a text based ui, _habitrpg.domain_ contains software logi
 
 ### Functionality
 
-<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Login.png" width="750">
+<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Login.png" width="850">
