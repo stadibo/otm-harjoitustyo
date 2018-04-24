@@ -35,10 +35,11 @@ public class Database {
         return DriverManager.getConnection("jdbc:sqlite:" + path);
     }
     
-    public void createDatabase(String fileName) throws SQLException {
-        String url = "db/" + fileName;
+    public void createDatabase(String fileName) {
+        String url = fileName;
         
         try (Connection conn = DriverManager.getConnection(url)) {
+            Class.forName("org.sqlite.JDBC");
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("The driver name is " + meta.getDriverName());
@@ -46,12 +47,13 @@ public class Database {
         } catch (Exception e) {
             //System.out.println(e.getMessage());
         } finally {
+            
             this.setPath(url);
         }
     }
 
-    public void setPath(String path) {
-        System.out.println("New path: " + path);
+    private void setPath(String path) {
+        //System.out.println("New path: " + path);
         this.path = path;
     }
     

@@ -54,12 +54,12 @@ public class TrackerUi extends Application {
     private Label menuLabel = new Label();
 
     private boolean deleteMode;
-    
+
     @Override
     public void init() throws Exception {
 
-        File path = new File("db", "tracker.db");
-        database = new Database(path);
+        database = new Database();
+        database.createDatabase("tracker.db");
 
         userService = new UserService(database);
         habitService = new HabitService(database);
@@ -76,7 +76,7 @@ public class TrackerUi extends Application {
             todoService.setDoneGui(todo.getId());
             redrawlist(1);
         });
-        
+
         Button deleteButton = new Button("del");
         deleteButton.setOnAction(e -> {
             todoService.deleteTodoGui(todo.getId());
@@ -86,8 +86,8 @@ public class TrackerUi extends Application {
         //HBox.setHgrow(spacer, Priority.ALWAYS);
         box.setPadding(new Insets(5, 5, 5, 5));
         deleteButton.setStyle("-fx-base: #E74C3C;");
-        
-        switch(todo.getDifficulty()) {
+
+        switch (todo.getDifficulty()) {
             case 1:
                 box.setStyle("-fx-background-color: #ABEBC6; -fx-base: #58D68D;");
                 break;
@@ -104,7 +104,7 @@ public class TrackerUi extends Application {
         } else {
             box.getChildren().addAll(button, label);
         }
-        
+
         return box;
     }
 
@@ -123,29 +123,29 @@ public class TrackerUi extends Application {
             habitService.deleteHabitGui(habit.getId());
             redrawlist(2);
         });
-        
+
         Button untrackButton = new Button("untrack");
         untrackButton.setOnAction(e -> {
             habitService.untrack(habit.getId());
             redrawlist(2);
         });
-        
+
 //        Region spacer = new Region();
 //        HBox.setHgrow(spacer, Priority.ALWAYS);
         box.setPadding(new Insets(5, 5, 5, 5));
         deleteButton.setStyle("-fx-base: #E74C3C;");
-        
+
         box.setStyle("-fx-background-color: #E5E8E8; -fx-base: #E5E8E8;");
-        
+
         if (deleteMode) {
             box.getChildren().addAll(deleteButton, label);
         } else {
             box.getChildren().addAll(button, label, untrackButton);
         }
-        
+
         return box;
     }
-    
+
     public Node createDailyNode(Daily daily) {
         HBox box = new HBox(10);
         Label label = new Label(daily.getContent());
@@ -157,7 +157,7 @@ public class TrackerUi extends Application {
         });
 
         Button deleteButton = new Button("del");
-        
+
 //        Region spacer = new Region();
 //        HBox.setHgrow(spacer, Priority.ALWAYS);
         box.setPadding(new Insets(0, 5, 0, 5));
@@ -165,7 +165,6 @@ public class TrackerUi extends Application {
         box.getChildren().addAll(button, label, deleteButton);
         return box;
     }
-    
 
     public void redrawlist(int type) {
         switch (type) {
@@ -192,31 +191,30 @@ public class TrackerUi extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        
+
         // login                                                     -------------------------------
-        
         GridPane logingrid = new GridPane();
         logingrid.setPadding(new Insets(10, 10, 10, 10));
         logingrid.setVgap(8);
         logingrid.setHgap(10);
-        
+
         menuLabel.setStyle("-fx-font-size: 20px;");
-        
+
         Label nameLabel = new Label("Username");
         logingrid.setConstraints(nameLabel, 0, 0);
-        
+
         TextField nameInput = new TextField();
         nameInput.setPromptText("tester name");
         logingrid.setConstraints(nameInput, 1, 0);
-        
+
         Button loginButt = new Button("login");
         Button createButt = new Button("create new user");
         logingrid.setConstraints(loginButt, 1, 1);
         logingrid.setConstraints(createButt, 1, 2);
-        
+
         Label loginMessage = new Label();
         logingrid.setConstraints(loginMessage, 1, 3);
-        
+
         loginButt.setOnAction(e -> {
             String username = nameInput.getText();
             menuLabel.setText(username + " : logged in");
@@ -238,59 +236,53 @@ public class TrackerUi extends Application {
             nameInput.setText("");
             primaryStage.setScene(newUserScene);
         });
-        
-        logingrid.getChildren().addAll(loginMessage, 
-                                       nameInput, 
-                                       nameLabel, 
-                                       loginButt, 
-                                       createButt);
-        
+
+        logingrid.getChildren().addAll(loginMessage,
+                nameInput,
+                nameLabel,
+                loginButt,
+                createButt);
+
         logingrid.setAlignment(Pos.CENTER);
-        
+
         loginScene = new Scene(logingrid, 1000, 600);
-        
-        
+
         // new user                                                -------------------------------
-        
         GridPane newUserGrid = new GridPane();
         newUserGrid.setPadding(new Insets(10, 10, 10, 10));
         newUserGrid.setVgap(8);
         newUserGrid.setHgap(10);
-        
+
         Label newUserLabel = new Label("Username");
         newUserGrid.setConstraints(newUserLabel, 0, 0);
-        
+
         TextField newUserInput = new TextField();
         newUserInput.setPromptText("testerUser");
         newUserGrid.setConstraints(newUserInput, 1, 0);
-        
-        
+
         Label newNameLabel = new Label("Name");
         newUserGrid.setConstraints(newNameLabel, 0, 1);
-        
+
         TextField newNameInput = new TextField();
         newNameInput.setPromptText("Ellon Mushk");
         newUserGrid.setConstraints(newNameInput, 1, 1);
-        
-        
+
         Label newMottoLabel = new Label("Quote");
         newUserGrid.setConstraints(newMottoLabel, 0, 2);
-        
+
         TextField newMottoInput = new TextField();
         newMottoInput.setPromptText("\"A product that needs a manual is broken.\"");
         newUserGrid.setConstraints(newMottoInput, 1, 2);
-        
-        
+
         Button createNewUserButt = new Button("create");
         newUserGrid.setConstraints(createNewUserButt, 1, 4);
-        
+
         Button cancelNewUserButt = new Button("go back");
         newUserGrid.setConstraints(cancelNewUserButt, 1, 5);
-        
+
         Label userCreationMsg = new Label();
         newUserGrid.setConstraints(userCreationMsg, 1, 6);
-        
-        
+
         createNewUserButt.setOnAction(e -> {
             String username = newUserInput.getText();
             String name = newNameInput.getText();
@@ -303,77 +295,76 @@ public class TrackerUi extends Application {
                 userCreationMsg.setText("");
                 loginMessage.setText("new user created");
                 loginMessage.setTextFill(Color.GREEN);
+                newUserInput.setText("");
+                newNameInput.setText("");
+                newMottoInput.setText("");
                 primaryStage.setScene(loginScene);
             } else {
                 userCreationMsg.setText("username has to be unique");
                 userCreationMsg.setTextFill(Color.RED);
             }
         });
-        
+
         cancelNewUserButt.setOnAction(e -> {
             newUserInput.setText("");
-            newUserInput.setText("");
+            newNameInput.setText("");
             newMottoInput.setText("");
             primaryStage.setScene(loginScene);
         });
-        
-        newUserGrid.getChildren().addAll(userCreationMsg, 
-                                         newUserLabel, 
-                                         newUserInput, 
-                                         newNameLabel, 
-                                         createNewUserButt, 
-                                         newNameInput, 
-                                         newMottoLabel, 
-                                         newMottoInput,
-                                         cancelNewUserButt);
-        
+
+        newUserGrid.getChildren().addAll(userCreationMsg,
+                newUserLabel,
+                newUserInput,
+                newNameLabel,
+                createNewUserButt,
+                newNameInput,
+                newMottoLabel,
+                newMottoInput,
+                cancelNewUserButt);
+
         newUserGrid.setAlignment(Pos.CENTER);
-        
+
         newUserScene = new Scene(newUserGrid, 1000, 600);
-        
-        
-        
+
         // create todo                                             --------------------------------
-        
-        
         BorderPane bp1 = new BorderPane();
-        
+
         GridPane newTodoGrid = new GridPane();
         newTodoGrid.setPadding(new Insets(10, 10, 10, 10));
         newTodoGrid.setVgap(8);
         newTodoGrid.setHgap(10);
-        
+
         Label newTodoLabel = new Label("to-do");
         newTodoGrid.setConstraints(newTodoLabel, 0, 0);
-        
+
         TextField newTodoInput = new TextField();
         newTodoInput.setPromptText("meditate");
         newTodoGrid.setConstraints(newTodoInput, 1, 0);
-        
+
         Label todoDifficultyLabel = new Label("Effort");
         newTodoGrid.setConstraints(todoDifficultyLabel, 0, 1);
-        
+
         ChoiceBox<String> difficultyBox = new ChoiceBox<>();
         difficultyBox.getItems().addAll("Easy", "Medium", "Hard");
         newTodoGrid.setConstraints(difficultyBox, 1, 1);
-        
+
         difficultyBox.setValue("Easy");
-        
+
         Button createNewTodoButt = new Button("create");
         newTodoGrid.setConstraints(createNewTodoButt, 1, 2);
-        
+
         Button cancelNewTodoButt = new Button("go back");
         newTodoGrid.setConstraints(cancelNewTodoButt, 1, 3);
-        
+
         Label todoCreationMsg = new Label();
         newTodoGrid.setConstraints(todoCreationMsg, 1, 4);
-        
+
         createNewTodoButt.setOnAction(e -> {
             String todo = newTodoInput.getText();
             String difficulty = difficultyBox.getValue();
-            
+
             int diff = 1;
-            switch(difficulty) {
+            switch (difficulty) {
                 case "Easy":
                     diff = 1;
                     break;
@@ -384,7 +375,7 @@ public class TrackerUi extends Application {
                     diff = 3;
                     break;
             }
-            
+
             if (todo.length() <= 2 || 30 < todo.length()) {
                 todoCreationMsg.setText("description too long or too short");
                 todoCreationMsg.setTextFill(Color.RED);
@@ -399,69 +390,68 @@ public class TrackerUi extends Application {
                 todoCreationMsg.setTextFill(Color.RED);
             }
         });
-        
+
         cancelNewTodoButt.setOnAction(e -> {
             newTodoInput.setText("");
             difficultyBox.setValue("Easy");
             primaryStage.setScene(trackerScene);
         });
-        
-        newTodoGrid.getChildren().addAll(newTodoLabel, 
-                                         newTodoInput, 
-                                         todoDifficultyLabel, 
-                                         createNewTodoButt, 
-                                         difficultyBox,
-                                         cancelNewTodoButt,
-                                         todoCreationMsg);
-        
+
+        newTodoGrid.getChildren().addAll(newTodoLabel,
+                newTodoInput,
+                todoDifficultyLabel,
+                createNewTodoButt,
+                difficultyBox,
+                cancelNewTodoButt,
+                todoCreationMsg);
+
         newTodoGrid.setAlignment(Pos.CENTER);
         //bp1.getChildren().addAll(newTodoGrid);
-        
+
         //BorderPane.setAlignment(newTodoGrid, Pos.CENTER);
         todoScene = new Scene(newTodoGrid, 1000, 600);
-        
+
         // create habit                                            --------------------------------
-        
         BorderPane bp2 = new BorderPane();
-        
+
         GridPane newHabitGrid = new GridPane();
         newHabitGrid.setPadding(new Insets(10, 10, 10, 10));
         newHabitGrid.setVgap(8);
         newHabitGrid.setHgap(10);
-        
+
         Label newHabitLabel = new Label("habit");
         newHabitGrid.setConstraints(newHabitLabel, 0, 0);
-        
+
         TextField newHabitInput = new TextField();
         newHabitInput.setPromptText("read");
         newHabitInput.setFocusTraversable(true);
         newHabitInput.requestFocus();
         newHabitGrid.setConstraints(newHabitInput, 1, 0);
-        
+
         Label habitDifficultyLabel = new Label("Effort");
         newHabitGrid.setConstraints(habitDifficultyLabel, 0, 1);
-        
+
         ChoiceBox<String> habitDifficultyBox = new ChoiceBox<>();
         habitDifficultyBox.getItems().addAll("Easy", "Medium", "Hard");
         newHabitGrid.setConstraints(habitDifficultyBox, 1, 1);
-        
+
         habitDifficultyBox.setValue("Easy");
-        
+
         Button createNewHabitButt = new Button("create");
         newHabitGrid.setConstraints(createNewHabitButt, 1, 2);
-        
+
         Button cancelNewHabitButt = new Button("go back");
         newHabitGrid.setConstraints(cancelNewHabitButt, 1, 3);
-        
+
         Label habitCreationMsg = new Label();
         newHabitGrid.setConstraints(habitCreationMsg, 1, 4);
-        
+
         createNewHabitButt.setOnAction(e -> {
             String habit = newHabitInput.getText();
             String difficulty = habitDifficultyBox.getValue();
-            
+
             int diff = 1;
-            switch(difficulty) {
+            switch (difficulty) {
                 case "Easy":
                     diff = 1;
                     break;
@@ -472,7 +462,7 @@ public class TrackerUi extends Application {
                     diff = 3;
                     break;
             }
-            
+
             if (habit.length() <= 2 || 24 < habit.length()) {
                 habitCreationMsg.setText("description too long or too short");
                 habitCreationMsg.setTextFill(Color.RED);
@@ -487,99 +477,85 @@ public class TrackerUi extends Application {
                 habitCreationMsg.setTextFill(Color.RED);
             }
         });
-        
+
         cancelNewHabitButt.setOnAction(e -> {
             newHabitInput.setText("");
             habitDifficultyBox.setValue("Easy");
             primaryStage.setScene(trackerScene);
         });
-        
-        newHabitGrid.getChildren().addAll(newHabitLabel, 
-                                         newHabitInput, 
-                                         habitDifficultyLabel,
-                                         habitDifficultyBox,
-                                         createNewHabitButt,
-                                         cancelNewHabitButt,
-                                         habitCreationMsg);
-        
-        
-        
+
+        newHabitGrid.getChildren().addAll(newHabitLabel,
+                newHabitInput,
+                habitDifficultyLabel,
+                habitDifficultyBox,
+                createNewHabitButt,
+                cancelNewHabitButt,
+                habitCreationMsg);
+
         newHabitGrid.setAlignment(Pos.CENTER);
         habitScene = new Scene(newHabitGrid, 1000, 600);
-        
-        
-        
-        // create daily                                            --------------------------------
-        
-        
-        
-        
-        
-        // tracker scene                                            --------------------------------
 
+        // create daily                                            --------------------------------
+        // tracker scene                                            --------------------------------
         Button createNewTodo = new Button("New to-do");
         Button createNewHabit = new Button("New habit");
         Button createNewDaily = new Button("New daily task");
-        
+
         createNewTodo.setOnAction(e -> {
             primaryStage.setScene(todoScene);
         });
-        
+
         createNewHabit.setOnAction(e -> {
             primaryStage.setScene(habitScene);
         });
-        
-        
-        
+
         VBox verticalLayout = new VBox(10);
         HBox trackerPane = new HBox(10);
-        
+
         VBox habits = new VBox(15);
         habits.setMinWidth(250);
-        
+
         VBox dailies = new VBox(15);
         dailies.setMinWidth(250);
-        
+
         VBox todos = new VBox(15);
         todos.setMinWidth(250);
-        
+
         ScrollPane todoScrollbar = new ScrollPane();
         ScrollPane habitScrollbar = new ScrollPane();
         ScrollPane dailyScrollbar = new ScrollPane();
-        
+
         habits.getChildren().addAll(createNewHabit, habitScrollbar);
         dailies.getChildren().addAll(createNewDaily, dailyScrollbar);
         todos.getChildren().addAll(createNewTodo, todoScrollbar);
-        
+
         trackerPane.setPadding(new Insets(10, 10, 10, 10));
         //verticalLayout.setStyle("-fx-background-color: DAE6F3;");
         trackerPane.getChildren().addAll(habits, dailies, todos);
-        
+
         trackerScene = new Scene(verticalLayout, 1000, 600);
-        
-        
-        
+
         HBox menuPane = new HBox(15);
         menuPane.setPadding(new Insets(10, 10, 10, 10));
-        
+
         Button logoutButton = new Button("logout");
         Button deleteModeButton = new Button("delete mode");
-        
+
         menuPane.getChildren().addAll(menuLabel, logoutButton, deleteModeButton);
-        
+
         deleteModeButton.setOnAction(e -> {
-            
+
             if (deleteMode) {
                 deleteModeButton.setStyle("-fx-base: #d0d0d0;");
             } else {
                 deleteModeButton.setStyle("-fx-base: #E74C3C;");
             }
-            
+
             deleteMode = !deleteMode;
             redrawlist(1);
             redrawlist(2);
         });
-                
+
         logoutButton.setOnAction(e -> {
             userService.logout();
             todoService.updateUser(null);
@@ -587,7 +563,7 @@ public class TrackerUi extends Application {
             deleteMode = !deleteMode;
             primaryStage.setScene(loginScene);
         });
-        
+
         todoNodes = new VBox(0);
         todoNodes.setMaxWidth(300);
         todoNodes.setMinWidth(300);
@@ -596,22 +572,21 @@ public class TrackerUi extends Application {
         habitNodes = new VBox(0);
         habitNodes.setMaxWidth(300);
         habitNodes.setMinWidth(300);
-        
+
         dailyNodes = new VBox(0);
         dailyNodes.setMaxWidth(300);
         dailyNodes.setMinWidth(300);
-        
+
         verticalLayout.getChildren().addAll(menuPane, trackerPane);
-        
+
         todoScrollbar.setContent(todoNodes);
         habitScrollbar.setContent(habitNodes);
         dailyScrollbar.setContent(dailyNodes);
-        
+
         todoScrollbar.setMinWidth(320);
         habitScrollbar.setMinWidth(320);
         dailyScrollbar.setMinWidth(320);
-        
-        
+
         // setup primary stage
         primaryStage.setTitle("HabitTracker");
         primaryStage.setScene(loginScene);

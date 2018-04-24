@@ -9,3 +9,4 @@
 /habitRPG/target/
 /habitRPG/nbproject/
 /habitRPG/db/
+*.db

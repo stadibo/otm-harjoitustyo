@@ -25,9 +25,9 @@ public class UserServiceTest {
     private UserDao userDao;
 
     public UserServiceTest() {
-
-        File path = new File("db", "test.db");
-        Database db = new Database(path);
+        
+        Database db = new Database();
+        db.createDatabase("test.db");
         us = new UserService(db);
         userDao = new UserDao(db);
         
@@ -42,7 +42,7 @@ public class UserServiceTest {
 
     @AfterClass
     public static void tearDownClass() {
-        File file = new File("db", "test.db");
+        File file = new File("test.db");
         file.delete();
     }
 
@@ -87,6 +87,7 @@ public class UserServiceTest {
         String motto = "always testing";
         boolean success = us.newUser(username, name, motto);
         assertTrue(success);
+        
         us.login(username);
         assertEquals("tester2", us.getLoggedUser().getUsername());
         assertEquals("mister mister", us.getLoggedUser().getName());
