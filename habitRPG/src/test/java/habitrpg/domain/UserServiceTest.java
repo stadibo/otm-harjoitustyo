@@ -8,9 +8,6 @@ package habitrpg.domain;
 import habitrpg.dao.Database;
 import habitrpg.dao.UserDao;
 import java.io.File;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -29,13 +26,13 @@ public class UserServiceTest {
 
     public UserServiceTest() {
 
-        try {
-            Database db = new Database();
-            db.createDatabase("test.db");
-            us = new UserService(db);
-            userDao = new UserDao(db);
-        } catch (SQLException e) {
-        }
+        File path = new File("db", "test.db");
+        Database db = new Database(path);
+        us = new UserService(db);
+        userDao = new UserDao(db);
+        
+        User user = new User("tester", "elon musk", "going to mars");
+        userDao.create(user);
 
     }
 
@@ -45,18 +42,18 @@ public class UserServiceTest {
 
     @AfterClass
     public static void tearDownClass() {
+        File file = new File("db", "test.db");
+        file.delete();
     }
 
     @Before
     public void setUp() {
-        User user = new User("tester", "elon musk", "going to mars");
-        userDao.create(user);
     }
 
     @After
     public void tearDown() {
-        File file = new File("db", "test.db");
-        file.delete();
+//        File file = new File("db", "test.db");
+//        file.delete();
     }
 
     @Test
@@ -90,6 +87,10 @@ public class UserServiceTest {
         String motto = "always testing";
         boolean success = us.newUser(username, name, motto);
         assertTrue(success);
+        us.login(username);
+        assertEquals("tester2", us.getLoggedUser().getUsername());
+        assertEquals("mister mister", us.getLoggedUser().getName());
+        assertEquals("always testing", us.getLoggedUser().getMotto());
     }
     
     @Test

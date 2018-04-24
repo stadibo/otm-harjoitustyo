@@ -36,8 +36,7 @@ public class Database {
     }
     
     public void createDatabase(String fileName) throws SQLException {
-        String url = "/Users/peje/NetBeansProjects/"
-                + "otm-harjoitustyo/habitRPG/db/" + fileName;
+        String url = "db/" + fileName;
         
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
