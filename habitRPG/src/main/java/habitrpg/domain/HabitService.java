@@ -26,6 +26,12 @@ public class HabitService {
         this.database = database;
         this.habits = new ArrayList<>();
     }
+    
+    public HabitService(Database database) {
+        this.habitDao = new HabitDao(database);
+        this.database = database;
+        this.habits = new ArrayList<>();
+    }
 
     public void updateUser(User user) {
         habitDao.setUser(user);
@@ -60,12 +66,32 @@ public class HabitService {
         }
         return success;
     }
+    
+    public boolean untrack(Integer key) {
+        boolean success = false;
+        try {
+            success = habitDao.setDone(key);
+        } catch (Exception e) {
+        }
+        return success;
+    }
 
     public boolean addToStreak(Integer key) {
         boolean success = false;
         Habit toDelete;
         try {
             toDelete = this.habits.get(key - 1);
+            success = habitDao.addToStreak(toDelete.getId(), toDelete);
+        } catch (Exception e) {
+        }
+        return success;
+    }
+    
+    public boolean addToStreakGui(Integer key) {
+        boolean success = false;
+        Habit toDelete;
+        try {
+            toDelete = habitDao.getOne(key);
             success = habitDao.addToStreak(toDelete.getId(), toDelete);
         } catch (Exception e) {
         }
@@ -80,4 +106,14 @@ public class HabitService {
         }
         return success;
     }
+    
+    public boolean deleteHabitGui(Integer key) {
+        boolean success = false;
+        try {
+            success = habitDao.delete(key);
+        } catch (Exception e) {
+        }
+        return success;
+    }
+    
 }

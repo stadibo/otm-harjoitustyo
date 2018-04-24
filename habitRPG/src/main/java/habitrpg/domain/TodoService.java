@@ -26,6 +26,12 @@ public class TodoService {
         this.database = database;
         this.todos = new ArrayList<>();
     }
+    
+    public TodoService(Database database) {
+        this.todoDao = new TodoDao(database);
+        this.database = database;
+        this.todos = new ArrayList<>();
+    }
 
     public void updateUser(User user) {
         todoDao.setUser(user);
@@ -60,11 +66,29 @@ public class TodoService {
         }
         return success;
     }
+    
+    public boolean setDoneGui(Integer key) {
+        boolean success = false;
+        try {
+            success = todoDao.setDone(key);
+        } catch (Exception e) {
+        }
+        return success;
+    }
 
     public boolean deleteTodo(Integer key) {
         boolean success = false;
         try {
             success = todoDao.delete(todos.get(key - 1).getId());
+        } catch (Exception e) {
+        }
+        return success;
+    }
+    
+    public boolean deleteTodoGui(Integer key) {
+        boolean success = false;
+        try {
+            success = todoDao.delete(key);
         } catch (Exception e) {
         }
         return success;

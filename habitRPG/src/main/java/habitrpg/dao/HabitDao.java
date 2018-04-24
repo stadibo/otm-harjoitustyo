@@ -29,6 +29,11 @@ public class HabitDao implements Dao<Habit, Integer> {
         this.user = user;
         createTable();
     }
+    
+    public HabitDao(Database database) {
+        this.database = database;
+        createTable();
+    }
 
     public void setUser(User user) {
         this.user = user;
@@ -88,7 +93,6 @@ public class HabitDao implements Dao<Habit, Integer> {
                         this.user));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
         
         return habits;

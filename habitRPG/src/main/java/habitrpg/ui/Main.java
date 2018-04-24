@@ -14,19 +14,19 @@ import java.util.Scanner;
  *
  * @author peje
  */
-public class Main {
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        File path = new File("db", "tracker.db");
-        try {
-            Database db = new Database(path);
-            TrackerTextUi ui = new TrackerTextUi(scanner, db);
-            ui.run();
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Critical error. Contact creator for fix. Sorry.");
-        }
-        
-    }
-
-}
+//public class Main {
+//
+//    public static void main(String[] args) {
+//        Scanner scanner = new Scanner(System.in);
+//        File path = new File("db", "tracker.db");
+//        try {
+//            Database db = new Database(path);
+//            TrackerTextUi ui = new TrackerTextUi(scanner, db);
+//            ui.run();
+//        } catch (ClassNotFoundException | SQLException e) {
+//            System.out.println("Critical error. Contact creator for fix. Sorry.");
+//        }
+//        
+//    }
+//
+//}

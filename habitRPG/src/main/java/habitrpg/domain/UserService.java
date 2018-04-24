@@ -53,9 +53,4 @@ public class UserService {
         return true;
     }
 
-    //checks that username is correct lenght and doesn't contain special characters
-    public boolean checkUsername(String username) {
-        return true;
-    }
-
 }

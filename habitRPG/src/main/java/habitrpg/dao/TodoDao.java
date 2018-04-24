@@ -30,6 +30,11 @@ public class TodoDao implements Dao<Todo, Integer> {
         createTable();
     }
 
+    public TodoDao(Database database) {
+        this.database = database;
+        createTable();
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
@@ -64,7 +69,7 @@ public class TodoDao implements Dao<Todo, Integer> {
 
     @Override
     public List<Todo> getAll() {
-        
+
         List<Todo> todos = new ArrayList<>();
         String sql = "SELECT id, content, complete, difficulty "
                 + "FROM Todo WHERE username = ?";
@@ -85,9 +90,10 @@ public class TodoDao implements Dao<Todo, Integer> {
                         this.user));
             }
         } catch (SQLException e) {
-            
+
             //System.out.println(e.getMessage());
         }
+
         return todos;
     }
 
