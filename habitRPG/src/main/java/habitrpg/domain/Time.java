@@ -14,7 +14,6 @@ import org.joda.time.format.DateTimeFormat;
  *
  * @author peje
  */
-import org.joda.time.format.ISODateTimeFormat;
 public class Time {
     
     private DateTimeFormatter fmt;
