@@ -9,3 +9,7 @@ _habitrpg.ui_ contains a text based ui, _habitrpg.domain_ contains software logi
 ## Class relations
 
 <img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/habitRPG_class_diagram.png" width="750">
+
+### Functionality
+
+<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Login.png" width="750">
