@@ -52,4 +52,4 @@ The command
 mvn package
 ```
 
-generates an executable file jar-tiedoston _OtmTodoApp-1.0-SNAPSHOT.jar_ into the directory _target_
+generates an executable file _habitRPG-1.0-SNAPSHOT.jar_ into the directory _target_
