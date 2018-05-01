@@ -23,12 +23,7 @@ public class HabitDao implements Dao<Habit, Integer> {
 
     private Database database;
     private User user;
-
-//    public HabitDao(Database database, User user) {
-//        this.database = database;
-//        this.user = user;
-//        createTable();
-//    }
+    
     public HabitDao(Database database) {
         this.database = database;
         createTable();
@@ -46,14 +41,12 @@ public class HabitDao implements Dao<Habit, Integer> {
 
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            //set values
+            
             stmt.setInt(1, key);
             stmt.setString(2, user.getUsername());
 
             ResultSet res = stmt.executeQuery();
-
-            //create habit
+            
             found = new Habit(res.getInt("id"),
                     res.getString("content"),
                     res.getBoolean("retired"),
@@ -77,12 +70,10 @@ public class HabitDao implements Dao<Habit, Integer> {
 
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            //set value
+            
             stmt.setString(1, user.getUsername());
             ResultSet res = stmt.executeQuery();
-
-            //loop through res
+            
             while (res.next()) {
                 habits.add(new Habit(res.getInt("id"),
                         res.getString("content"),
@@ -113,10 +104,10 @@ public class HabitDao implements Dao<Habit, Integer> {
             stmt.setInt(4, object.getCurrentStreak());
             stmt.setString(5, this.user.getUsername());
 
-            //set id for Habit
-            int rowAffected = stmt.executeUpdate();
-            object.setId(rowAffected);
+            
+            stmt.executeUpdate();
         } catch (SQLException e) {
+            return null;
             //System.out.println(e.getMessage());
         }
 

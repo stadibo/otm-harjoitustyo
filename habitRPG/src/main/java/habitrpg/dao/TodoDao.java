@@ -111,9 +111,8 @@ public class TodoDao implements Dao<Todo, Integer> {
             stmt.setInt(3, object.getDifficulty());
             stmt.setString(4, this.user.getUsername());
 
-            //set id for Habit
-            int rowAffected = stmt.executeUpdate();
-            object.setId(rowAffected);
+            
+            stmt.executeUpdate();
         } catch (SQLException e) {
             return null;
             //System.out.println(e.getMessage());

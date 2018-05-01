@@ -22,13 +22,9 @@ public class Time {
         this.fmt = DateTimeFormat.forPattern("yyyyMMdd");
     }
     
-    private DateTime stringToDateTime(String input) {
+    public DateTime stringToDateTime(String input) {
         return fmt.parseDateTime(input);
     }
-    
-//    private String DateTimeToString(DateTime input) {
-//        return input.toString("yyyyMMdd");
-//    }
     
     public int getDurationDays(String input1, String input2) {
         DateTime start = stringToDateTime(input1);
@@ -50,7 +46,7 @@ public class Time {
     
     public String getDateNow() {
         DateTime dt = new DateTime();
-        return dt.toString("yyyyMMdd");
+        return dt.toString(this.fmt);
     }
     
 }

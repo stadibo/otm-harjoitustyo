@@ -31,10 +31,6 @@ public class TodoService {
         todoDao.setUser(user);
     }
 
-    public List<Todo> getTodos() {
-        return todos;
-    }
-
     public List<Todo> getTodosUpdate() {
         this.todos = todoDao.getAll()
                 .stream()

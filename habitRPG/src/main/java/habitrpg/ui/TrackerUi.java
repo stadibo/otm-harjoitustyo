@@ -6,8 +6,11 @@
 package habitrpg.ui;
 
 import habitrpg.dao.Database;
+import habitrpg.domain.Daily;
+import habitrpg.domain.DailyService;
 import habitrpg.domain.Habit;
 import habitrpg.domain.HabitService;
+import habitrpg.domain.Time;
 import habitrpg.domain.Todo;
 import habitrpg.domain.TodoService;
 import habitrpg.domain.User;
@@ -19,11 +22,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -39,6 +42,8 @@ public class TrackerUi extends Application {
     private UserService userService;
     private TodoService todoService;
     private HabitService habitService;
+    private DailyService dailyService;
+    private Time time;
     private Database database;
     private Scene todoScene;
     private Scene habitScene;
@@ -63,6 +68,8 @@ public class TrackerUi extends Application {
         userService = new UserService(database);
         habitService = new HabitService(database);
         todoService = new TodoService(database);
+        time = new Time();
+        dailyService = new DailyService(database, time);
 
     }
 
@@ -145,23 +152,41 @@ public class TrackerUi extends Application {
         return box;
     }
 
-//    public Node createDailyNode(Daily daily) {
-//        HBox box = new HBox(10);
-//        Label label = new Label(daily.getContent());
-//        label.setMinHeight(28);
-//        Button button = new Button("done");
-//        button.setOnAction(e -> {
-//            habitService.untrack(daily.getId());
-//            redrawlist(3);
-//        });
-//
-//        Button deleteButton = new Button("del");
-//
-//        box.setPadding(new Insets(0, 5, 0, 5));
-//
-//        box.getChildren().addAll(button, label, deleteButton);
-//        return box;
-//    }
+    public Node createDailyNode(Daily daily) {
+        HBox box = new HBox(10);
+        Label label = new Label(daily.getContent());
+        label.setMinHeight(28);
+        Button button = new Button("done");
+        button.setOnAction(e -> {
+            dailyService.setDone(daily.getId());
+            redrawlist(3);
+        });
+
+        Button deleteButton = new Button("del");
+        deleteButton.setOnAction(e -> {
+            dailyService.deleteDaily(daily.getId());
+            redrawlist(3);
+        });
+
+        Button untrackButton = new Button("untrack");
+        untrackButton.setOnAction(e -> {
+            dailyService.untrack(daily.getId());
+            redrawlist(3);
+        });
+
+        box.setPadding(new Insets(5, 5, 5, 5));
+        deleteButton.setStyle("-fx-base: #E74C3C;");
+
+        box.setStyle("-fx-background-color: #E5E8E8; -fx-base: #E5E8E8;");
+
+        if (deleteMode) {
+            box.getChildren().addAll(deleteButton, label);
+        } else {
+            box.getChildren().addAll(button, label, untrackButton);
+        }
+
+        return box;
+    }
 
     public void redrawlist(int type) {
         switch (type) {
@@ -173,6 +198,7 @@ public class TrackerUi extends Application {
                     todoNodes.getChildren().add(createTodoNode(todo));
                 });
                 break;
+
             case 2:
                 habitNodes.getChildren().clear();
 
@@ -181,7 +207,15 @@ public class TrackerUi extends Application {
                     habitNodes.getChildren().add(createHabitNode(habit));
                 });
                 break;
-            //case 3:
+
+            case 3:
+                dailyNodes.getChildren().clear();
+
+                List<Daily> undoneDailies = dailyService.getDailiesUpdate();
+                undoneDailies.forEach(daily -> {
+                    dailyNodes.getChildren().add(createDailyNode(daily));
+                });
+                break;
         }
 
     }
@@ -219,9 +253,11 @@ public class TrackerUi extends Application {
                 User user = userService.getLoggedUser();
                 todoService.updateUser(user);
                 habitService.updateUser(user);
+                dailyService.updateUser(user);
                 loginMessage.setText("");
                 redrawlist(1);
                 redrawlist(2);
+                redrawlist(3);
                 primaryStage.setScene(trackerScene);
                 nameInput.setText("");
             } else {
@@ -325,8 +361,7 @@ public class TrackerUi extends Application {
         newUserScene = new Scene(newUserGrid, 1000, 600);
 
         // create todo                                             --------------------------------
-        BorderPane bp1 = new BorderPane();
-
+        //BorderPane bp1 = new BorderPane();
         GridPane newTodoGrid = new GridPane();
         newTodoGrid.setPadding(new Insets(10, 10, 10, 10));
         newTodoGrid.setVgap(8);
@@ -410,8 +445,9 @@ public class TrackerUi extends Application {
         todoScene = new Scene(newTodoGrid, 1000, 600);
 
         // create habit                                            --------------------------------
-        BorderPane bp2 = new BorderPane();
 
+        
+        //BorderPane bp2 = new BorderPane();
         GridPane newHabitGrid = new GridPane();
         newHabitGrid.setPadding(new Insets(10, 10, 10, 10));
         newHabitGrid.setVgap(8);
@@ -494,6 +530,136 @@ public class TrackerUi extends Application {
         habitScene = new Scene(newHabitGrid, 1000, 600);
 
         // create daily                                            --------------------------------
+
+        
+        GridPane newDailyGrid = new GridPane();
+        newDailyGrid.setPadding(new Insets(10, 10, 10, 10));
+        newDailyGrid.setVgap(8);
+        newDailyGrid.setHgap(10);
+
+        Label newDailyLabel = new Label("Task");
+        newDailyGrid.setConstraints(newDailyLabel, 0, 0);
+
+        TextField newDailyInput = new TextField();
+        newDailyInput.setPromptText("read");
+        newDailyInput.setFocusTraversable(true);
+        newDailyInput.requestFocus();
+        newDailyGrid.setConstraints(newDailyInput, 1, 0);
+
+        Label dailyDifficultyLabel = new Label("Effort");
+        newDailyGrid.setConstraints(dailyDifficultyLabel, 0, 2);
+
+        //difficulty
+        ChoiceBox<String> dailyDifficultyBox = new ChoiceBox<>();
+        dailyDifficultyBox.getItems().addAll("Easy", "Medium", "Hard");
+        newDailyGrid.setConstraints(dailyDifficultyBox, 1, 2);
+
+        dailyDifficultyBox.setValue("Easy");
+
+        //days of week when shown
+        HBox dayBoxes = new HBox(6);
+
+        CheckBox mon = new CheckBox("Mon");
+        CheckBox tue = new CheckBox("tue");
+        CheckBox wed = new CheckBox("wed");
+        CheckBox thu = new CheckBox("thu");
+        CheckBox fri = new CheckBox("fri");
+        CheckBox sat = new CheckBox("sat");
+        CheckBox sun = new CheckBox("sun");
+        
+        Label daysShown = new Label("Show on");
+        newDailyGrid.setConstraints(daysShown, 0, 1);
+
+        dayBoxes.getChildren().addAll(mon, tue, wed, thu, fri, sat, sun);
+        newDailyGrid.setConstraints(dayBoxes, 1, 1);
+
+        Button createNewDailyButt = new Button("Create");
+        newDailyGrid.setConstraints(createNewDailyButt, 1, 3);
+
+        Button cancelNewDailyButt = new Button("Go back");
+        newDailyGrid.setConstraints(cancelNewDailyButt, 1, 4);
+
+        Label dailyCreationMsg = new Label();
+        newDailyGrid.setConstraints(dailyCreationMsg, 1, 5);
+
+        createNewDailyButt.setOnAction(e -> {
+            String daily = newDailyInput.getText();
+            String difficulty = dailyDifficultyBox.getValue();
+
+            boolean[] days = new boolean[8];
+
+            days[1] = mon.isSelected();
+            days[2] = tue.isSelected();
+            days[3] = wed.isSelected();
+            days[4] = thu.isSelected();
+            days[5] = fri.isSelected();
+            days[6] = sat.isSelected();
+            days[7] = sun.isSelected();
+            // days shown functionality RIP!!!
+
+            int diff = 1;
+            switch (difficulty) {
+                case "Easy":
+                    diff = 1;
+                    break;
+                case "Medium":
+                    diff = 2;
+                    break;
+                case "Hard":
+                    diff = 3;
+                    break;
+            }
+
+            if (daily.length() <= 2 || 24 < daily.length()) {
+                dailyCreationMsg.setText("description too long or too short");
+                dailyCreationMsg.setTextFill(Color.RED);
+            } else if (dailyService.createDaily(daily, diff, days)) {
+                dailyCreationMsg.setText("");
+                newDailyInput.setText("");
+                dailyDifficultyBox.setValue("Easy");
+
+                mon.setSelected(false);
+                tue.setSelected(false);
+                wed.setSelected(false);
+                thu.setSelected(false);
+                fri.setSelected(false);
+                sat.setSelected(false);
+                sun.setSelected(false);
+
+                redrawlist(3);
+                primaryStage.setScene(trackerScene);
+            } else {
+                dailyCreationMsg.setText("failed to create task :(");
+                dailyCreationMsg.setTextFill(Color.RED);
+            }
+        });
+
+        cancelNewDailyButt.setOnAction(e -> {
+            newDailyInput.setText("");
+            dailyDifficultyBox.setValue("Easy");
+            mon.setSelected(false);
+            tue.setSelected(false);
+            wed.setSelected(false);
+            thu.setSelected(false);
+            fri.setSelected(false);
+            sat.setSelected(false);
+            sun.setSelected(false);
+            primaryStage.setScene(trackerScene);
+        });
+
+        newDailyGrid.getChildren().addAll(newDailyLabel,
+                newDailyInput,
+                dailyDifficultyLabel,
+                dailyDifficultyBox,
+                createNewDailyButt,
+                cancelNewDailyButt,
+                dailyCreationMsg,
+                dayBoxes,
+                daysShown);
+
+        newDailyGrid.setAlignment(Pos.CENTER);
+        dailyScene = new Scene(newDailyGrid, 1000, 600);
+
         // tracker scene                                            --------------------------------
         Button createNewTodo = new Button("New to-do");
         Button createNewHabit = new Button("New habit");
@@ -505,6 +671,10 @@ public class TrackerUi extends Application {
 
         createNewHabit.setOnAction(e -> {
             primaryStage.setScene(habitScene);
+        });
+        
+        createNewDaily.setOnAction(e -> {
+            primaryStage.setScene(dailyScene);
         });
 
         VBox verticalLayout = new VBox(10);
@@ -552,12 +722,14 @@ public class TrackerUi extends Application {
             deleteMode = !deleteMode;
             redrawlist(1);
             redrawlist(2);
+            redrawlist(3);
         });
 
         logoutButton.setOnAction(e -> {
             userService.logout();
             todoService.updateUser(null);
             habitService.updateUser(null);
+            dailyService.updateUser(null);
             deleteMode = !deleteMode;
             primaryStage.setScene(loginScene);
         });

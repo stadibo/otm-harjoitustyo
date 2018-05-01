@@ -30,7 +30,21 @@ id INTEGER PRIMARY KEY,
 username TEXT,
 content TEXT NOT NULL,
 complete INTEGER NOT NULL,
+retired INTEGER NOT NULL,
 difficulty INTEGER NOT NULL,
 date TEXT,
 FOREIGN KEY (username) REFERENCES User (username)
+);
+
+CREATE TABLE IF NOT EXISTS DaysShown (
+days_id INTEGER PRIMARY KEY,
+id INTEGER,
+monday INTEGER NOT NULL,
+tuesday INTEGER NOT NULL,
+wednesday INTEGER NOT NULL,
+thursday INTEGER NOT NULL,
+friday INTEGER NOT NULL,
+saturday INTEGER NOT NULL,
+sunday INTEGER NOT NULL,
+FOREIGN KEY (id) REFERENCES Daily (id)
 );

@@ -40,7 +40,6 @@ public class HabitTest {
     
     @Test
     public void incompleteConstructorCreateCorrectHabit() {
-        User user = new User("username", "name", "motto");
         Habit habit1 = new Habit("stuff", 1);
         assertEquals("stuff", habit1.getContent());
         assertEquals(1, habit1.getDifficulty());

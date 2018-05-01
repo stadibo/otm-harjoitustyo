@@ -35,20 +35,12 @@ public class Todo {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getContent() {
         return content;
     }
 
     public boolean isComplete() {
         return complete;
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
     }
 
     public int getDifficulty() {
@@ -77,11 +69,6 @@ public class Todo {
         }
         
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Todo: " + content + "\n\tdifficulty=" + difficulty;
     }
     
 }

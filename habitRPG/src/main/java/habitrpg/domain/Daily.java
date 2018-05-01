@@ -14,25 +14,48 @@ public class Daily {
     private int id;
     private String content;
     private boolean complete;
+    private boolean retired;
     private int difficulty;
     private String date;
+    private boolean[] daysShown;
     private User user;
     
-    public Daily(int id, String cont, boolean comp, int diff, String date, User user) {
+    public Daily(int id, String cont, boolean comp, boolean ret, int diff, String date, User user) {
         this.id = id;
         this.content = cont;
         this.complete = comp;
+        this.retired = ret;
         this.difficulty = diff;
         this.date = date;
         this.user = user;
     }
     
-    public Daily(String cont, int diff, String date, User user) {
+    public Daily(String cont, int diff, String date) {
         this.content = cont;
         this.difficulty = diff;
         this.date = date;
-        this.user = user;
         this.complete = false;
+        this.retired = false;
+    }
+
+    public boolean isRetired() {
+        return retired;
+    }
+
+    public boolean[] getDaysShown() {
+        return daysShown;
+    }
+
+    public void setDaysShown(boolean[] daysShown) {
+        this.daysShown = daysShown;
+    }
+
+    public void setRetired(boolean retired) {
+        this.retired = retired;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getId() {

@@ -18,21 +18,15 @@ import java.util.stream.Collectors;
 public class HabitService {
 
     private HabitDao habitDao;
-    private Database database;
     private List<Habit> habits;
     
     public HabitService(Database database) {
         this.habitDao = new HabitDao(database);
-        this.database = database;
         this.habits = new ArrayList<>();
     }
 
     public void updateUser(User user) {
         habitDao.setUser(user);
-    }
-
-    public List<Habit> getHabits() {
-        return habits;
     }
 
     public List<Habit> getHabitsUpdate() {
@@ -44,8 +38,8 @@ public class HabitService {
     }
 
     public boolean createHabit(String content, int diff) {
-        Habit newTodo = habitDao.create(new Habit(content, diff));
-        if (newTodo == null) {
+        Habit newHabit = habitDao.create(new Habit(content, diff));
+        if (newHabit == null) {
             return false;
         } else {
             return true;

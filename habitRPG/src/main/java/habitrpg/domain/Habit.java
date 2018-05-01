@@ -40,16 +40,8 @@ public class Habit {
         return retired;
     }
 
-    public void setRetired(boolean retired) {
-        this.retired = retired;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getContent() {
@@ -62,10 +54,6 @@ public class Habit {
 
     public int getCurrentStreak() {
         return currentStreak;
-    }
-
-    public void setCurrentStreak(int currentStreak) {
-        this.currentStreak = currentStreak;
     }
 
     public User getUser() {
@@ -91,12 +79,5 @@ public class Habit {
         
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "Habit: " + content + "\n\tdifficulty: " + difficulty + "\n\tcurrentStreak: " + currentStreak;
-    }
-    
-    
     
 }
