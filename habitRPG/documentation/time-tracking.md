@@ -16,4 +16,9 @@
 |      | 1    | research and create time class using joda-time library |
 | 24.4.| 3    | cleaning up code, writing tests |
 |      | 1    | looking for and fixing bug making tests fail on windows |
-| tot  | 26   |
+| 29.4.| 4    | created Daily task functionality |
+|      | 2    | cleaning up code, writing tests |
+| 2.5. | 1    | javadoc for domain classes |
+|      | 2    | description for logical structure and cleaning code |
+|      | 1    | making user guide |
+| tot  | 36   |
