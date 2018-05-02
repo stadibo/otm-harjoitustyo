@@ -12,6 +12,8 @@ will mirror you progressing, cultivating good habits and being productive.
 
 [Time tracking](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/time-tracking.md)
 
+[User guide]()
+
 ## Releases
 
 [Viikko 5](https://github.com/stadibo/otm-harjoitustyo/releases/tag/viikko5)
@@ -53,3 +55,13 @@ mvn package
 ```
 
 generates an executable file _habitRPG-1.0-SNAPSHOT.jar_ into the directory _target_
+
+### JavaDoc
+
+JavaDoc is generated with the command
+
+```
+mvn javadoc:javadoc
+```
+
+JavaDoc can be viewed by opening the file _target/site/apidocs/index.html_ in a web-browser
