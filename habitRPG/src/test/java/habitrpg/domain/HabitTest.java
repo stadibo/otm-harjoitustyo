@@ -46,10 +46,5 @@ public class HabitTest {
         assertEquals(0, habit1.getCurrentStreak());
         assertEquals(false, habit1.isRetired());
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    
 }

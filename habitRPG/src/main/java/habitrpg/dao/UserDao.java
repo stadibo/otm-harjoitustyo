@@ -11,13 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 /**
  *
  * @author peje
  */
-public class UserDao implements Dao<User, String> {
+public class UserDao {
 
     private Database database;
 
@@ -26,7 +25,6 @@ public class UserDao implements Dao<User, String> {
         createTable();
     }
 
-    @Override
     public User getOne(String key) {
         User found = null;
         String sql = "SELECT username, name, motto "
@@ -52,12 +50,6 @@ public class UserDao implements Dao<User, String> {
         return found;
     }
 
-    @Override
-    public List<User> getAll() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public User create(User object) {
         String sql = "INSERT INTO "
                 + "User(username, name, motto) "
@@ -78,29 +70,23 @@ public class UserDao implements Dao<User, String> {
         return object;
     }
 
-    @Override
-    public boolean delete(String key) {
-        String sql = "DELETE FROM User WHERE username = ?";
-
-        try (Connection conn = database.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            //set value
-            stmt.setString(1, key);
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            //System.out.println(e.getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean setDone(String key) {
-        throw new UnsupportedOperationException("Not supported.");
-    }
+//    public boolean delete(String key) {
+//        String sql = "DELETE FROM User WHERE username = ?";
+//
+//        try (Connection conn = database.getConnection();
+//                PreparedStatement stmt = conn.prepareStatement(sql)) {
+//
+//            //set value
+//            stmt.setString(1, key);
+//            stmt.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            //System.out.println(e.getMessage());
+//            return false;
+//        }
+//
+//        return true;
+//    }
 
     private void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS User (\n"

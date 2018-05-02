@@ -13,7 +13,9 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author peje
+ * A class for getting and manipulating "Habit" objects by interfacing with 
+ * its corresponding DAO (Data access object), HabitDao.
+ * 
  */
 public class HabitService {
 
@@ -25,10 +27,21 @@ public class HabitService {
         this.habits = new ArrayList<>();
     }
 
+    /**
+     * Passes on a User object to the DAO (Data access object) HabitDao.
+     * 
+     * @param user  (logged in user from UserService)
+     */
     public void updateUser(User user) {
         habitDao.setUser(user);
     }
 
+    /**
+     * Gets a list of "Habit" objects from HabitDao and filters
+     * them by if they are to be tracked.
+     * 
+     * @return A list of "Habit" objects
+     */
     public List<Habit> getHabitsUpdate() {
         this.habits = habitDao.getAll()
                 .stream()
@@ -37,6 +50,14 @@ public class HabitService {
         return this.habits;
     }
 
+    /**
+     * Creates a "Habit" object and passes it on to HabitDao to be
+     * stored in the database.
+     * 
+     * @param content   (name of habit)
+     * @param diff  (difficulty of habit)
+     * @return if creation was successful
+     */
     public boolean createHabit(String content, int diff) {
         Habit newHabit = habitDao.create(new Habit(content, diff));
         if (newHabit == null) {
@@ -46,6 +67,12 @@ public class HabitService {
         }
     }
     
+    /**
+     * Interfaces with HabitDao to set Habits to no longer be tracked.
+     * 
+     * @param key   (database id)
+     * @return if setting was successful
+     */
     public boolean untrack(Integer key) {
         boolean success = false;
         try {
@@ -55,6 +82,12 @@ public class HabitService {
         return success;
     }
     
+    /**
+     * Interfaces with HabitDao to add to a habits streak.
+     * 
+     * @param key   (database id)
+     * @return if addition was successful
+     */
     public boolean addToStreakGui(Integer key) {
         boolean success = false;
         Habit toDelete;
@@ -66,6 +99,12 @@ public class HabitService {
         return success;
     }
     
+    /**
+     * Interfaces with HabitDao to remove a habit from the database.
+     * 
+     * @param key   (database id)
+     * @return if deletion was successful
+     */
     public boolean deleteHabitGui(Integer key) {
         boolean success = false;
         try {

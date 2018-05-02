@@ -8,12 +8,10 @@ package habitrpg.domain;
 import habitrpg.dao.Database;
 import habitrpg.dao.UserDao;
 
+
 /**
- *
- * @author peje
- */
-/**
- * Class responsible for actions aimed at user objects
+ * A class for getting and creating "user" objects by interfacing with 
+ * its corresponding DAO (Data access object), UserDao.
  */
 public class UserService {
 
@@ -21,11 +19,19 @@ public class UserService {
     private User loggedIn;
     private Database database;
 
+    
     public UserService(Database database) {
         this.userDao = new UserDao(database);
         this.database = database;
     }
 
+    /**
+     * Checks if username exists in database and sets user as logged in.
+     * 
+     * @param username  (user input)
+     * @return true if login was successful, else if no such username exists
+     * in database
+     */
     public boolean login(String username) {
         User user = userDao.getOne(username);
 
@@ -37,14 +43,32 @@ public class UserService {
         return true;
     }
 
+    /**
+     * Returns currently logged in user
+     * 
+     * @return logged in user
+     */
     public User getLoggedUser() {
         return this.loggedIn;
     }
 
+    /**
+     * Logs out user.
+     * 
+     */
     public void logout() {
         loggedIn = null;
     }
 
+    /**
+     * Creates a "User" object and passes it on to UserDao to be
+     * stored in the database.
+     * 
+     * @param username  (user input)
+     * @param name  (user input)
+     * @param motto (user input)
+     * @return if creation was successful
+     */
     public boolean newUser(String username, String name, String motto) {
         if (userDao.getOne(username) != null) {
             return false;

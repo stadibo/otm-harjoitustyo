@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author peje
+ * A class for getting and manipulating "To-do" objects by interfacing with 
+ * its corresponding DAO (Data access object), TodoDao.
  */
 public class TodoService {
 
@@ -27,10 +28,21 @@ public class TodoService {
         this.todos = new ArrayList<>();
     }
 
+    /**
+     * Passes on a User object to the DAO (Data access object) TodoDao.
+     * 
+     * @param user  (logged in user from UserService)
+     */
     public void updateUser(User user) {
         todoDao.setUser(user);
     }
 
+    /**
+     * Gets a list of "To-do" objects from TodoDao and filters
+     * them by if they are completed.
+     * 
+     * @return A list of "To-do" objects
+     */
     public List<Todo> getTodosUpdate() {
         this.todos = todoDao.getAll()
                 .stream()
@@ -39,6 +51,14 @@ public class TodoService {
         return this.todos;
     }
 
+    /**
+     * Creates a "To-do" object and passes it on to TodoDao to be
+     * stored in the database.
+     * 
+     * @param content   (name of to-do)
+     * @param diff  (difficulty of to-do)
+     * @return if creation was successful
+     */
     public boolean createTodo(String content, int diff) {
         Todo newTodo = todoDao.create(new Todo(content, diff));
         if (newTodo == null) {
@@ -48,6 +68,12 @@ public class TodoService {
         }
     }
     
+    /**
+     * Interfaces with TodoDao to set "to-do" done.
+     * 
+     * @param key   (database id)
+     * @return if setting was successful
+     */
     public boolean setDoneGui(Integer key) {
         boolean success = false;
         try {
@@ -57,6 +83,12 @@ public class TodoService {
         return success;
     }
     
+    /**
+     * Interfaces with TodoDao to remove a to-do from the database.
+     * 
+     * @param key   (database id)
+     * @return if deletion was successful
+     */
     public boolean deleteTodoGui(Integer key) {
         boolean success = false;
         try {

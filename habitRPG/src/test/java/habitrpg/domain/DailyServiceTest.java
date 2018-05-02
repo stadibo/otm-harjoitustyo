@@ -11,9 +11,7 @@ import habitrpg.dao.DaysShownDao;
 import java.io.File;
 import java.util.List;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -35,14 +33,6 @@ public class DailyServiceTest {
         days[3] = true;
         days[5] = true;
         days[7] = true;
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
     }
 
     @Before
@@ -166,7 +156,7 @@ public class DailyServiceTest {
     }
     
     @Test
-    public void untrackedDailiesWillNotShow() {
+    public void untrackedDailiesAreNotShown() {
         Daily daily1 = new Daily("Jump", 2, "20180101");
         daily1.setDaysShown(days);
         daily1 = dailyDao.create(daily1);
@@ -180,6 +170,40 @@ public class DailyServiceTest {
         assertTrue(dailyDao.getOne(1).isRetired());
         dailies = dailyService.getDailiesUpdate();
         assertEquals(true, dailies.isEmpty());
+    }
+    
+    @Test
+    public void canCreateNewDaily() {
+        //time.setFakeTime("20180101");
+        assertTrue(dailyService.createDaily("Jump", 2, days));
+        
+        assertEquals("Jump", dailyDao.getOne(1).getContent());
+        assertEquals(2, dailyDao.getOne(1).getDifficulty());
+        assertEquals(days[1], dsDao.getDays(1)[1]);
+        assertEquals(false, dailyDao.getOne(1).isComplete());
+        assertEquals("20180101", dailyDao.getOne(1).getDate());
+    }
+    
+    @Test
+    public void canSetADailyDoneForTheDay() {
+        Daily daily1 = new Daily("Heav", 3, "20180101");
+        daily1.setDaysShown(days);
+        daily1 = dailyDao.create(daily1);
+        dsDao.create(days, daily1.getId());
+        
+        assertEquals(false, daily1.isComplete());
+        assertFalse(dailyService.getDailiesUpdate().isEmpty());
+        dailyService.setDone(1);
+        
+        assertEquals(true, dailyDao.getOne(1).isComplete());
+        assertTrue(dailyService.getDailiesUpdate().isEmpty());
+    }
+    
+    @Test
+    public void createDailyFail() {
+        File file = new File("test.db");
+        file.delete();
+        assertFalse(dailyService.createDaily("Jump", 2, days));   
     }
 
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.domain;
 
 import habitrpg.dao.DailyDao;
@@ -14,7 +9,9 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author peje
+ * A class for getting and manipulating "Daily" objects by interfacing with 
+ * its corresponding DAO:s (Data access object), DailyDao and DaysShownDao. 
+ * 
  */
 public class DailyService {
 
@@ -23,7 +20,7 @@ public class DailyService {
 
     private List<Daily> dailies;
     private Time time;
-
+    
     public DailyService(Database database, Time uiTime) {
         this.dailyDao = new DailyDao(database);
         this.dsDao = new DaysShownDao(database);
@@ -31,10 +28,21 @@ public class DailyService {
         this.time = uiTime;
     }
 
+    /**
+     * Passes on a User object to the DAO (Data access object) DailyDao.
+     * 
+     * @param user  (logged in user from UserService)
+     */
     public void updateUser(User user) {
         dailyDao.setUser(user);
     }
 
+    /**
+     * Gets a list of "Daily" objects from DailyDao and filters
+     * them by tracking, completion and specified days to be shown.
+     * 
+     * @return A list of "Daily" objects
+     */
     public List<Daily> getDailiesUpdate() {
         this.dailies = dailyDao.getAll()
                 .stream()
@@ -55,34 +63,66 @@ public class DailyService {
                 .collect(Collectors.toList());
     }
 
-    public boolean untrack(int id) {
+    /**
+     * Interfaces with DailyDao to set Daily tasks to no longer be tracked.
+     * 
+     * @param key    (database id)
+     * 
+     * @return if setting was successful
+     */
+    public boolean untrack(int key) {
         boolean success = false;
         try {
-            success = dailyDao.setUntracked(id);
+            success = dailyDao.setUntracked(key);
         } catch (Exception e) {
         }
         return success;
     }
 
-    public boolean deleteDaily(int id) {
+    /**
+     * Interfaces with DailyDao to remove Daily task from database.
+     * 
+     * @param key    (database id)
+     * @return if deletion was successful
+     */
+    public boolean deleteDaily(int key) {
         boolean success = false;
         try {
-            success = dailyDao.delete(id);
-            success = dsDao.delete(id);
+            success = dailyDao.delete(key);
+            success = dsDao.delete(key);
         } catch (Exception e) {
         }
         return success;
     }
 
-    public boolean setDone(int id) {
+    /**
+     * Interfaces with DailyDao to set Daily tasks to be done for this date.
+     * 
+     * @param key    (database id)
+     * 
+     * @return if setting was successful
+     */
+    public boolean setDone(int key) {
         boolean success = false;
         try {
-            success = dailyDao.setDone(id);
+            success = dailyDao.setDone(key);
         } catch (Exception e) {
         }
         return success;
     }
 
+    /**
+     * Creates a new Daily object, sets the time of creation and passes it to
+     * the DAO (Data access object) to be stored in the database. Then it gets
+     * the returned object from DailyDao and uses the database id, 
+     * added in DailyDao to pass onto DaysShownDao for storing which days 
+     * of the week the Daily is shown. 
+     * 
+     * @param content   (name of task)
+     * @param diff  (difficulty of the task)
+     * @param days  (list with days of week to be tracked. index 1:monday, etc)
+     * @return if creation was successful
+     */
     public boolean createDaily(String content, int diff, boolean[] days) {
 
         Daily newDaily = dailyDao.create(new Daily(content, diff, time.getDateNow()));
@@ -93,7 +133,7 @@ public class DailyService {
             return true;
         }
     }
-
+    
     private void setUndone(String dateToday) {
 
         for (Daily d : this.dailies) {
@@ -107,8 +147,8 @@ public class DailyService {
         }
     }
 
-    private boolean setDays(boolean[] days, Integer id) {
-        return dsDao.create(days, id);
+    private boolean setDays(boolean[] days, Integer key) {
+        return dsDao.create(days, key);
     }
 
     private boolean getDays() {

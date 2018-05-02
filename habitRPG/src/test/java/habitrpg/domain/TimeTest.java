@@ -31,22 +31,6 @@ public class TimeTest {
         this.date3 = new DateTime(2018, 1, 3, 0, 0, 0, 0);
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-    
     @Test
     public void timeConstructorCreatesCorrectParser() {
         DateTimeFormatter form = DateTimeFormat.forPattern("yyyyMMdd");
