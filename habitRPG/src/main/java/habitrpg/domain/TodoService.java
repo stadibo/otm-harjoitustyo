@@ -5,7 +5,6 @@
  */
 package habitrpg.domain;
 
-import habitrpg.dao.Database;
 import habitrpg.dao.TodoDao;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,34 +12,32 @@ import java.util.stream.Collectors;
 
 /**
  *
- * A class for getting and manipulating "To-do" objects by interfacing with 
- * its corresponding DAO (Data access object), TodoDao.
+ * A class for getting and manipulating "To-do" objects by interfacing with its
+ * corresponding DAO (Data access object), TodoDao.
  */
 public class TodoService {
 
     private TodoDao todoDao;
-    private Database database;
     private List<Todo> todos;
-    
-    public TodoService(Database database) {
-        this.todoDao = new TodoDao(database);
-        this.database = database;
+
+    public TodoService(TodoDao todoDao) {
+        this.todoDao = todoDao;
         this.todos = new ArrayList<>();
     }
 
     /**
      * Passes on a User object to the DAO (Data access object) TodoDao.
-     * 
-     * @param user  (logged in user from UserService)
+     *
+     * @param user (logged in user from UserService)
      */
     public void updateUser(User user) {
         todoDao.setUser(user);
     }
 
     /**
-     * Gets a list of "To-do" objects from TodoDao and filters
-     * them by if they are completed.
-     * 
+     * Gets a list of "To-do" objects from TodoDao and filters them by if they
+     * are completed.
+     *
      * @return A list of "To-do" objects
      */
     public List<Todo> getTodosUpdate() {
@@ -52,11 +49,11 @@ public class TodoService {
     }
 
     /**
-     * Creates a "To-do" object and passes it on to TodoDao to be
-     * stored in the database.
-     * 
-     * @param content   (name of to-do)
-     * @param diff  (difficulty of to-do)
+     * Creates a "To-do" object and passes it on to TodoDao to be stored in the
+     * database.
+     *
+     * @param content (name of to-do)
+     * @param diff (difficulty of to-do)
      * @return if creation was successful
      */
     public boolean createTodo(String content, int diff) {
@@ -67,14 +64,14 @@ public class TodoService {
             return true;
         }
     }
-    
+
     /**
      * Interfaces with TodoDao to set "to-do" done.
-     * 
-     * @param key   (database id)
+     *
+     * @param key (database id)
      * @return if setting was successful
      */
-    public boolean setDoneGui(Integer key) {
+    public boolean setDone(Integer key) {
         boolean success = false;
         try {
             success = todoDao.setDone(key);
@@ -82,14 +79,14 @@ public class TodoService {
         }
         return success;
     }
-    
+
     /**
      * Interfaces with TodoDao to remove a to-do from the database.
-     * 
-     * @param key   (database id)
+     *
+     * @param key (database id)
      * @return if deletion was successful
      */
-    public boolean deleteTodoGui(Integer key) {
+    public boolean deleteTodo(Integer key) {
         boolean success = false;
         try {
             success = todoDao.delete(key);

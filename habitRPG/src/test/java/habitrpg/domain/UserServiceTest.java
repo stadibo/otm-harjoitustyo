@@ -28,21 +28,12 @@ public class UserServiceTest {
 
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-
-    }
-
     @Before
     public void setUp() {
         Database db = new Database();
         db.createDatabase("test.db");
-        us = new UserService(db);
         userDao = new UserDao(db);
+        us = new UserService(userDao);
 
         User user = new User("tester", "elon musk", "going to mars");
         userDao.create(user);

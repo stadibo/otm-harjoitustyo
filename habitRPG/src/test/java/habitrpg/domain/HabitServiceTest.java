@@ -40,8 +40,8 @@ public class HabitServiceTest {
     public void setUp() {
         Database db = new Database();
         db.createDatabase("test.db");
-        hs = new HabitService(db);
         habitDao = new HabitDao(db);
+        hs = new HabitService(habitDao);
 
         User user = new User("tester", "elon musk", "going to mars");
         hs.updateUser(user);
@@ -82,29 +82,29 @@ public class HabitServiceTest {
     public void canDeleteHabitWhenHabitExists() {
         habitDao.create(new Habit("Write code", 2));
         assertEquals("Write code", habitDao.getOne(2).getContent());
-        assertTrue(hs.deleteHabitGui(2));
+        assertTrue(hs.deleteHabit(2));
         assertEquals(null, habitDao.getOne(2));
     }
 
     @Test
     public void cannotDeleteHabitWhenHabitNotExists() {
-        assertFalse(hs.deleteHabitGui(2));
+        assertFalse(hs.deleteHabit(2));
     }
 
     @Test
     public void canAddToStreakWhenHabitExists() {
         assertEquals(0, habitDao.getOne(1).getCurrentStreak());
 
-        assertTrue(hs.addToStreakGui(1));
-        assertTrue(hs.addToStreakGui(1));
-        assertTrue(hs.addToStreakGui(1));
+        assertTrue(hs.addToStreak(1));
+        assertTrue(hs.addToStreak(1));
+        assertTrue(hs.addToStreak(1));
 
         assertEquals(3, habitDao.getOne(1).getCurrentStreak());
     }
 
     @Test
     public void cannotAddToStreakWhenHabitNotExists() {
-        assertFalse(hs.addToStreakGui(2));
+        assertFalse(hs.addToStreak(2));
     }
 
 }

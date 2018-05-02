@@ -5,7 +5,12 @@
  */
 package habitrpg.ui;
 
+import habitrpg.dao.DailyDao;
 import habitrpg.dao.Database;
+import habitrpg.dao.DaysShownDao;
+import habitrpg.dao.HabitDao;
+import habitrpg.dao.TodoDao;
+import habitrpg.dao.UserDao;
 import habitrpg.domain.Daily;
 import habitrpg.domain.DailyService;
 import habitrpg.domain.Habit;
@@ -43,8 +48,6 @@ public class TrackerUi extends Application {
     private TodoService todoService;
     private HabitService habitService;
     private DailyService dailyService;
-    private Time time;
-    private Database database;
     private Scene todoScene;
     private Scene habitScene;
     private Scene dailyScene;
@@ -62,14 +65,20 @@ public class TrackerUi extends Application {
     @Override
     public void init() throws Exception {
 
-        database = new Database();
+        Database database = new Database();
         database.createDatabase("tracker.db");
-
-        userService = new UserService(database);
-        habitService = new HabitService(database);
-        todoService = new TodoService(database);
-        time = new Time();
-        dailyService = new DailyService(database, time);
+        
+        UserDao userDao = new UserDao(database);
+        HabitDao habitDao = new HabitDao(database);
+        TodoDao todoDao = new TodoDao(database);
+        DailyDao dailyDao = new DailyDao(database);
+        DaysShownDao dsDao = new DaysShownDao(database);
+        
+        userService = new UserService(userDao);
+        habitService = new HabitService(habitDao);
+        todoService = new TodoService(todoDao);
+        Time time = new Time();
+        dailyService = new DailyService(dailyDao, dsDao, time);
 
     }
 
@@ -79,13 +88,13 @@ public class TrackerUi extends Application {
         label.setMinHeight(28);
         Button button = new Button("done");
         button.setOnAction(e -> {
-            todoService.setDoneGui(todo.getId());
+            todoService.setDone(todo.getId());
             redrawlist(1);
         });
 
         Button deleteButton = new Button("del");
         deleteButton.setOnAction(e -> {
-            todoService.deleteTodoGui(todo.getId());
+            todoService.deleteTodo(todo.getId());
             redrawlist(1);
         });
         //Region spacer = new Region();
@@ -120,13 +129,13 @@ public class TrackerUi extends Application {
         label.setMinHeight(28);
         Button button = new Button("+");
         button.setOnAction(e -> {
-            habitService.addToStreakGui(habit.getId());
+            habitService.addToStreak(habit.getId());
             redrawlist(2);
         });
 
         Button deleteButton = new Button("del");
         deleteButton.setOnAction(e -> {
-            habitService.deleteHabitGui(habit.getId());
+            habitService.deleteHabit(habit.getId());
             redrawlist(2);
         });
 
@@ -714,7 +723,7 @@ public class TrackerUi extends Application {
         deleteModeButton.setOnAction(e -> {
 
             if (deleteMode) {
-                deleteModeButton.setStyle("-fx-base: #d0d0d0;");
+                deleteModeButton.setStyle("-fx-base: #f4f4f4;");
             } else {
                 deleteModeButton.setStyle("-fx-base: #E74C3C;");
             }
@@ -730,7 +739,13 @@ public class TrackerUi extends Application {
             todoService.updateUser(null);
             habitService.updateUser(null);
             dailyService.updateUser(null);
-            deleteMode = !deleteMode;
+            
+            if (deleteMode) {
+                deleteModeButton.setStyle("-fx-base: #f4f4f4;");
+            } else {
+                deleteModeButton.setStyle("-fx-base: #E74C3C;");
+            }
+            deleteMode = false;
             primaryStage.setScene(loginScene);
         });
 

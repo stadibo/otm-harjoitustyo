@@ -31,8 +31,8 @@ public class TodoServiceTest {
     public void setUp() {
         Database db = new Database();
         db.createDatabase("test.db");
-        ts = new TodoService(db);
         todoDao = new TodoDao(db);
+        ts = new TodoService(todoDao);
 
         User user = new User("tester", "elon musk", "going to mars");
         ts.updateUser(user);
@@ -65,7 +65,7 @@ public class TodoServiceTest {
 
     @Test
     public void canMarkTodoAsComplete() {
-        assertTrue(ts.setDoneGui(1));
+        assertTrue(ts.setDone(1));
         assertTrue(todoDao.getOne(1).isComplete());
     }
 
@@ -73,7 +73,7 @@ public class TodoServiceTest {
     public void canDeleteTodo() {
         todoDao.create(new Todo("Walk", 3));
         assertEquals("Walk", todoDao.getOne(2).getContent());
-        assertTrue(ts.deleteTodoGui(2));
+        assertTrue(ts.deleteTodo(2));
         assertEquals(null, todoDao.getOne(2));
     }
 

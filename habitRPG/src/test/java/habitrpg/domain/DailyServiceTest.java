@@ -41,9 +41,9 @@ public class DailyServiceTest {
         db.createDatabase("test.db");
 
         time = new FakeTime();
-        dailyService = new DailyService(db, time);
         dailyDao = new DailyDao(db);
         dsDao = new DaysShownDao(db);
+        dailyService = new DailyService(dailyDao, dsDao, time);
 
         User user = new User("tester", "elon musk", "going to mars");
         dailyService.updateUser(user);
@@ -117,7 +117,7 @@ public class DailyServiceTest {
     @Test
     public void updatesDateIfNotSameDateAsTodayAndSetsUndoneIfPreviouslyDone() {
         time.setFakeTime("20171231");
-        
+
         Daily daily1 = new Daily("Jump", 2, "20171231");
         daily1.setDaysShown(days);
         daily1 = dailyDao.create(daily1);
@@ -126,7 +126,7 @@ public class DailyServiceTest {
 
         List<Daily> dailies = dailyService.getDailiesUpdate();
         assertEquals(true, dailies.isEmpty());
-        
+
         time.setFakeTime("20180101");
         time.setFakeDayOfWeek(7);
         dailies = dailyService.getDailiesUpdate();
@@ -134,7 +134,7 @@ public class DailyServiceTest {
         assertEquals("20180101", dailies.get(0).getDate());
         assertEquals(false, dailies.get(0).isComplete());
     }
-    
+
     @Test
     public void canDeleteDaily() {
         Daily daily1 = new Daily("Jump", 2, "20180101");
@@ -146,64 +146,64 @@ public class DailyServiceTest {
         daily2.setDaysShown(days);
         daily2 = dailyDao.create(daily2);
         dsDao.create(days, daily2.getId());
-        
+
         List<Daily> dailies = dailyService.getDailiesUpdate();
         assertEquals("Jump", dailies.get(0).getContent());
-        
+
         dailyService.deleteDaily(1);
         dailies = dailyService.getDailiesUpdate();
         assertEquals("Run", dailies.get(0).getContent());
     }
-    
+
     @Test
     public void untrackedDailiesAreNotShown() {
         Daily daily1 = new Daily("Jump", 2, "20180101");
         daily1.setDaysShown(days);
         daily1 = dailyDao.create(daily1);
         dsDao.create(days, daily1.getId());
-        
+
         List<Daily> dailies = dailyService.getDailiesUpdate();
         assertEquals("Jump", dailies.get(0).getContent());
         assertFalse(dailyDao.getOne(1).isRetired());
-        
+
         dailyService.untrack(1);
         assertTrue(dailyDao.getOne(1).isRetired());
         dailies = dailyService.getDailiesUpdate();
         assertEquals(true, dailies.isEmpty());
     }
-    
+
     @Test
     public void canCreateNewDaily() {
         //time.setFakeTime("20180101");
         assertTrue(dailyService.createDaily("Jump", 2, days));
-        
+
         assertEquals("Jump", dailyDao.getOne(1).getContent());
         assertEquals(2, dailyDao.getOne(1).getDifficulty());
         assertEquals(days[1], dsDao.getDays(1)[1]);
         assertEquals(false, dailyDao.getOne(1).isComplete());
         assertEquals("20180101", dailyDao.getOne(1).getDate());
     }
-    
+
     @Test
     public void canSetADailyDoneForTheDay() {
         Daily daily1 = new Daily("Heav", 3, "20180101");
         daily1.setDaysShown(days);
         daily1 = dailyDao.create(daily1);
         dsDao.create(days, daily1.getId());
-        
+
         assertEquals(false, daily1.isComplete());
         assertFalse(dailyService.getDailiesUpdate().isEmpty());
         dailyService.setDone(1);
-        
+
         assertEquals(true, dailyDao.getOne(1).isComplete());
         assertTrue(dailyService.getDailiesUpdate().isEmpty());
     }
-    
+
     @Test
     public void createDailyFail() {
         File file = new File("test.db");
         file.delete();
-        assertFalse(dailyService.createDaily("Jump", 2, days));   
+        assertFalse(dailyService.createDaily("Jump", 2, days));
     }
 
 }

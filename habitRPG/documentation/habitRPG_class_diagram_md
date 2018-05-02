@@ -32,3 +32,9 @@
 [Daily]0..1-0..1[DailyService],
 [Habit]0..1-0..1[HabitService],
 [Todo]0..1-0..1[TodoService],
+
+
+
+[User|username;name;motto]1<-0..*[Habit|id;content;difficulty;retired;currentStreak;]
+[User|username;name;motto]1<-0..*[Todo|id;content;difficulty;]
+[User|username;name;motto]1<-0..*[Daily|id;content;complete;retired;date;daysShown;]

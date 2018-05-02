@@ -1,7 +1,6 @@
 package habitrpg.domain;
 
 import habitrpg.dao.DailyDao;
-import habitrpg.dao.Database;
 import habitrpg.dao.DaysShownDao;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +8,9 @@ import java.util.stream.Collectors;
 
 /**
  *
- * A class for getting and manipulating "Daily" objects by interfacing with 
- * its corresponding DAO:s (Data access object), DailyDao and DaysShownDao. 
- * 
+ * A class for getting and manipulating "Daily" objects by interfacing with its
+ * corresponding DAO:s (Data access object), DailyDao and DaysShownDao.
+ *
  */
 public class DailyService {
 
@@ -20,27 +19,27 @@ public class DailyService {
 
     private List<Daily> dailies;
     private Time time;
-    
-    public DailyService(Database database, Time uiTime) {
-        this.dailyDao = new DailyDao(database);
-        this.dsDao = new DaysShownDao(database);
+
+    public DailyService(DailyDao dailyDao, DaysShownDao dsDao, Time uiTime) {
+        this.dailyDao = dailyDao;
+        this.dsDao = dsDao;
         this.dailies = new ArrayList<>();
         this.time = uiTime;
     }
 
     /**
      * Passes on a User object to the DAO (Data access object) DailyDao.
-     * 
-     * @param user  (logged in user from UserService)
+     *
+     * @param user (logged in user from UserService)
      */
     public void updateUser(User user) {
         dailyDao.setUser(user);
     }
 
     /**
-     * Gets a list of "Daily" objects from DailyDao and filters
-     * them by tracking, completion and specified days to be shown.
-     * 
+     * Gets a list of "Daily" objects from DailyDao and filters them by
+     * tracking, completion and specified days to be shown.
+     *
      * @return A list of "Daily" objects
      */
     public List<Daily> getDailiesUpdate() {
@@ -50,12 +49,12 @@ public class DailyService {
                 .collect(Collectors.toList());
 
         this.getDays();
-        
+
         String dateToday = time.getDateNow();
         int weekdayToday = time.getTodayWeekDay();
-        
+
         this.setUndone(dateToday);
-        
+
         return this.dailies
                 .stream()
                 .filter(t -> t.isComplete() == false)
@@ -65,9 +64,9 @@ public class DailyService {
 
     /**
      * Interfaces with DailyDao to set Daily tasks to no longer be tracked.
-     * 
-     * @param key    (database id)
-     * 
+     *
+     * @param key (database id)
+     *
      * @return if setting was successful
      */
     public boolean untrack(int key) {
@@ -81,8 +80,8 @@ public class DailyService {
 
     /**
      * Interfaces with DailyDao to remove Daily task from database.
-     * 
-     * @param key    (database id)
+     *
+     * @param key (database id)
      * @return if deletion was successful
      */
     public boolean deleteDaily(int key) {
@@ -97,9 +96,9 @@ public class DailyService {
 
     /**
      * Interfaces with DailyDao to set Daily tasks to be done for this date.
-     * 
-     * @param key    (database id)
-     * 
+     *
+     * @param key (database id)
+     *
      * @return if setting was successful
      */
     public boolean setDone(int key) {
@@ -114,13 +113,13 @@ public class DailyService {
     /**
      * Creates a new Daily object, sets the time of creation and passes it to
      * the DAO (Data access object) to be stored in the database. Then it gets
-     * the returned object from DailyDao and uses the database id, 
-     * added in DailyDao to pass onto DaysShownDao for storing which days 
-     * of the week the Daily is shown. 
-     * 
-     * @param content   (name of task)
-     * @param diff  (difficulty of the task)
-     * @param days  (list with days of week to be tracked. index 1:monday, etc)
+     * the returned object from DailyDao and uses the database id, added in
+     * DailyDao to pass onto DaysShownDao for storing which days of the week the
+     * Daily is shown.
+     *
+     * @param content (name of task)
+     * @param diff (difficulty of the task)
+     * @param days (list with days of week to be tracked. index 1:monday, etc)
      * @return if creation was successful
      */
     public boolean createDaily(String content, int diff, boolean[] days) {
@@ -133,7 +132,7 @@ public class DailyService {
             return true;
         }
     }
-    
+
     private void setUndone(String dateToday) {
 
         for (Daily d : this.dailies) {
