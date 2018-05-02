@@ -12,7 +12,7 @@ will mirror you progressing, cultivating good habits and being productive.
 
 [Time tracking](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/time-tracking.md)
 
-[User guide]()
+[User guide](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/userGuide.md)
 
 ## Releases
 
