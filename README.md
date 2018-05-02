@@ -16,7 +16,7 @@ will mirror you progressing, cultivating good habits and being productive.
 
 ## Releases
 
-[Viikko 5](https://github.com/stadibo/otm-harjoitustyo/releases/tag/viikko5)
+[Viikko 6](https://github.com/stadibo/otm-harjoitustyo/releases/tag/v1.1)
 
 ## Command Line operations
 
