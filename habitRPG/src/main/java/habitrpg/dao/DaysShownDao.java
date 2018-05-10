@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.dao;
 
 import java.sql.Connection;
@@ -23,7 +18,7 @@ public class DaysShownDao {
         this.database = database;
         createTable();
     }
-    
+
     public boolean create(boolean[] days, Integer key) {
         String sql = "INSERT INTO "
                 + "DaysShown(monday, tuesday, wednesday, thursday, friday, saturday, sunday, daily_id) "
@@ -41,14 +36,14 @@ public class DaysShownDao {
             stmt.setBoolean(6, days[6]);
             stmt.setBoolean(7, days[7]);
             stmt.setInt(8, key);
-            
+
             stmt.executeUpdate();
         } catch (SQLException e) {
             return false;
         }
         return true;
     }
-    
+
     public boolean[] getDays(Integer key) {
         boolean[] days = new boolean[8];
         String sql = "SELECT monday, tuesday, wednesday, thursday, friday, saturday, sunday "
@@ -70,10 +65,28 @@ public class DaysShownDao {
 
         } catch (SQLException e) {
             return null;
-            //System.out.println(e.getMessage());
         }
-        
+
         return days;
+    }
+
+    public boolean delete(int key) {
+        String sql = "DELETE FROM DaysShown WHERE daily_id = ?";
+        int deleted = 0;
+        try (Connection conn = database.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, key);
+            deleted = stmt.executeUpdate();
+        } catch (SQLException e) {
+            return false;
+        }
+
+        if (deleted == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void createTable() {
@@ -95,25 +108,6 @@ public class DaysShownDao {
             stmt.execute(sql);
         } catch (Exception e) {
 
-        }
-    }
-
-    public boolean delete(int key) {
-        String sql = "DELETE FROM DaysShown WHERE daily_id = ?";
-        int deleted = 0;
-        try (Connection conn = database.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            stmt.setInt(1, key);
-            deleted = stmt.executeUpdate();
-        } catch (SQLException e) {
-            return false;
-        }
-
-        if (deleted == 0) {
-            return false;
-        } else {
-            return true;
         }
     }
 

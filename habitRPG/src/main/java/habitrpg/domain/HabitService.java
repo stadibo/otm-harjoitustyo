@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.domain;
 
 import habitrpg.dao.HabitDao;
@@ -82,17 +77,17 @@ public class HabitService {
     }
 
     /**
-     * Interfaces with HabitDao to add to a habits streak.
+     * Interfaces with HabitDao to add to or decrease a habits streak.
      *
      * @param key (database id)
      * @return if addition was successful
      */
-    public boolean addToStreak(Integer key) {
+    public boolean addToOrRemoveFromStreak(Integer key, int change) {
         boolean success = false;
         Habit toDelete;
         try {
             toDelete = habitDao.getOne(key);
-            success = habitDao.addToStreak(toDelete.getId(), toDelete);
+            success = habitDao.addToOrRemoveFromStreak(toDelete.getId(), toDelete, change);
         } catch (Exception e) {
         }
         return success;

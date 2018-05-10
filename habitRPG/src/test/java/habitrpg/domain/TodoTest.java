@@ -16,7 +16,7 @@ public class TodoTest {
     
     @Test
     public void equalWhenSameId() {
-        User user = new User("username", "name", "motto");
+        User user = new User("username", "name", 0, 1, 100);
         Todo todo1 = new Todo(1, "stuff", false, 1, user);
         Todo todo2 = new Todo(1, "stuff", false, 1, user);
         assertEquals(true, todo1.equals(todo2));
@@ -24,7 +24,7 @@ public class TodoTest {
   
     @Test
     public void notEqualWhenDifferentId() {
-        User user = new User("username", "name", "motto");
+        User user = new User("username", "name", 0, 1, 100);
         Todo todo1 = new Todo(1, "stuff", false, 1, user);
         Todo todo2 = new Todo(2, "no stuff", false, 1, user);
         assertEquals(false, todo1.equals(todo2));
@@ -32,7 +32,7 @@ public class TodoTest {
     
     @Test
     public void nonEqualWhenDifferentType() {
-        User user = new User("username", "name", "motto");
+        User user = new User("username", "name", 0, 1, 100);
         Todo todo = new Todo(1, "stuff", false, 1, user);
         Object obj = new Object();
         assertEquals(false, todo.equals(obj));

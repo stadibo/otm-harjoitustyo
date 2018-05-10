@@ -8,6 +8,7 @@ package habitrpg.domain;
 import habitrpg.dao.DailyDao;
 import habitrpg.dao.Database;
 import habitrpg.dao.DaysShownDao;
+import habitrpg.dao.UserDao;
 import java.io.File;
 import java.util.List;
 import org.junit.After;
@@ -25,6 +26,8 @@ public class DailyServiceTest {
     private DailyDao dailyDao;
     private DaysShownDao dsDao;
     private FakeTime time;
+    private UserDao ud;
+    private UserService us;
     boolean[] days;
 
     public DailyServiceTest() {
@@ -43,9 +46,14 @@ public class DailyServiceTest {
         time = new FakeTime();
         dailyDao = new DailyDao(db);
         dsDao = new DaysShownDao(db);
-        dailyService = new DailyService(dailyDao, dsDao, time);
+        ud = new UserDao(db);
+        us = new UserService(ud);
+        dailyService = new DailyService(dailyDao, dsDao, time, us);
 
-        User user = new User("tester", "elon musk", "going to mars");
+        
+        User user = new User("tester", "elon musk", 0, 1, 100);
+        
+        ud.create(user);
         dailyService.updateUser(user);
         dailyDao.setUser(user);
     }

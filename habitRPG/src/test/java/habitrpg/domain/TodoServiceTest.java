@@ -34,7 +34,7 @@ public class TodoServiceTest {
         todoDao = new TodoDao(db);
         ts = new TodoService(todoDao);
 
-        User user = new User("tester", "elon musk", "going to mars");
+        User user = new User("tester", "elon musk", 0, 1, 100);
         ts.updateUser(user);
 
         todoDao.setUser(user);

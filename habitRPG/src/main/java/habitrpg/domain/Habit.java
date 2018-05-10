@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.domain;
-
-import java.util.Date;
 
 /**
  *
@@ -15,8 +8,7 @@ public class Habit {
     private int id;
     private String content;
     private int difficulty;
-    private boolean retired; 
-    //private Integer type; // 1 = to cultivate (good), 0 = to break (bad)
+    private boolean retired;
     private int currentStreak;
     private User user;
     

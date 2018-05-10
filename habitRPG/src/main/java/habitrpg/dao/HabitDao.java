@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.dao;
 
 import habitrpg.domain.Habit;
@@ -19,7 +14,7 @@ import java.util.List;
  *
  * @author peje
  */
-public class HabitDao implements Dao<Habit, Integer> {
+public class HabitDao {
 
     private Database database;
     private User user;
@@ -33,7 +28,6 @@ public class HabitDao implements Dao<Habit, Integer> {
         this.user = user;
     }
 
-    @Override
     public Habit getOne(Integer key) {
         Habit found = null;
         String sql = "SELECT id, content, retired, difficulty, streak "
@@ -55,14 +49,12 @@ public class HabitDao implements Dao<Habit, Integer> {
                     this.user);
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
         }
 
         return found;
 
     }
 
-    @Override
     public List<Habit> getAll() {
         List<Habit> habits = new ArrayList<>();
         String sql = "SELECT id, content, retired, difficulty, streak "
@@ -88,7 +80,6 @@ public class HabitDao implements Dao<Habit, Integer> {
         return habits;
     }
 
-    @Override
     public Habit create(Habit object) {
         String sql = "INSERT INTO "
                 + "Habit(content, retired, difficulty, streak, username) "
@@ -108,13 +99,11 @@ public class HabitDao implements Dao<Habit, Integer> {
             stmt.executeUpdate();
         } catch (SQLException e) {
             return null;
-            //System.out.println(e.getMessage());
         }
 
         return object;
     }
 
-    @Override
     public boolean delete(Integer key) {
         String sql = "DELETE FROM Habit WHERE username = ? AND id = ?";
         int deleted = 0;
@@ -127,7 +116,6 @@ public class HabitDao implements Dao<Habit, Integer> {
             deleted = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 
@@ -138,7 +126,6 @@ public class HabitDao implements Dao<Habit, Integer> {
         }
     }
 
-    @Override
     public boolean setDone(Integer key) {
         String sql = "UPDATE Habit SET retired = ? WHERE username = ? AND id = ?";
 
@@ -152,27 +139,25 @@ public class HabitDao implements Dao<Habit, Integer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 
         return true;
     }
 
-    public boolean addToStreak(Integer key, Habit object) {
+    public boolean addToOrRemoveFromStreak(Integer key, Habit object, int change) {
         String sql = "UPDATE Habit SET streak = ? WHERE username = ? AND id = ?";
 
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             //set value
-            stmt.setInt(1, object.getCurrentStreak() + 1);
+            stmt.setInt(1, object.getCurrentStreak() + change);
             stmt.setString(2, this.user.getUsername());
             stmt.setInt(3, key);
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 

@@ -35,7 +35,7 @@ public class UserServiceTest {
         userDao = new UserDao(db);
         us = new UserService(userDao);
 
-        User user = new User("tester", "elon musk", "going to mars");
+        User user = new User("tester", "elon musk", 0, 1, 100);
         userDao.create(user);
     }
 
@@ -52,7 +52,7 @@ public class UserServiceTest {
         us.login(username);
         assertEquals("tester", us.getLoggedUser().getUsername());
         assertEquals("elon musk", us.getLoggedUser().getName());
-        assertEquals("going to mars", us.getLoggedUser().getMotto());
+        assertEquals(1, us.getLoggedUser().getLevel());
     }
 
     @Test
@@ -74,23 +74,64 @@ public class UserServiceTest {
     public void canSuccessfullyCreateNewUniqueUser() {
         String username = "tester2";
         String name = "mister mister";
-        String motto = "always testing";
-        boolean success = us.newUser(username, name, motto);
+        boolean success = us.newUser(username, name);
         assertTrue(success);
 
         us.login(username);
         assertEquals("tester2", us.getLoggedUser().getUsername());
         assertEquals("mister mister", us.getLoggedUser().getName());
-        assertEquals("always testing", us.getLoggedUser().getMotto());
+        assertEquals(1, us.getLoggedUser().getLevel());
     }
 
     @Test
     public void canOnlyCreateUserUniqueUsername() {
         String username = "tester";
         String name = "elon tusk";
-        String motto = "always testing";
-        boolean success = us.newUser(username, name, motto);
+        boolean success = us.newUser(username, name);
         assertFalse(success);
+    }
+    
+    @Test
+    public void canAddExperience() {
+        us.login("tester");
+        us.addExp(1);
+        assertEquals(25, us.getLoggedUser().getExperience());
+        
+        us.addExp(2);
+        assertEquals(75, us.getLoggedUser().getExperience());
+        
+        us.addExp(3);
+        assertEquals(175, us.getLoggedUser().getExperience());
+    }
+    
+    @Test
+    public void canRemoveExperience() {
+        us.login("tester");
+        us.addExp(3);
+        us.removeExp(75);
+        assertEquals(25, us.getLoggedUser().getExperience());
+    }
+    
+    @Test
+    public void levelIncreaseWithEnoughExperience() {
+        us.login("tester");
+        us.getLoggedUser().setExperience(1950);
+        us.addExp(3);
+        assertEquals(50, us.getLoggedUser().getExperience());
+        assertEquals(2, us.getLoggedUser().getLevel());
+        assertEquals(400, us.getLoggedUser().getHealth());
+    }
+    
+    @Test
+    public void levelDecreaseByPenalty() {
+        us.login("tester");
+        us.getLoggedUser().setExperience(0);
+        us.getLoggedUser().setLevel(2);
+        us.getLoggedUser().setHealth(400);
+        us.experiencePenalty();
+        assertEquals(0, us.getLoggedUser().getExperience());
+        assertEquals(1, us.getLoggedUser().getLevel());
+        assertEquals(200, us.getLoggedUser().getHealth());
     }
 
 }

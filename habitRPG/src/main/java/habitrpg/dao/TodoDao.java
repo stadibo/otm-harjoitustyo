@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.dao;
 
 import habitrpg.domain.Todo;
@@ -19,7 +14,7 @@ import java.util.List;
  *
  * @author peje
  */
-public class TodoDao implements Dao<Todo, Integer> {
+public class TodoDao{
 
     private Database database;
     private User user;
@@ -33,7 +28,6 @@ public class TodoDao implements Dao<Todo, Integer> {
         this.user = user;
     }
 
-    @Override
     public Todo getOne(Integer key) {
         Todo found = null;
         String sql = "SELECT id, content, complete, difficulty "
@@ -61,7 +55,6 @@ public class TodoDao implements Dao<Todo, Integer> {
         return found;
     }
 
-    @Override
     public List<Todo> getAll() {
 
         List<Todo> todos = new ArrayList<>();
@@ -91,7 +84,6 @@ public class TodoDao implements Dao<Todo, Integer> {
         return todos;
     }
 
-    @Override
     public Todo create(Todo object) {
         String sql = "INSERT INTO "
                 + "Todo(content, complete, difficulty, username) "
@@ -115,7 +107,6 @@ public class TodoDao implements Dao<Todo, Integer> {
         return object;
     }
 
-    @Override
     public boolean delete(Integer key) {
         String sql = "DELETE FROM Todo WHERE username = ? AND id = ?";
 
@@ -135,7 +126,6 @@ public class TodoDao implements Dao<Todo, Integer> {
         return true;
     }
 
-    @Override
     public boolean setDone(Integer key) {
         String sql = "UPDATE Todo SET complete = ? WHERE username = ? AND id = ?";
         try (Connection conn = database.getConnection();

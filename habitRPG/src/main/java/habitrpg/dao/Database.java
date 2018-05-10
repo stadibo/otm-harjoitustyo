@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.dao;
 
 import java.io.File;
@@ -21,10 +16,6 @@ public class Database {
 
     private String path;
 
-    public Database(File file) {
-        this.path = file.getAbsolutePath();
-    }
-
     public Database() {
     }
 
@@ -40,15 +31,12 @@ public class Database {
             conn = DriverManager.getConnection("jdbc:sqlite:" + url);
             conn.close();
         } catch (Exception e) {
-            //System.out.println(e.getMessage());
         } finally {
-
             this.setPath(url);
         }
     }
 
     private void setPath(String path) {
-        //System.out.println("New path: " + path);
         this.path = path;
     }
 

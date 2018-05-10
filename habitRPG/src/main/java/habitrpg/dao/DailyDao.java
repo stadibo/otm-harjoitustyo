@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.dao;
 
 import habitrpg.domain.Daily;
@@ -19,7 +14,7 @@ import java.util.List;
  *
  * @author peje
  */
-public class DailyDao implements Dao<Daily, Integer> {
+public class DailyDao  {
 
     private Database database;
     private User user;
@@ -33,7 +28,6 @@ public class DailyDao implements Dao<Daily, Integer> {
         this.user = user;
     }
 
-    @Override
     public Daily getOne(Integer key) {
         Daily found = null;
         String sql = "SELECT id, content, complete, retired, difficulty, date "
@@ -56,13 +50,11 @@ public class DailyDao implements Dao<Daily, Integer> {
                     this.user);
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
         }
 
         return found;
     }
 
-    @Override
     public List<Daily> getAll() {
         List<Daily> dailies = new ArrayList<>();
         String sql = "SELECT id, content, complete, retired, difficulty, date "
@@ -88,7 +80,6 @@ public class DailyDao implements Dao<Daily, Integer> {
         return dailies;
     }
 
-    @Override
     public Daily create(Daily object) {
         String sql = "INSERT INTO "
                 + "Daily(content, complete, retired, difficulty, date, username) "
@@ -111,13 +102,11 @@ public class DailyDao implements Dao<Daily, Integer> {
             object.setId(rs.getInt(1));
         } catch (SQLException e) {
             return null;
-            //System.out.println(e.getMessage());
         }
 
         return object;
     }
 
-    @Override
     public boolean delete(Integer key) {
         String sql = "DELETE FROM Daily WHERE username = ? AND id = ?";
         int deleted = 0;
@@ -130,7 +119,6 @@ public class DailyDao implements Dao<Daily, Integer> {
             deleted = stmt.executeUpdate();
             
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 
@@ -141,7 +129,6 @@ public class DailyDao implements Dao<Daily, Integer> {
         }
     }
 
-    @Override
     public boolean setDone(Integer key) {
         String sql = "UPDATE Daily SET complete = ? WHERE username = ? AND id = ?";
 
@@ -155,7 +142,6 @@ public class DailyDao implements Dao<Daily, Integer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 
@@ -175,7 +161,6 @@ public class DailyDao implements Dao<Daily, Integer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 
@@ -195,7 +180,6 @@ public class DailyDao implements Dao<Daily, Integer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 
@@ -215,7 +199,6 @@ public class DailyDao implements Dao<Daily, Integer> {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 
@@ -238,7 +221,6 @@ public class DailyDao implements Dao<Daily, Integer> {
                 Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
         } catch (Exception e) {
-
         }
     }
 

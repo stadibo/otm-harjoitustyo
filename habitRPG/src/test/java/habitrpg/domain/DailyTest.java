@@ -16,7 +16,7 @@ public class DailyTest {
     
     @Test
     public void equalWhenSameId() {
-        User user = new User("username", "name", "motto");
+        User user = new User("username", "name",  0, 1, 100);
         Daily d1 = new Daily(1, "stuff", false, false, 1, "20180101", user);
         Daily d2 = new Daily(1, "stuff", false, false, 1, "20180101", user);
         assertEquals(true, d1.equals(d2));
@@ -24,7 +24,7 @@ public class DailyTest {
   
     @Test
     public void notEqualWhenDifferentId() {
-        User user = new User("username", "name", "motto");
+        User user = new User("username", "name",  0, 1, 100);
         Daily d1 = new Daily(1, "stuff", false, false, 1, "20180101", user);
         Daily d2 = new Daily(2, "no stuff", false, false, 1, "20180101", user);
         assertEquals(false, d1.equals(d2));
@@ -32,7 +32,7 @@ public class DailyTest {
     
     @Test
     public void nonEqualWhenDifferentType() {
-        User user = new User("username", "name", "motto");
+        User user = new User("username", "name",  0, 1, 100);
         Daily daily = new Daily(1, "stuff", false, false, 1, "20180101", user);
         Object obj = new Object();
         assertEquals(false, daily.equals(obj));

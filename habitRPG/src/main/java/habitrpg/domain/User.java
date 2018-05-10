@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.domain;
-
-import java.util.Objects;
 
 /**
  *
@@ -15,18 +8,17 @@ public class User {
     
     private String name;
     private String username;
-    private String motto; //inspirational quote to be displayed when you login.
+    private int experience;
+    private int level;
+    private int health;
     
-    public User(String username, String name, String motto) {
+    public User(String username, String name, int exp, int lvl, int hp) {
         this.name = name;
         this.username = username;
-        this.motto = motto;
+        this.experience = exp;
+        this.level = lvl;
+        this.health = hp;
     }
-    
-//    public User(String username, String name) {
-//        this.name = name;
-//        this.username = username;
-//    }
 
     public String getName() {
         return name;
@@ -35,15 +27,31 @@ public class User {
     public String getUsername() {
         return username;
     }
-    
-    public String getMotto() {
-        return motto;
+
+    public int getExperience() {
+        return experience;
     }
 
-//    public void setMotto(String motto) {
-//        this.motto = motto;
-//    }
+    public int getLevel() {
+        return level;
+    }
 
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

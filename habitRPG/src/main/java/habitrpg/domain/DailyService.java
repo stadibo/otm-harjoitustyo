@@ -16,15 +16,17 @@ public class DailyService {
 
     private DailyDao dailyDao;
     private DaysShownDao dsDao;
+    private UserService userService;
 
     private List<Daily> dailies;
     private Time time;
 
-    public DailyService(DailyDao dailyDao, DaysShownDao dsDao, Time uiTime) {
+    public DailyService(DailyDao dailyDao, DaysShownDao dsDao, Time uiTime, UserService us) {
         this.dailyDao = dailyDao;
         this.dsDao = dsDao;
         this.dailies = new ArrayList<>();
         this.time = uiTime;
+        this.userService = us;
     }
 
     /**
@@ -123,7 +125,6 @@ public class DailyService {
      * @return if creation was successful
      */
     public boolean createDaily(String content, int diff, boolean[] days) {
-
         Daily newDaily = dailyDao.create(new Daily(content, diff, time.getDateNow()));
         if (newDaily == null) {
             return false;
@@ -134,12 +135,13 @@ public class DailyService {
     }
 
     private void setUndone(String dateToday) {
-
         for (Daily d : this.dailies) {
             if (!d.getDate().equals(dateToday)) {
                 dailyDao.setUndone(d.getId());
+                if (!d.isComplete()) {
+                    userService.experiencePenalty();
+                }
                 d.setComplete(false);
-                // remove exp and health if "not complete" before update date
                 dailyDao.updateDate(d.getId(), dateToday);
                 d.setDate(dateToday);
             }

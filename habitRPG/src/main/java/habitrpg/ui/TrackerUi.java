@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.ui;
 
 import habitrpg.dao.DailyDao;
@@ -59,6 +54,7 @@ public class TrackerUi extends Application {
     private VBox habitNodes;
     private VBox dailyNodes;
     private Label menuLabel = new Label();
+    private Label userStatsLabel = new Label();
 
     private boolean deleteMode;
 
@@ -78,7 +74,7 @@ public class TrackerUi extends Application {
         habitService = new HabitService(habitDao);
         todoService = new TodoService(todoDao);
         Time time = new Time();
-        dailyService = new DailyService(dailyDao, dsDao, time);
+        dailyService = new DailyService(dailyDao, dsDao, time, userService);
 
     }
 
@@ -89,6 +85,7 @@ public class TrackerUi extends Application {
         Button button = new Button("done");
         button.setOnAction(e -> {
             todoService.setDone(todo.getId());
+            userService.addExp(todo.getDifficulty());
             redrawlist(1);
         });
 
@@ -97,8 +94,7 @@ public class TrackerUi extends Application {
             todoService.deleteTodo(todo.getId());
             redrawlist(1);
         });
-        //Region spacer = new Region();
-        //HBox.setHgrow(spacer, Priority.ALWAYS);
+        
         box.setPadding(new Insets(5, 5, 5, 5));
         deleteButton.setStyle("-fx-base: #E74C3C;");
 
@@ -125,11 +121,20 @@ public class TrackerUi extends Application {
 
     public Node createHabitNode(Habit habit) {
         HBox box = new HBox(10);
-        Label label = new Label(habit.getContent() + " // streak: " + habit.getCurrentStreak());
+        Label label = new Label(habit.getContent());
         label.setMinHeight(28);
+        
         Button button = new Button("+");
         button.setOnAction(e -> {
-            habitService.addToStreak(habit.getId());
+            habitService.addToOrRemoveFromStreak(habit.getId(), 1);
+            userService.addExp(habit.getDifficulty());
+            redrawlist(2);
+        });
+        
+        Button negativeButton = new Button("-");
+        negativeButton.setOnAction(e -> {
+            habitService.addToOrRemoveFromStreak(habit.getId(), -1);
+            userService.experiencePenalty();
             redrawlist(2);
         });
 
@@ -144,18 +149,26 @@ public class TrackerUi extends Application {
             habitService.untrack(habit.getId());
             redrawlist(2);
         });
-
-//        Region spacer = new Region();
-//        HBox.setHgrow(spacer, Priority.ALWAYS);
+        
         box.setPadding(new Insets(5, 5, 5, 5));
         deleteButton.setStyle("-fx-base: #E74C3C;");
 
-        box.setStyle("-fx-background-color: #E5E8E8; -fx-base: #E5E8E8;");
-
+        switch (habit.getDifficulty()) {
+            case 1:
+                box.setStyle("-fx-background-color: #ABEBC6; -fx-base: #58D68D;");
+                break;
+            case 2:
+                box.setStyle("-fx-background-color: #AED6F1; -fx-base: #5DADE2;");
+                break;
+            case 3:
+                box.setStyle("-fx-background-color: #D7BDE2; -fx-base: #AF7AC5;");
+                break;
+        }
+        
         if (deleteMode) {
             box.getChildren().addAll(deleteButton, label);
         } else {
-            box.getChildren().addAll(button, label, untrackButton);
+            box.getChildren().addAll(button, negativeButton, label, untrackButton);
         }
 
         return box;
@@ -168,6 +181,7 @@ public class TrackerUi extends Application {
         Button button = new Button("done");
         button.setOnAction(e -> {
             dailyService.setDone(daily.getId());
+            userService.addExp(daily.getDifficulty());
             redrawlist(3);
         });
 
@@ -186,7 +200,17 @@ public class TrackerUi extends Application {
         box.setPadding(new Insets(5, 5, 5, 5));
         deleteButton.setStyle("-fx-base: #E74C3C;");
 
-        box.setStyle("-fx-background-color: #E5E8E8; -fx-base: #E5E8E8;");
+        switch (daily.getDifficulty()) {
+            case 1:
+                box.setStyle("-fx-background-color: #ABEBC6; -fx-base: #58D68D;");
+                break;
+            case 2:
+                box.setStyle("-fx-background-color: #AED6F1; -fx-base: #5DADE2;");
+                break;
+            case 3:
+                box.setStyle("-fx-background-color: #D7BDE2; -fx-base: #AF7AC5;");
+                break;
+        }
 
         if (deleteMode) {
             box.getChildren().addAll(deleteButton, label);
@@ -227,18 +251,20 @@ public class TrackerUi extends Application {
                 break;
         }
 
+        userStatsLabel.setText("PROGRESS: level " 
+                    + userService.getLoggedUser().getLevel() 
+                    + " | exp " + userService.getLoggedUser().getExperience());
     }
 
     @Override
     public void start(Stage primaryStage) {
 
         // login                                                     -------------------------------
+        
         GridPane loginGrid = new GridPane();
         loginGrid.setPadding(new Insets(10, 10, 10, 10));
         loginGrid.setVgap(8);
         loginGrid.setHgap(10);
-
-        menuLabel.setStyle("-fx-font-size: 20px;");
 
         Label nameLabel = new Label("Username");
         loginGrid.setConstraints(nameLabel, 0, 0);
@@ -257,13 +283,16 @@ public class TrackerUi extends Application {
 
         loginButton.setOnAction(e -> {
             String username = nameInput.getText();
-            menuLabel.setText(username + " : logged in");
             if (userService.login(username)) {
                 User user = userService.getLoggedUser();
                 todoService.updateUser(user);
                 habitService.updateUser(user);
                 dailyService.updateUser(user);
                 loginMessage.setText("");
+                
+                menuLabel.setText(username + " : logged in");
+                userStatsLabel.setText("PROGRESS: level " + user.getLevel() 
+                        + " | exp " + user.getExperience());
                 redrawlist(1);
                 redrawlist(2);
                 redrawlist(3);
@@ -290,7 +319,9 @@ public class TrackerUi extends Application {
 
         loginScene = new Scene(loginGrid, 1000, 600);
 
+        
         // new user                                                -------------------------------
+        
         GridPane newUserGrid = new GridPane();
         newUserGrid.setPadding(new Insets(10, 10, 10, 10));
         newUserGrid.setVgap(8);
@@ -310,37 +341,28 @@ public class TrackerUi extends Application {
         newNameInput.setPromptText("Ellon Mushk");
         newUserGrid.setConstraints(newNameInput, 1, 1);
 
-        Label newMottoLabel = new Label("Quote");
-        newUserGrid.setConstraints(newMottoLabel, 0, 2);
-
-        TextField newMottoInput = new TextField();
-        newMottoInput.setPromptText("\"A product that needs a manual is broken.\"");
-        newUserGrid.setConstraints(newMottoInput, 1, 2);
-
         Button createNewUserButt = new Button("create");
-        newUserGrid.setConstraints(createNewUserButt, 1, 4);
+        newUserGrid.setConstraints(createNewUserButt, 1, 3);
 
         Button cancelNewUserButt = new Button("go back");
-        newUserGrid.setConstraints(cancelNewUserButt, 1, 5);
+        newUserGrid.setConstraints(cancelNewUserButt, 1, 4);
 
         Label userCreationMsg = new Label();
-        newUserGrid.setConstraints(userCreationMsg, 1, 6);
+        newUserGrid.setConstraints(userCreationMsg, 1, 5);
 
         createNewUserButt.setOnAction(e -> {
             String username = newUserInput.getText();
             String name = newNameInput.getText();
-            String motto = newMottoInput.getText();
 
             if (username.length() == 2 || name.length() < 2) {
                 userCreationMsg.setText("username or name too short");
                 userCreationMsg.setTextFill(Color.RED);
-            } else if (userService.newUser(username, name, motto)) {
+            } else if (userService.newUser(username, name)) {
                 userCreationMsg.setText("");
                 loginMessage.setText("new user created");
                 loginMessage.setTextFill(Color.GREEN);
                 newUserInput.setText("");
                 newNameInput.setText("");
-                newMottoInput.setText("");
                 primaryStage.setScene(loginScene);
             } else {
                 userCreationMsg.setText("username has to be unique");
@@ -351,7 +373,6 @@ public class TrackerUi extends Application {
         cancelNewUserButt.setOnAction(e -> {
             newUserInput.setText("");
             newNameInput.setText("");
-            newMottoInput.setText("");
             primaryStage.setScene(loginScene);
         });
 
@@ -361,16 +382,15 @@ public class TrackerUi extends Application {
                 newNameLabel,
                 createNewUserButt,
                 newNameInput,
-                newMottoLabel,
-                newMottoInput,
                 cancelNewUserButt);
 
         newUserGrid.setAlignment(Pos.CENTER);
 
         newUserScene = new Scene(newUserGrid, 1000, 600);
 
+        
         // create todo                                             --------------------------------
-        //BorderPane bp1 = new BorderPane();
+        
         GridPane newTodoGrid = new GridPane();
         newTodoGrid.setPadding(new Insets(10, 10, 10, 10));
         newTodoGrid.setVgap(8);
@@ -418,7 +438,7 @@ public class TrackerUi extends Application {
                     break;
             }
 
-            if (todo.length() <= 2 || 30 < todo.length()) {
+            if (todo.length() <= 2 || 18 < todo.length()) {
                 todoCreationMsg.setText("description too long or too short");
                 todoCreationMsg.setTextFill(Color.RED);
             } else if (todoService.createTodo(todo, diff)) {
@@ -448,15 +468,11 @@ public class TrackerUi extends Application {
                 todoCreationMsg);
 
         newTodoGrid.setAlignment(Pos.CENTER);
-        //bp1.getChildren().addAll(newTodoGrid);
-
-        //BorderPane.setAlignment(newTodoGrid, Pos.CENTER);
         todoScene = new Scene(newTodoGrid, 1000, 600);
 
-        // create habit                                            --------------------------------
-
         
-        //BorderPane bp2 = new BorderPane();
+        // create habit                                            --------------------------------
+        
         GridPane newHabitGrid = new GridPane();
         newHabitGrid.setPadding(new Insets(10, 10, 10, 10));
         newHabitGrid.setVgap(8);
@@ -506,7 +522,7 @@ public class TrackerUi extends Application {
                     break;
             }
 
-            if (habit.length() <= 2 || 24 < habit.length()) {
+            if (habit.length() <= 2 || 18 < habit.length()) {
                 habitCreationMsg.setText("description too long or too short");
                 habitCreationMsg.setTextFill(Color.RED);
             } else if (habitService.createHabit(habit, diff)) {
@@ -604,7 +620,6 @@ public class TrackerUi extends Application {
             days[5] = fri.isSelected();
             days[6] = sat.isSelected();
             days[7] = sun.isSelected();
-            // days shown functionality RIP!!!
 
             int diff = 1;
             switch (difficulty) {
@@ -619,7 +634,7 @@ public class TrackerUi extends Application {
                     break;
             }
 
-            if (daily.length() <= 2 || 24 < daily.length()) {
+            if (daily.length() <= 2 || 18 < daily.length()) {
                 dailyCreationMsg.setText("description too long or too short");
                 dailyCreationMsg.setTextFill(Color.RED);
             } else if (dailyService.createDaily(daily, diff, days)) {
@@ -670,6 +685,8 @@ public class TrackerUi extends Application {
         dailyScene = new Scene(newDailyGrid, 1000, 600);
 
         // tracker scene                                            --------------------------------
+        
+        
         Button createNewTodo = new Button("New to-do");
         Button createNewHabit = new Button("New habit");
         Button createNewDaily = new Button("New daily task");
@@ -707,18 +724,22 @@ public class TrackerUi extends Application {
         todos.getChildren().addAll(createNewTodo, todoScrollbar);
 
         trackerPane.setPadding(new Insets(10, 10, 10, 10));
-        //verticalLayout.setStyle("-fx-background-color: DAE6F3;");
         trackerPane.getChildren().addAll(habits, dailies, todos);
 
         trackerScene = new Scene(verticalLayout, 1000, 600);
 
+        menuLabel.setStyle("-fx-font-size: 20px;");
+        userStatsLabel.setStyle("-fx-font-size: 20px;");
         HBox menuPane = new HBox(15);
         menuPane.setPadding(new Insets(10, 10, 10, 10));
 
         Button logoutButton = new Button("logout");
         Button deleteModeButton = new Button("delete mode");
 
-        menuPane.getChildren().addAll(menuLabel, logoutButton, deleteModeButton);
+        menuPane.getChildren().addAll(menuLabel, 
+                logoutButton, 
+                deleteModeButton, 
+                userStatsLabel);
 
         deleteModeButton.setOnAction(e -> {
 
@@ -739,28 +760,27 @@ public class TrackerUi extends Application {
             todoService.updateUser(null);
             habitService.updateUser(null);
             dailyService.updateUser(null);
-            
-            if (deleteMode) {
-                deleteModeButton.setStyle("-fx-base: #f4f4f4;");
-            } else {
-                deleteModeButton.setStyle("-fx-base: #E74C3C;");
-            }
             deleteMode = false;
+            if (deleteMode) {
+                deleteModeButton.setStyle("-fx-base: #E74C3C;");
+            } else {
+                deleteModeButton.setStyle("-fx-base: #f4f4f4;");
+            }
+            
             primaryStage.setScene(loginScene);
         });
 
         todoNodes = new VBox(0);
-        todoNodes.setMaxWidth(300);
-        todoNodes.setMinWidth(300);
-        //redrawlist();
+        todoNodes.setMaxWidth(310);
+        todoNodes.setMinWidth(310);
 
         habitNodes = new VBox(0);
-        habitNodes.setMaxWidth(300);
-        habitNodes.setMinWidth(300);
+        habitNodes.setMaxWidth(310);
+        habitNodes.setMinWidth(310);
 
         dailyNodes = new VBox(0);
-        dailyNodes.setMaxWidth(300);
-        dailyNodes.setMinWidth(300);
+        dailyNodes.setMaxWidth(310);
+        dailyNodes.setMinWidth(310);
 
         verticalLayout.getChildren().addAll(menuPane, trackerPane);
 

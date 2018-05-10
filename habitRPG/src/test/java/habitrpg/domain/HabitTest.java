@@ -16,7 +16,7 @@ public class HabitTest {
     
     @Test
     public void equalWhenSameId() {
-        User user = new User("username", "name", "motto");
+        User user = new User("username", "name",  0, 1, 100);
         Habit habit1 = new Habit(1, "stuff", false, 1, 0, user);
         Habit habit2 = new Habit(1, "stuff", false, 1, 0, user);
         assertEquals(true, habit1.equals(habit2));
@@ -24,7 +24,7 @@ public class HabitTest {
   
     @Test
     public void notEqualWhenDifferentId() {
-        User user = new User("username", "name", "motto");
+        User user = new User("username", "name",  0, 1, 100);
         Habit habit1 = new Habit(1, "stuff", false, 1, 0, user);
         Habit habit2 = new Habit(2, "no stuff", false, 1, 0, user);
         assertEquals(false, habit1.equals(habit2));
@@ -32,7 +32,7 @@ public class HabitTest {
     
     @Test
     public void nonEqualWhenDifferentType() {
-        User user = new User("username", "name", "motto");
+        User user = new User("username", "name",  0, 1, 100);
         Habit habit = new Habit(1, "stuff", false, 1, 0, user);
         Object obj = new Object();
         assertEquals(false, habit.equals(obj));

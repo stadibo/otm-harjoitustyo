@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.domain;
 
 import habitrpg.dao.Database;
@@ -43,7 +38,7 @@ public class HabitServiceTest {
         habitDao = new HabitDao(db);
         hs = new HabitService(habitDao);
 
-        User user = new User("tester", "elon musk", "going to mars");
+        User user = new User("tester", "elon musk", 0, 1, 100);
         hs.updateUser(user);
 
         habitDao.setUser(user);
@@ -95,16 +90,16 @@ public class HabitServiceTest {
     public void canAddToStreakWhenHabitExists() {
         assertEquals(0, habitDao.getOne(1).getCurrentStreak());
 
-        assertTrue(hs.addToStreak(1));
-        assertTrue(hs.addToStreak(1));
-        assertTrue(hs.addToStreak(1));
+        assertTrue(hs.addToOrRemoveFromStreak(1, 1));
+        assertTrue(hs.addToOrRemoveFromStreak(1, 1));
+        assertTrue(hs.addToOrRemoveFromStreak(1, 1));
 
         assertEquals(3, habitDao.getOne(1).getCurrentStreak());
     }
 
     @Test
     public void cannotAddToStreakWhenHabitNotExists() {
-        assertFalse(hs.addToStreak(2));
+        assertFalse(hs.addToOrRemoveFromStreak(2, 1));
     }
 
 }
