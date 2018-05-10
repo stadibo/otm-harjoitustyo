@@ -121,16 +121,17 @@ public class DailyService {
      *
      * @param content (name of task)
      * @param diff (difficulty of the task)
-     * @param days (list with days of week to be tracked. index 1:monday, etc)
+     * @param days (list with days of week to be tracked. index 1:Monday, etc)
      * @return if creation was successful
      */
     public boolean createDaily(String content, int diff, boolean[] days) {
         Daily newDaily = dailyDao.create(new Daily(content, diff, time.getDateNow()));
-        if (newDaily == null) {
-            return false;
-        } else {
+        
+        if (newDaily != null) {
             this.setDays(days, newDaily.getId());
             return true;
+        } else {
+            return false;
         }
     }
 

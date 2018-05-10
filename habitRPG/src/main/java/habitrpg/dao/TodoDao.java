@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author peje
  */
-public class TodoDao{
+public class TodoDao {
 
     private Database database;
     private User user;
@@ -50,7 +50,6 @@ public class TodoDao{
                     this.user);
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
         }
         return found;
     }
@@ -77,8 +76,6 @@ public class TodoDao{
                         this.user));
             }
         } catch (SQLException e) {
-
-            //System.out.println(e.getMessage());
         }
 
         return todos;
@@ -102,7 +99,6 @@ public class TodoDao{
             stmt.executeUpdate();
         } catch (SQLException e) {
             return null;
-            //System.out.println(e.getMessage());
         }
         return object;
     }
@@ -119,7 +115,6 @@ public class TodoDao{
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 
@@ -138,7 +133,6 @@ public class TodoDao{
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             return false;
         }
 

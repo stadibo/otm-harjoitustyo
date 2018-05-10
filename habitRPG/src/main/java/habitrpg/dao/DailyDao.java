@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author peje
  */
-public class DailyDao  {
+public class DailyDao {
 
     private Database database;
     private User user;
@@ -74,6 +74,7 @@ public class DailyDao  {
                         res.getInt("difficulty"), res.getString("date"),
                         this.user));
             }
+
         } catch (SQLException e) {
         }
 
@@ -95,9 +96,9 @@ public class DailyDao  {
             stmt.setInt(4, object.getDifficulty());
             stmt.setString(5, object.getDate());
             stmt.setString(6, this.user.getUsername());
-            
+
             stmt.executeUpdate();
-            
+
             ResultSet rs = stmt.getGeneratedKeys();
             object.setId(rs.getInt(1));
         } catch (SQLException e) {
@@ -117,9 +118,8 @@ public class DailyDao  {
             stmt.setString(1, this.user.getUsername());
             stmt.setInt(2, key);
             deleted = stmt.executeUpdate();
-            
+
         } catch (SQLException e) {
-            return false;
         }
 
         if (deleted == 0) {
@@ -131,7 +131,7 @@ public class DailyDao  {
 
     public boolean setDone(Integer key) {
         String sql = "UPDATE Daily SET complete = ? WHERE username = ? AND id = ?";
-
+        int affected = 0;
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -139,18 +139,21 @@ public class DailyDao  {
             stmt.setBoolean(1, true);
             stmt.setString(2, user.getUsername());
             stmt.setInt(3, key);
-            stmt.executeUpdate();
+            affected = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            return false;
         }
 
-        return true;
+        if (affected == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
-    
+
     public boolean setUndone(Integer key) {
         String sql = "UPDATE Daily SET complete = ? WHERE username = ? AND id = ?";
-
+        int affected = 0;
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -158,18 +161,21 @@ public class DailyDao  {
             stmt.setBoolean(1, false);
             stmt.setString(2, user.getUsername());
             stmt.setInt(3, key);
-            stmt.executeUpdate();
+            affected = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            return false;
         }
 
-        return true;
+        if (affected == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
-    
+
     public boolean setUntracked(Integer key) {
         String sql = "UPDATE Daily SET retired = ? WHERE username = ? AND id = ?";
-
+        int affected = 0;
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -177,18 +183,21 @@ public class DailyDao  {
             stmt.setBoolean(1, true);
             stmt.setString(2, user.getUsername());
             stmt.setInt(3, key);
-            stmt.executeUpdate();
+            affected = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            return false;
         }
 
-        return true;
+        if (affected == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
-    
+
     public boolean updateDate(int key, String date) {
         String sql = "UPDATE Daily SET date = ? WHERE username = ? AND id = ?";
-
+        int affected = 0;
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -196,13 +205,16 @@ public class DailyDao  {
             stmt.setString(1, date);
             stmt.setString(2, user.getUsername());
             stmt.setInt(3, key);
-            stmt.executeUpdate();
+            affected = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            return false;
         }
 
-        return true;
+        if (affected == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void createTable() {
