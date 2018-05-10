@@ -116,7 +116,6 @@ public class HabitDao {
             deleted = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            return false;
         }
 
         if (deleted == 0) {
@@ -128,7 +127,7 @@ public class HabitDao {
 
     public boolean setDone(Integer key) {
         String sql = "UPDATE Habit SET retired = ? WHERE username = ? AND id = ?";
-
+        int affected = 0;
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -136,18 +135,21 @@ public class HabitDao {
             stmt.setBoolean(1, true);
             stmt.setString(2, user.getUsername());
             stmt.setInt(3, key);
-            stmt.executeUpdate();
+            affected = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            return false;
         }
 
-        return true;
+        if (affected == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean addToOrRemoveFromStreak(Integer key, Habit object, int change) {
         String sql = "UPDATE Habit SET streak = ? WHERE username = ? AND id = ?";
-
+        int affected = 0;
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -155,13 +157,16 @@ public class HabitDao {
             stmt.setInt(1, object.getCurrentStreak() + change);
             stmt.setString(2, this.user.getUsername());
             stmt.setInt(3, key);
-            stmt.executeUpdate();
+            affected = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            return false;
         }
 
-        return true;
+        if (affected == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void createTable() {

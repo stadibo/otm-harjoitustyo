@@ -79,7 +79,6 @@ public class DaysShownDao {
             stmt.setInt(1, key);
             deleted = stmt.executeUpdate();
         } catch (SQLException e) {
-            return false;
         }
 
         if (deleted == 0) {

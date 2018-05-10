@@ -95,7 +95,6 @@ public class TodoDao {
             stmt.setInt(3, object.getDifficulty());
             stmt.setString(4, this.user.getUsername());
 
-            
             stmt.executeUpdate();
         } catch (SQLException e) {
             return null;
@@ -106,23 +105,29 @@ public class TodoDao {
     public boolean delete(Integer key) {
         String sql = "DELETE FROM Todo WHERE username = ? AND id = ?";
 
+        int deleted = 0;
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             //set value
             stmt.setString(1, this.user.getUsername());
             stmt.setInt(2, key);
-            stmt.executeUpdate();
+            deleted = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            return false;
+
         }
 
-        return true;
+        if (deleted == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean setDone(Integer key) {
         String sql = "UPDATE Todo SET complete = ? WHERE username = ? AND id = ?";
+        int affected = 0;
         try (Connection conn = database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -130,13 +135,16 @@ public class TodoDao {
             stmt.setBoolean(1, true);
             stmt.setString(2, this.user.getUsername());
             stmt.setInt(3, key);
-            stmt.executeUpdate();
+            affected = stmt.executeUpdate();
 
         } catch (SQLException e) {
-            return false;
         }
 
-        return true;
+        if (affected == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void createTable() {
