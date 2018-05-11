@@ -29,9 +29,11 @@ public class DailyServiceTest {
     private UserDao ud;
     private UserService us;
     boolean[] days;
+    boolean[] days2;
 
     public DailyServiceTest() {
         days = new boolean[8];
+        days2 = new boolean[8];
         days[1] = true;
         days[3] = true;
         days[5] = true;
@@ -50,10 +52,10 @@ public class DailyServiceTest {
         us = new UserService(ud);
         dailyService = new DailyService(dailyDao, dsDao, time, us);
 
-        
-        User user = new User("tester", "elon musk", 0, 1, 100);
-        
+        User user = new User("tester", "elon musk", 750, 1, 200);
+
         ud.create(user);
+        us.login("tester");
         dailyService.updateUser(user);
         dailyDao.setUser(user);
     }
@@ -72,16 +74,14 @@ public class DailyServiceTest {
         dsDao.create(days, daily1.getId());
 
         Daily daily2 = new Daily("Run", 1, "20180101");
-        daily2.setDaysShown(days);
+        daily2.setDaysShown(days2);
         daily2 = dailyDao.create(daily2);
-        dsDao.create(days, daily2.getId());
+        dsDao.create(days2, daily2.getId());
 
         List<Daily> dailies = dailyService.getDailiesUpdate();
         assertEquals("Jump", dailies.get(0).getContent());
-        assertEquals("Run", dailies.get(1).getContent());
-
         assertEquals(false, dailies.get(0).getDaysShown()[4]);
-        assertEquals(true, dailies.get(1).getDaysShown()[3]);
+        assertEquals(1, dailies.size());
     }
 
     @Test
@@ -136,7 +136,6 @@ public class DailyServiceTest {
         assertEquals(true, dailies.isEmpty());
 
         time.setFakeTime("20180101");
-        time.setFakeDayOfWeek(7);
         dailies = dailyService.getDailiesUpdate();
 
         assertEquals("20180101", dailies.get(0).getDate());
@@ -212,6 +211,30 @@ public class DailyServiceTest {
         File file = new File("test.db");
         file.delete();
         assertFalse(dailyService.createDaily("Jump", 2, days));
+    }
+
+    @Test
+    public void uncompleteDailiesWillTriggerPenaltyNextDay() {
+        time.setFakeTime("20171231");
+
+        Daily daily1 = new Daily("Jump", 2, "20171231");
+        daily1.setDaysShown(days);
+        daily1 = dailyDao.create(daily1);
+        dsDao.create(days, daily1.getId());
+        dailyDao.setDone(1);
+        
+        Daily daily2 = new Daily("Jump", 2, "20171231");
+        daily2.setDaysShown(days);
+        daily2 = dailyDao.create(daily2);
+        dsDao.create(days, daily2.getId());
+
+        List<Daily> dailies = dailyService.getDailiesUpdate();
+        assertEquals(true, !dailies.isEmpty());
+        assertEquals(false, dailies.get(0).isComplete());
+
+        time.setFakeTime("20180101");
+        dailies = dailyService.getDailiesUpdate();
+        assertEquals(500, us.getLoggedUser().getExperience());
     }
 
 }

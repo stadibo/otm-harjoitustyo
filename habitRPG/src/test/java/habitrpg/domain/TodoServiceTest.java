@@ -39,6 +39,8 @@ public class TodoServiceTest {
 
         todoDao.setUser(user);
         todoDao.create(new Todo("Run", 1));
+        todoDao.create(new Todo("Lump", 1));
+        todoDao.setDone(2);
     }
 
     @After
@@ -50,7 +52,7 @@ public class TodoServiceTest {
     @Test
     public void canCreateNewTodoSuccess() {
         assertTrue(ts.createTodo("Fight", 2));
-        assertEquals("Fight", todoDao.getOne(2).getContent());
+        assertEquals("Fight", todoDao.getOne(3).getContent());
     }
 
     @Test
@@ -72,9 +74,9 @@ public class TodoServiceTest {
     @Test
     public void canDeleteTodo() {
         todoDao.create(new Todo("Walk", 3));
-        assertEquals("Walk", todoDao.getOne(2).getContent());
-        assertTrue(ts.deleteTodo(2));
-        assertEquals(null, todoDao.getOne(2));
+        assertEquals("Walk", todoDao.getOne(3).getContent());
+        assertTrue(ts.deleteTodo(3));
+        assertEquals(null, todoDao.getOne(3));
     }
 
 }

@@ -81,6 +81,7 @@ public class UserServiceTest {
         assertEquals("tester2", us.getLoggedUser().getUsername());
         assertEquals("mister mister", us.getLoggedUser().getName());
         assertEquals(1, us.getLoggedUser().getLevel());
+        assertEquals(200, us.getLoggedUser().getHealth());
     }
 
     @Test
@@ -129,6 +130,28 @@ public class UserServiceTest {
         us.getLoggedUser().setLevel(2);
         us.getLoggedUser().setHealth(400);
         us.experiencePenalty();
+        assertEquals(0, us.getLoggedUser().getExperience());
+        assertEquals(1, us.getLoggedUser().getLevel());
+        assertEquals(200, us.getLoggedUser().getHealth());
+    }
+    
+    @Test
+    public void levelNotGetLowerThanOne() {
+        us.login("tester");
+        us.getLoggedUser().setExperience(100);
+        us.getLoggedUser().setLevel(1);
+        us.getLoggedUser().setHealth(200);
+        us.experiencePenalty();
+        assertEquals(0, us.getLoggedUser().getExperience());
+        assertEquals(1, us.getLoggedUser().getLevel());
+        assertEquals(200, us.getLoggedUser().getHealth());
+    }
+    
+    @Test
+    public void invalidDifficultyWillNotChangeLevelOrExp() {
+        us.login("tester");
+        us.getLoggedUser().setHealth(200);
+        us.addExp(0);
         assertEquals(0, us.getLoggedUser().getExperience());
         assertEquals(1, us.getLoggedUser().getLevel());
         assertEquals(200, us.getLoggedUser().getHealth());

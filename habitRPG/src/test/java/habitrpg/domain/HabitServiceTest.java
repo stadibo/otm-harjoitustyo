@@ -43,6 +43,8 @@ public class HabitServiceTest {
 
         habitDao.setUser(user);
         habitDao.create(new Habit("Read", 1));
+        habitDao.create(new Habit("Run", 1));
+        habitDao.setDone(2);
     }
 
     @After
@@ -54,7 +56,7 @@ public class HabitServiceTest {
     @Test
     public void canCreateNewHabitSuccess() {
         assertTrue(hs.createHabit("Less coffee", 2));
-        assertEquals("Less coffee", habitDao.getOne(2).getContent());
+        assertEquals("Less coffee", habitDao.getOne(3).getContent());
     }
 
     @Test
@@ -75,15 +77,15 @@ public class HabitServiceTest {
 
     @Test
     public void canDeleteHabitWhenHabitExists() {
-        habitDao.create(new Habit("Write code", 2));
-        assertEquals("Write code", habitDao.getOne(2).getContent());
-        assertTrue(hs.deleteHabit(2));
-        assertEquals(null, habitDao.getOne(2));
+        habitDao.create(new Habit("Write code", 3));
+        assertEquals("Write code", habitDao.getOne(3).getContent());
+        assertTrue(hs.deleteHabit(3));
+        assertEquals(null, habitDao.getOne(3));
     }
 
     @Test
     public void cannotDeleteHabitWhenHabitNotExists() {
-        assertFalse(hs.deleteHabit(2));
+        assertFalse(hs.deleteHabit(3));
     }
 
     @Test
@@ -99,7 +101,7 @@ public class HabitServiceTest {
 
     @Test
     public void cannotAddToStreakWhenHabitNotExists() {
-        assertFalse(hs.addToOrRemoveFromStreak(2, 1));
+        assertFalse(hs.addToOrRemoveFromStreak(3, 1));
     }
 
 }

@@ -126,7 +126,7 @@ public class DailyService {
      */
     public boolean createDaily(String content, int diff, boolean[] days) {
         Daily newDaily = dailyDao.create(new Daily(content, diff, time.getDateNow()));
-        
+
         if (newDaily != null) {
             this.setDays(days, newDaily.getId());
             return true;
@@ -138,10 +138,11 @@ public class DailyService {
     private void setUndone(String dateToday) {
         for (Daily d : this.dailies) {
             if (!d.getDate().equals(dateToday)) {
-                dailyDao.setUndone(d.getId());
+                
                 if (!d.isComplete()) {
                     userService.experiencePenalty();
                 }
+                dailyDao.setUndone(d.getId());
                 d.setComplete(false);
                 dailyDao.updateDate(d.getId(), dateToday);
                 d.setDate(dateToday);
@@ -153,17 +154,12 @@ public class DailyService {
         return dsDao.create(days, key);
     }
 
-    private boolean getDays() {
+    private void getDays() {
         boolean[] days = null;
         for (Daily d : this.dailies) {
             days = dsDao.getDays(d.getId());
-            if (days == null) {
-                return false;
-            } else {
-                d.setDaysShown(days);
-            }
+            d.setDaysShown(days);
         }
-        return true;
     }
 
 }
