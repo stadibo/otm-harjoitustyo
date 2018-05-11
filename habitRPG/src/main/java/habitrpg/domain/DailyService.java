@@ -21,6 +21,14 @@ public class DailyService {
     private List<Daily> dailies;
     private Time time;
 
+    /**
+     * Constructs a DailyService object which higher level classes can 
+     * interface with to modify Daily objects
+     * @param dailyDao (DAO for Daily objects)
+     * @param dsDao (DAO for DaysShown for a specific Daily object)
+     * @param uiTime (class for getting information on dates)
+     * @param us (class for removing experience from logged in user)
+     */
     public DailyService(DailyDao dailyDao, DaysShownDao dsDao, Time uiTime, UserService us) {
         this.dailyDao = dailyDao;
         this.dsDao = dsDao;
@@ -125,7 +133,7 @@ public class DailyService {
      * @return if creation was successful
      */
     public boolean createDaily(String content, int diff, boolean[] days) {
-        Daily newDaily = dailyDao.create(new Daily(content, diff, time.getDateNow()));
+        Daily newDaily = dailyDao.create(new Daily(content, diff, ""));
 
         if (newDaily != null) {
             this.setDays(days, newDaily.getId());
@@ -139,7 +147,7 @@ public class DailyService {
         for (Daily d : this.dailies) {
             if (!d.getDate().equals(dateToday)) {
                 
-                if (!d.isComplete()) {
+                if (!d.isComplete() && !d.getDate().equals("")) {
                     userService.experiencePenalty();
                 }
                 dailyDao.setUndone(d.getId());

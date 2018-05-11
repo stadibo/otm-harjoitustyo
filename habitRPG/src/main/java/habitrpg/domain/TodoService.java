@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
  * A class for getting and manipulating "To-do" objects by interfacing with its
  * corresponding DAO (Data access object), TodoDao.
  */
@@ -15,6 +14,11 @@ public class TodoService {
     private TodoDao todoDao;
     private List<Todo> todos;
 
+    /**
+     * Constructs a TodoService object which higher level classes can 
+     * interface with to modify Todo objects
+     * @param todoDao (DAO for Todo objects)
+     */
     public TodoService(TodoDao todoDao) {
         this.todoDao = todoDao;
         this.todos = new ArrayList<>();

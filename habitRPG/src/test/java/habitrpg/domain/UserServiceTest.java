@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.domain;
 
 import habitrpg.dao.Database;
 import habitrpg.dao.UserDao;
 import java.io.File;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -41,7 +34,6 @@ public class UserServiceTest {
 
     @After
     public void tearDown() {
-
         File file = new File("test.db");
         file.delete();
     }
@@ -91,20 +83,20 @@ public class UserServiceTest {
         boolean success = us.newUser(username, name);
         assertFalse(success);
     }
-    
+
     @Test
     public void canAddExperience() {
         us.login("tester");
         us.addExp(1);
         assertEquals(25, us.getLoggedUser().getExperience());
-        
+
         us.addExp(2);
         assertEquals(75, us.getLoggedUser().getExperience());
-        
+
         us.addExp(3);
         assertEquals(175, us.getLoggedUser().getExperience());
     }
-    
+
     @Test
     public void canRemoveExperience() {
         us.login("tester");
@@ -112,7 +104,7 @@ public class UserServiceTest {
         us.removeExp(75);
         assertEquals(25, us.getLoggedUser().getExperience());
     }
-    
+
     @Test
     public void levelIncreaseWithEnoughExperience() {
         us.login("tester");
@@ -122,7 +114,7 @@ public class UserServiceTest {
         assertEquals(2, us.getLoggedUser().getLevel());
         assertEquals(400, us.getLoggedUser().getHealth());
     }
-    
+
     @Test
     public void levelDecreaseByPenalty() {
         us.login("tester");
@@ -134,7 +126,7 @@ public class UserServiceTest {
         assertEquals(1, us.getLoggedUser().getLevel());
         assertEquals(200, us.getLoggedUser().getHealth());
     }
-    
+
     @Test
     public void levelNotGetLowerThanOne() {
         us.login("tester");
@@ -146,7 +138,7 @@ public class UserServiceTest {
         assertEquals(1, us.getLoggedUser().getLevel());
         assertEquals(200, us.getLoggedUser().getHealth());
     }
-    
+
     @Test
     public void invalidDifficultyWillNotChangeLevelOrExp() {
         us.login("tester");

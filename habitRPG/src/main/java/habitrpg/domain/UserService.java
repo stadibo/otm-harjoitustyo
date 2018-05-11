@@ -45,7 +45,7 @@ public class UserService {
     /**
      * Adds experience to user based on the difficulty of the completed task
      *
-     * @param difficulty
+     * @param difficulty (difficulty easy: 1, medium: 2, hard: 3)
      */
     public void addExp(int difficulty) {
         int lvl = this.loggedIn.getLevel();
@@ -65,11 +65,18 @@ public class UserService {
         this.changeLevel(lvl);
     }
     
+    /**
+     * Calls removeExp(amount) to remove (level * 100) points of experience
+     */
     public void experiencePenalty() {
         int lvl = this.loggedIn.getLevel();
-        removeExp(lvl * 250);
+        removeExp(lvl * 100);
     }
     
+    /**
+     * Removes a specified amount of experience from user
+     * @param amount (amount to remove)
+     */
     public void removeExp(int amount) {
         int lvl = this.loggedIn.getLevel();
         int current = this.loggedIn.getExperience();
@@ -77,6 +84,11 @@ public class UserService {
         changeLevel(lvl);
     }
 
+    /**
+     * Changes level of user if experience gained has surpassed the level 
+     * limit or gone negative, in which case level is decreased. 
+     * @param lvl (level of logged in user)
+     */
     private void changeLevel(int lvl) {
         int exp = this.loggedIn.getExperience();
         int nextLevelExp = (lvl * 2) * 1000;

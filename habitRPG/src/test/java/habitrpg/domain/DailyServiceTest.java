@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package habitrpg.domain;
 
 import habitrpg.dao.DailyDao;
@@ -144,12 +139,12 @@ public class DailyServiceTest {
 
     @Test
     public void canDeleteDaily() {
-        Daily daily1 = new Daily("Jump", 2, "20180101");
+        Daily daily1 = new Daily("Jump", 2, "");
         daily1.setDaysShown(days);
         daily1 = dailyDao.create(daily1);
         dsDao.create(days, daily1.getId());
 
-        Daily daily2 = new Daily("Run", 1, "20180101");
+        Daily daily2 = new Daily("Run", 1, "");
         daily2.setDaysShown(days);
         daily2 = dailyDao.create(daily2);
         dsDao.create(days, daily2.getId());
@@ -164,7 +159,7 @@ public class DailyServiceTest {
 
     @Test
     public void untrackedDailiesAreNotShown() {
-        Daily daily1 = new Daily("Jump", 2, "20180101");
+        Daily daily1 = new Daily("Jump", 2, "");
         daily1.setDaysShown(days);
         daily1 = dailyDao.create(daily1);
         dsDao.create(days, daily1.getId());
@@ -188,7 +183,7 @@ public class DailyServiceTest {
         assertEquals(2, dailyDao.getOne(1).getDifficulty());
         assertEquals(days[1], dsDao.getDays(1)[1]);
         assertEquals(false, dailyDao.getOne(1).isComplete());
-        assertEquals("20180101", dailyDao.getOne(1).getDate());
+        assertEquals("", dailyDao.getOne(1).getDate());
     }
 
     @Test
@@ -234,7 +229,7 @@ public class DailyServiceTest {
 
         time.setFakeTime("20180101");
         dailies = dailyService.getDailiesUpdate();
-        assertEquals(500, us.getLoggedUser().getExperience());
+        assertEquals(650, us.getLoggedUser().getExperience());
     }
 
 }

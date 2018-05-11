@@ -41,22 +41,6 @@ public class TimeTest {
     }
     
     @Test
-    public void givesRightDuration() {
-        Time time = new Time();
-        String sDate1 = "20180101";
-        String sDate2 = "20180103";
-        assertEquals(2, time.getDurationDays(sDate1, sDate2));
-    }
-    
-    @Test
-    public void givesNegativeDurationWhenFirstDateIsLaterThanSecond() {
-        Time time = new Time();
-        String sDate1 = "20180101";
-        String sDate2 = "20180102";
-        assertEquals(-1, time.getDurationDays(sDate2, sDate1));
-    }
-    
-    @Test
     public void givesRightDayOfWeekMonday() {
         Time time = new Time();
         String s1 = "20180101";

@@ -1,8 +1,7 @@
 package habitrpg.domain;
 
 /**
- *
- * @author peje
+ * Class representing a user
  */
 public class User {
     
@@ -12,6 +11,15 @@ public class User {
     private int level;
     private int health;
     
+    /**
+     * Constructs a User object
+     * 
+     * @param username (unique identifier for user)
+     * @param name ("real" name for user)
+     * @param exp (experience gained at level so far)
+     * @param lvl (current level)
+     * @param hp (current health points)
+     */
     public User(String username, String name, int exp, int lvl, int hp) {
         this.name = name;
         this.username = username;
@@ -52,6 +60,13 @@ public class User {
         this.health = health;
     }
     
+    /**
+     * Compares two users for equality. The result is true if and 
+     * only if the argument is not null and is a User object that has the same 
+     * database id as this object.
+     * @param obj (the object to compare with)
+     * @return true if the objects are the same; false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

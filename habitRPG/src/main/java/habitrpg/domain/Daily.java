@@ -1,8 +1,8 @@
 package habitrpg.domain;
 
 /**
+ * Class representing a daily task
  *
- * @author peje
  */
 public class Daily {
     
@@ -15,6 +15,17 @@ public class Daily {
     private boolean[] daysShown;
     private User user;
     
+    /**
+     * Constructs a Daily object when all parameters are known
+     * 
+     * @param id (database id)
+     * @param cont (description of daily task)
+     * @param comp (true if daily task is done, else false)
+     * @param ret (true if daily task is no longer tracked, else false)
+     * @param diff (difficulty of daily task)
+     * @param date (date when daily task was last shown)
+     * @param user (owner of daily task as a User object)
+     */
     public Daily(int id, String cont, boolean comp, boolean ret, int diff, String date, User user) {
         this.id = id;
         this.content = cont;
@@ -23,8 +34,16 @@ public class Daily {
         this.difficulty = diff;
         this.date = date;
         this.user = user;
+        this.daysShown = null;
     }
     
+    /**
+     * Constructs a new Daily object with default values
+     * 
+     * @param cont (description of daily task)
+     * @param diff (difficulty of daily task)
+     * @param date (date when daily task was created)
+     */
     public Daily(String cont, int diff, String date) {
         this.content = cont;
         this.difficulty = diff;
@@ -85,6 +104,13 @@ public class Daily {
         return user;
     }
 
+    /**
+     * Compares two daily tasks for equality. The result is true if and 
+     * only if the argument is not null and is a Daily object that has the same 
+     * database id as this object.
+     * @param obj (the object to compare with)
+     * @return true if the objects are the same; false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

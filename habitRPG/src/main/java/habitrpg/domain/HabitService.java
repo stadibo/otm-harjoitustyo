@@ -6,16 +6,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
  * A class for getting and manipulating "Habit" objects by interfacing with its
  * corresponding DAO (Data access object), HabitDao.
- *
  */
 public class HabitService {
 
     private HabitDao habitDao;
     private List<Habit> habits;
 
+    /**
+     * Constructs a HabitService object which higher level classes can 
+     * interface with to modify Habit objects
+     * @param habitDao (DAO for Habit objects)
+     */
     public HabitService(HabitDao habitDao) {
         this.habitDao = habitDao;
         this.habits = new ArrayList<>();
@@ -80,6 +83,7 @@ public class HabitService {
      * Interfaces with HabitDao to add to or decrease a habits streak.
      *
      * @param key (database id)
+     * @param change (positive integer to increase, and negative to decrease, streak)
      * @return if addition was successful
      */
     public boolean addToOrRemoveFromStreak(Integer key, int change) {

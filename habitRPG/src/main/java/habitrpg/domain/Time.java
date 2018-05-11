@@ -2,17 +2,19 @@ package habitrpg.domain;
 
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import org.joda.time.format.DateTimeFormat;
 
 /**
- *
- * @author peje
+ * This class uses the JodaTime library to get the system time, day of week and parse
+ * dates as strings.
  */
 public class Time {
 
     private DateTimeFormatter fmt;
-
+    
+    /**
+     * Constructs Time object with dateTimeFormatter for the pattern yyyyMMdd
+     */
     public Time() {
         this.fmt = DateTimeFormat.forPattern("yyyyMMdd");
     }
@@ -21,26 +23,10 @@ public class Time {
      * Converts date as string to DateTime object.
      *
      * @param input (date in format yyyyMMdd)
-     * @return
+     * @return a JodaTime DateTime object with the date that was input
      */
     public DateTime stringToDateTime(String input) {
         return fmt.parseDateTime(input);
-    }
-
-    /**
-     * Takes two dates as strings and calculates the length of the interval
-     * between them as days.
-     *
-     * @param input1 (start date)
-     * @param input2 (end date)
-     * @return amount of days in the interval
-     */
-    public int getDurationDays(String input1, String input2) {
-        DateTime start = stringToDateTime(input1);
-        DateTime end = stringToDateTime(input2);
-        Duration dur = new Duration(start, end);
-
-        return (int) dur.getStandardDays();
     }
 
     /**

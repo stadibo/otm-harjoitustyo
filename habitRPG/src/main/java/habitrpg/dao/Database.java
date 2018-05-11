@@ -23,7 +23,7 @@ public class Database {
      * Opens a connection to the database using JDBC DriverManager
      * 
      * @return connection object representing connection to database
-     * @throws SQLException 
+     * @throws SQLException (connection cannot be established)
      */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:sqlite:" + path);
@@ -32,7 +32,7 @@ public class Database {
     /**
      * Creates new database in root of application
      * 
-     * @param fileName 
+     * @param fileName (name of the database file as a string, e.g. tracker.db)
      */
     public void createDatabase(String fileName) {
         String url = fileName;
