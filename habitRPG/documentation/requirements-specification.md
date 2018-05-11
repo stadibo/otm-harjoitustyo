@@ -25,7 +25,7 @@ The application opens to a login screen, from where you can either login or crea
 - Can delete habit/task/to-do
 - Choose how hard it is to do the habit/task/to-do (bigger reward in game for harder habits)
 - User can mark habit success or failure and mark tasks and to-do:s as done
-  - To-do:s will disappear the next day
+  
   - Experience, and levels, will be awarded for completing tasks
     - added to the users game stats
     - By not completing daily tasks the user will lose experience in their progression
@@ -36,6 +36,7 @@ The application opens to a login screen, from where you can either login or crea
   - Tasks shown only to this user
   - Task is created in the “new” view
     - Choose which days of the week it will be shown
+  - after being set done daily task will appear the next day to be shown
 - User can log out of the application
 
 ## Further development
