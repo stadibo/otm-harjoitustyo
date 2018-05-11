@@ -6,7 +6,7 @@ Download the file [habitRPG.jar](https://github.com/stadibo/otm-harjoitustyo/rel
 
 SQLite3 might need to be installed for the database to work.
 
-## Ohjelman käynnistäminen
+## Running the application
 
 The application is run by typing the command 
 
