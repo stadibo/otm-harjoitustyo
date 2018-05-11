@@ -43,13 +43,13 @@ A class/package diagram describing the relations between the various parts of th
 
 ## Data persistence
 
-The "DatabaseDao" classes in [habitrpg.dao] are responsible for saving data into a database file called _tracker.db_.
+The "DatabaseDao" classes in [habitrpg.dao](https://github.com/stadibo/otm-harjoitustyo/tree/master/habitRPG/src/main/java/habitrpg/dao) are responsible for saving data into a database file called _tracker.db_.
 
 These classes follow the [Data Access Object](https://en.wikipedia.org/wiki/Data_access_object) design pattern and can be replaced with another implementation if needed. The "DatabaseDao"-classes have abstractions and are not used directly by the software logic.
 
 ### Database schema
 
-Each DAO represents a table in the database. The schema or [Create table statement](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/misc/Create_Table_Statements) for the database.
+Each DAO represents a table in the database. The schema or [Create table statements](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/misc/Create_Table_Statements) for the database.
 
 ### Main functionality
 
