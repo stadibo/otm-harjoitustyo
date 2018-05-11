@@ -43,7 +43,7 @@ A class/package diagram describing the relations between the various parts of th
 
 ## Data persistence
 
-The "DatabaseDao" classes in [habitrpg.dao](https://github.com/stadibo/otm-harjoitustyo/tree/master/habitRPG/src/main/java/habitrpg/dao) are responsible for saving data into a database file called _tracker.db_.
+The "DatabaseDao" classes in [habitrpg.dao](https://github.com/stadibo/otm-harjoitustyo/tree/master/habitRPG/src/main/java/habitrpg/dao) are responsible for saving data into a database file called _tracker.db_. The file will appear either in the same folder as the jar, at least on OSX, or in the home folder in a Linux environment.
 
 These classes follow the [Data Access Object](https://en.wikipedia.org/wiki/Data_access_object) design pattern and can be replaced with another implementation if needed. The "DatabaseDao"-classes have abstractions and are not used directly by the software logic.
 
@@ -53,6 +53,22 @@ Each DAO represents a table in the database. The schema or [Create table stateme
 
 ### Main functionality
 
+For basically all functions there is a reactionary eventhandler that calls a specific software logic _appService_ method, after which the _appService_ calls the _appDao_ to get data from storage or to store data.
+
 <img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Login.png" width="850">
 
 <img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Create%20new%20user.png" width="850">
+
+<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Create%20new%20task.png" width="850">
+
+Create new habit/todo follows the same principle as create new daily task, but without the days to be shown on.
+
+## Structural weaknesses
+
+### UI
+
+The GUI has be chopped up into methods for updating elements and creating scenes, etc. but is still quite difficult to maintain. An improvement could be to migrate to the FXML-format for creating structure to the UI. Then the logic components of the UI would not be lost in element definitions.
+
+### DAO
+
+DatabaseDao-classes could be simplified to inject the statement and only query in the DatabaseDao.
