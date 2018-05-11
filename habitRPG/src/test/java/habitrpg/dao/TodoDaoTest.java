@@ -51,7 +51,7 @@ public class TodoDaoTest {
     @Test
     public void canCreateTodo() {
         User u = new User("test", "real", 0, 1, 100);
-        todoDao = new TodoDao(db);
+        todoDao = new TodoDatabaseDao(db);
         todoDao.setUser(u);
         Todo t = new Todo("yes", 1);
         todoDao.create(t);
@@ -65,7 +65,7 @@ public class TodoDaoTest {
     @Test
     public void creationOfDailyFailReturnNull() {
         User u = new User("test", "real", 0, 1, 100);
-        todoDao = new TodoDao(db);
+        todoDao = new TodoDatabaseDao(db);
         todoDao.setUser(u);
 
         Connection conn;
@@ -82,7 +82,7 @@ public class TodoDaoTest {
     @Test
     public void canGetListOfDailies() {
         User u = new User("test", "real", 0, 1, 100);
-        todoDao = new TodoDao(db);
+        todoDao = new TodoDatabaseDao(db);
         todoDao.setUser(u);
         Todo t1 = new Todo("yes", 1);
         Todo t2 = new Todo("no", 2);
@@ -100,7 +100,7 @@ public class TodoDaoTest {
     @Test
     public void canDeleteHabit() {
         User u = new User("test", "real", 0, 1, 100);
-        todoDao = new TodoDao(db);
+        todoDao = new TodoDatabaseDao(db);
         todoDao.setUser(u);
         Todo t = new Todo("yes", 1);
         todoDao.create(t);
@@ -113,7 +113,7 @@ public class TodoDaoTest {
     @Test
     public void cannotDeleteNonexistingHabit() {
         User u = new User("test", "real", 0, 1, 100);
-        todoDao = new TodoDao(db);
+        todoDao = new TodoDatabaseDao(db);
         todoDao.setUser(u);
         
         assertFalse(todoDao.delete(1));
@@ -122,7 +122,7 @@ public class TodoDaoTest {
     @Test
     public void canSetDone() {
         User u = new User("test", "real", 0, 1, 100);
-        todoDao = new TodoDao(db);
+        todoDao = new TodoDatabaseDao(db);
         todoDao.setUser(u);
         Todo t = new Todo("yes", 1);
         todoDao.create(t);
@@ -135,7 +135,7 @@ public class TodoDaoTest {
     @Test
     public void cannotSetDoneNonexistingDaily() {
         User u = new User("test", "real", 0, 1, 100);
-        todoDao = new TodoDao(db);
+        todoDao = new TodoDatabaseDao(db);
         todoDao.setUser(u);
         assertEquals(false, todoDao.setDone(1234));
     }

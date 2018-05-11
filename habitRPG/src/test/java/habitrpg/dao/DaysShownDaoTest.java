@@ -37,7 +37,7 @@ public class DaysShownDaoTest {
     
     @Test
     public void canCreateDaysShown() {
-        dsDao = new DaysShownDao(db);
+        dsDao = new DaysShownDatabaseDao(db);
         boolean[] days = new boolean[8];
         days[1] = true;
         days[3] = true;
@@ -50,7 +50,7 @@ public class DaysShownDaoTest {
     
     @Test
     public void failedDaysShownCreationReturnNull() {
-        dsDao = new DaysShownDao(db);
+        dsDao = new DaysShownDatabaseDao(db);
         boolean[] days = new boolean[8];
         
         Connection conn;
@@ -66,13 +66,13 @@ public class DaysShownDaoTest {
     
     @Test
     public void cannotGetDaysShownForNonexistingDaily() {
-        dsDao = new DaysShownDao(db);
+        dsDao = new DaysShownDatabaseDao(db);
         assertEquals(null, dsDao.getDays(2));
     }
     
     @Test
     public void canDeleteDaysShown() {
-        dsDao = new DaysShownDao(db);
+        dsDao = new DaysShownDatabaseDao(db);
         boolean[] days = new boolean[8];
         days[1] = true;
         days[3] = true;
@@ -85,7 +85,7 @@ public class DaysShownDaoTest {
     
     @Test
     public void cannotDeleteDaysShownForNonexistingDaily() {
-        dsDao = new DaysShownDao(db);
+        dsDao = new DaysShownDatabaseDao(db);
         assertEquals(false, dsDao.delete(1));
     }
     

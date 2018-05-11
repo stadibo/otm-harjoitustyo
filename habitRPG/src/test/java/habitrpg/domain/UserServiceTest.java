@@ -2,6 +2,7 @@ package habitrpg.domain;
 
 import habitrpg.dao.Database;
 import habitrpg.dao.UserDao;
+import habitrpg.dao.UserDatabaseDao;
 import java.io.File;
 import org.junit.After;
 import org.junit.Before;
@@ -25,7 +26,7 @@ public class UserServiceTest {
     public void setUp() {
         Database db = new Database();
         db.createDatabase("test.db");
-        userDao = new UserDao(db);
+        userDao = new UserDatabaseDao(db);
         us = new UserService(userDao);
 
         User user = new User("tester", "elon musk", 0, 1, 100);

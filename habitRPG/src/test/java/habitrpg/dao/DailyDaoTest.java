@@ -41,7 +41,7 @@ public class DailyDaoTest {
     @Test
     public void canCreateDaily() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         Daily d = new Daily("yes", 1, "20180101");
         dailyDao.create(d);
@@ -55,7 +55,7 @@ public class DailyDaoTest {
     @Test
     public void creationOfDailyFailReturnNull() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
 
         Connection conn;
@@ -72,7 +72,7 @@ public class DailyDaoTest {
     @Test
     public void canGetListOfDailies() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         Daily d1 = new Daily("yes", 1, "20180101");
         Daily d2 = new Daily("no", 2, "20180101");
@@ -90,7 +90,7 @@ public class DailyDaoTest {
     @Test
     public void canDeleteDaily() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         Daily d = new Daily("yes", 1, "20180101");
         dailyDao.create(d);
@@ -103,7 +103,7 @@ public class DailyDaoTest {
     @Test
     public void cannotDeleteNonexistingDaily() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
 
         assertFalse(dailyDao.delete(1));
@@ -112,7 +112,7 @@ public class DailyDaoTest {
     @Test
     public void canSetDone() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         Daily d = new Daily("yes", 1, "20180101");
         dailyDao.create(d);
@@ -125,7 +125,7 @@ public class DailyDaoTest {
     @Test
     public void cannotSetDoneNonexistingDaily() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         assertEquals(false, dailyDao.setDone(1234));
     }
@@ -133,7 +133,7 @@ public class DailyDaoTest {
     @Test
     public void canSetUndone() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         Daily d = new Daily("yes", 1, "20180101");
         d.setComplete(true);
@@ -145,7 +145,7 @@ public class DailyDaoTest {
     @Test
     public void cannotSetUndoneNonexistingDaily() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         assertEquals(false, dailyDao.setUndone(1234));
     }
@@ -153,7 +153,7 @@ public class DailyDaoTest {
     @Test
     public void canSetUntracked() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         Daily d = new Daily("yes", 1, "20180101");
         dailyDao.create(d);
@@ -164,7 +164,7 @@ public class DailyDaoTest {
     @Test
     public void cannotSetUntrackedNonexistingDaily() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         assertEquals(false, dailyDao.setUntracked(1));
     }
@@ -172,7 +172,7 @@ public class DailyDaoTest {
     @Test
     public void canUpdateDate() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         Daily d = new Daily("yes", 1, "20180101");
         dailyDao.create(d);
@@ -183,7 +183,7 @@ public class DailyDaoTest {
     @Test
     public void cannotUpdateDateNonexistingDaily() {
         User u = new User("test", "real", 0, 1, 100);
-        dailyDao = new DailyDao(db);
+        dailyDao = new DailyDatabaseDao(db);
         dailyDao.setUser(u);
         assertEquals(false, dailyDao.updateDate(1, "20180202"));
     }

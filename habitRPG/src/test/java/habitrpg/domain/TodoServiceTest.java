@@ -7,6 +7,7 @@ package habitrpg.domain;
 
 import habitrpg.dao.Database;
 import habitrpg.dao.TodoDao;
+import habitrpg.dao.TodoDatabaseDao;
 import java.io.File;
 import java.util.List;
 import org.junit.After;
@@ -31,7 +32,7 @@ public class TodoServiceTest {
     public void setUp() {
         Database db = new Database();
         db.createDatabase("test.db");
-        todoDao = new TodoDao(db);
+        todoDao = new TodoDatabaseDao(db);
         ts = new TodoService(todoDao);
 
         User user = new User("tester", "elon musk", 0, 1, 100);

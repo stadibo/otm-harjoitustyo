@@ -1,11 +1,16 @@
 package habitrpg.ui;
 
 import habitrpg.dao.DailyDao;
+import habitrpg.dao.DailyDatabaseDao;
 import habitrpg.dao.Database;
 import habitrpg.dao.DaysShownDao;
+import habitrpg.dao.DaysShownDatabaseDao;
 import habitrpg.dao.HabitDao;
+import habitrpg.dao.HabitDatabaseDao;
 import habitrpg.dao.TodoDao;
+import habitrpg.dao.TodoDatabaseDao;
 import habitrpg.dao.UserDao;
+import habitrpg.dao.UserDatabaseDao;
 import habitrpg.domain.Daily;
 import habitrpg.domain.DailyService;
 import habitrpg.domain.Habit;
@@ -68,11 +73,11 @@ public class TrackerUi extends Application {
         Database database = new Database();
         database.createDatabase("tracker.db");
         
-        UserDao userDao = new UserDao(database);
-        HabitDao habitDao = new HabitDao(database);
-        TodoDao todoDao = new TodoDao(database);
-        DailyDao dailyDao = new DailyDao(database);
-        DaysShownDao dsDao = new DaysShownDao(database);
+        UserDao userDao = new UserDatabaseDao(database);
+        HabitDao habitDao = new HabitDatabaseDao(database);
+        TodoDao todoDao = new TodoDatabaseDao(database);
+        DailyDao dailyDao = new DailyDatabaseDao(database);
+        DaysShownDao dsDao = new DaysShownDatabaseDao(database);
         
         userService = new UserService(userDao);
         habitService = new HabitService(habitDao);

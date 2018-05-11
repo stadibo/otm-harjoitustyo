@@ -41,7 +41,7 @@ public class HabitDaoTest {
     @Test
     public void canCreateHabit() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
         Habit h = new Habit("yes", 1);
         habitDao.create(h);
@@ -55,7 +55,7 @@ public class HabitDaoTest {
     @Test
     public void creationOfDailyFailReturnNull() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
 
         Connection conn;
@@ -72,7 +72,7 @@ public class HabitDaoTest {
     @Test
     public void canGetListOfDailies() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
         Habit h1 = new Habit("yes", 1);
         Habit h2 = new Habit("no", 2);
@@ -90,7 +90,7 @@ public class HabitDaoTest {
     @Test
     public void canDeleteHabit() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
         Habit h = new Habit("yes", 1);
         habitDao.create(h);
@@ -103,7 +103,7 @@ public class HabitDaoTest {
     @Test
     public void cannotDeleteNonexistingHabit() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
         
         assertFalse(habitDao.delete(1));
@@ -112,7 +112,7 @@ public class HabitDaoTest {
     @Test
     public void canUntrackHabitWithSetDone() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
         Habit h = new Habit("yes", 1);
         habitDao.create(h);
@@ -124,7 +124,7 @@ public class HabitDaoTest {
     @Test
     public void cannotUntrackHabitWithSetDoneForNonexistingHabit() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
         
         assertEquals(false, habitDao.setUntracked(1));
@@ -133,7 +133,7 @@ public class HabitDaoTest {
     @Test
     public void canAddToStreak() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
         Habit h = new Habit("yes", 1);
         habitDao.create(h);
@@ -145,7 +145,7 @@ public class HabitDaoTest {
     @Test
     public void canDecreaseStreak() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
         Habit h1 = new Habit("yes", 1);
         habitDao.create(h1);
@@ -159,7 +159,7 @@ public class HabitDaoTest {
     @Test
     public void cannotModifyStreakOnNonExistingHabit() {
         User u = new User("test", "real", 0, 1, 100);
-        habitDao = new HabitDao(db);
+        habitDao = new HabitDatabaseDao(db);
         habitDao.setUser(u);
         Habit h1 = new Habit("yes", 1);
         assertEquals(false, habitDao.addToOrRemoveFromStreak(1, h1, 1));
