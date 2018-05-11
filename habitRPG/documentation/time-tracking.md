@@ -20,5 +20,13 @@
 |      | 2    | cleaning up code, writing tests |
 | 2.5. | 1    | javadoc for domain classes |
 |      | 2    | description for logical structure and cleaning code |
-|      | 1    | making user guide |
-| tot  | 36   |
+|      | 1    | making user guide | ----------
+| 10.5 | 3    | progression stats added and cleaning code |
+|      | 5    | tests for DAO classes |
+| 11.5 | 4    | javadoc for application |
+|      | .5   | updated SRS to match latest release |
+|      | 1    | fixed DAO design pattern to properly abstract storage |
+|      | .5   | update user guide |
+|      | 2    | making testing document |
+|      | 2    | update architecture description |
+| tot  | 54   |
