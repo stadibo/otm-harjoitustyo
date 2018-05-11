@@ -20,7 +20,7 @@ each scene is implemented as a [Scene](https://docs.oracle.com/javase/8/javafx/a
 
 The UI has mostly been isolated from the software logic and only calls for "Service"-class methods in [habitrpg.domain](https://github.com/stadibo/otm-harjoitustyo/tree/master/habitRPG/src/main/java/habitrpg/domain) when needed with appropriate parameters.
 
-When the state of a to-do/habit/daily list changes, e.g. a user logs in or a task is set done/deleted/created, the method [redrawList()](https://github.com/stadibo/otm-harjoitustyo/blob/a1b81a6c47b2a3b9c26c17af39222f0346c61746/habitRPG/src/main/java/habitrpg/ui/TrackerUi.java#L247) is called with corresponding parameter (1:to-do, 2:habit, 3:daily) which rerenders lists on the trackerScene with updated objects obtained from software logic.
+When the state of a to-do/habit/daily list changes, e.g. a user logs in or a task is set done/deleted/created, the method [redrawList()](https://github.com/stadibo/otm-harjoitustyo/blob/096412cb38dc08a734d7d8017583574d3cf5da9e/habitRPG/src/main/java/habitrpg/ui/TrackerUi.java#L247) is called with corresponding parameter (1:to-do, 2:habit, 3:daily) which rerenders lists on the trackerScene with updated objects obtained from software logic.
 
 ## Software logic
 
