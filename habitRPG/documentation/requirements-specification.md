@@ -2,20 +2,16 @@
 
 ## Purpose of the software
 
-The software helps you keep track of your daily routine, including *habits*, *daily activities* (routines) and *tasks* (“todos”). The application may be used by multiple registered users, for whom the application saves personalized data in the form of habit-, “daily”- and todo-lists and progress for the accompanying *RPG* (Role-playing-game). By completing tasks and keeping up with habits one can gain experience and health points, and progress in the game.
+The software helps you keep track of your daily routine, including *habits*, *daily activities* (routines) and *tasks* (“todos”). The application may be used by multiple registered users, for whom the application saves personalized data in the form of habit-, “daily”- and todo-lists and progress in a way like a *RPG* (Role-playing-game). By completing tasks and keeping up with habits one can gain experience and health points, and progress in the game.
 
 ## Users
-In the early stages of development there will only be one type of user role: *normal user*. Later in case the application expands to work in a distributed environment a *superuser* could be added with more privileges.
+There is one type of user role: *normal user*. 
 
 ## UI draft
 
 <img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/UI_darft_p1.jpg" width="750">
 
-The application opens to a login screen, from where you can either login or create a user, in the create user view. After a successful login the dashboard view of the user is shown. The dashboard includes tracked habits, daily tasks and occasional todos, as well as, current stats for the accompanying game. 
-
-<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/UI_draft_p2.jpg" width="750">
-
-From the dashboard there is button to move to the play view, where a text based rpg can be played. The interface options change based on what the player is doing.
+The application opens to a login screen, from where you can either login or create a user, in the create user view. After a successful login the dashboard view of the user is shown. The dashboard includes tracked habits, daily tasks and occasional todos, as well as, current stats for user.
 
 ## Basic functionality
 ### Before login
@@ -26,11 +22,13 @@ From the dashboard there is button to move to the play view, where a text based 
   - If a user matching the entered character sequence doesn’t exist the application a message will display notifying the user of this.
 ### After login
 - User sees their unfinished todos, daily tasks and currently tracked habits
-- User can mark habit success or failure for the day and mark tasks and todos as done
-  - Todos will disappear the next day
-  - Energy and gold will be awarded for completing tasks
+- Can delete habit/task/to-do
+- Choose how hard it is to do the habit/task/to-do (bigger reward in game for harder habits)
+- User can mark habit success or failure and mark tasks and to-do:s as done
+  - To-do:s will disappear the next day
+  - Experience, and levels, will be awarded for completing tasks
     - added to the users game stats
-    - By not completing daily tasks the user will lose energy in the game
+    - By not completing daily tasks the user will lose experience in their progression
 - User can create new habit
   - Habit shown only to this user
   - Habit is created in the “new” view
@@ -49,13 +47,12 @@ From the dashboard there is button to move to the play view, where a text based 
     - Inventory displayed with “inventory” command
     - Random encounters with “enemies” while exploring
 - Choose which days of the week the habit will be shown
-- Choose how hard it is to do the habit (bigger reward in game for harder habits)
 - User can view statistics on progress for habits and amount of completed todos and tasks based on category, etc.
 - Choose if the habit is negative or positive when creating new habit
-- Modify habit/task/todo
-- Delete habit/task/todo
-- Add deadline for todo
-- Categories for todos and tasks
+- Modify habit/task/to-do
+- Add deadline for to-do
+- Categories for to-do:s and tasks
 - Multiplayer mechanics: quests, raids, etc.
 - Password login
+- *superuser* could be added with more privileges.
 
