@@ -2,7 +2,7 @@
 
 Download the file [habitRPG.jar](https://github.com/stadibo/otm-harjoitustyo/releases/tag/v1.1)
 
-## Konfigurointi
+## Configuration
 
 SQLite3 might need to be installed for the database to work.
 
