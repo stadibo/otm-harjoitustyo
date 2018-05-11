@@ -40,4 +40,4 @@ All the required functions specified in [Requirements Specification]() and shown
 
 The application does not give very specific error messages in case of large scale errors, like if the database is suddenly deleted.
 
-
+Not all tests work properly in Windows-environment because of not being able to delete files in use. This does not affect use of the application itself when run from -jar.
