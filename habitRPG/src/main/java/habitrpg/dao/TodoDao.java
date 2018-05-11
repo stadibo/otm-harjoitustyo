@@ -11,23 +11,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author peje
+ * Data access object for Todo objects that interfaces with a database
+ * 
  */
 public class TodoDao {
 
     private Database database;
     private User user;
-
+    
+    /**
+     * Constructs DAO for Todo objects and creates table for object type 
+     * if it doesn't exist
+     * @param database (database to be accessed)
+     */
     public TodoDao(Database database) {
         this.database = database;
         createTable();
     }
 
+    /**
+     * Sets current user
+     * @param user (owner of Todo objects to be queried)
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Query from database and create a single Todo object 
+     * @param key (database id)
+     * @return Todo object that was queried based on user and id; otherwise null
+     */
     public Todo getOne(Integer key) {
         Todo found = null;
         String sql = "SELECT id, content, complete, difficulty "
@@ -54,6 +68,10 @@ public class TodoDao {
         return found;
     }
 
+    /**
+     * Query from database and create List of Todo objects
+     * @return List of Todo objects based on current user
+     */
     public List<Todo> getAll() {
 
         List<Todo> todos = new ArrayList<>();
@@ -81,6 +99,12 @@ public class TodoDao {
         return todos;
     }
 
+    /**
+     * Inserts a newly created Todo object into database
+     * @param object (A new default Todo object with missing user; 
+     * this is added in statement)
+     * @return created Todo object with User and id added
+     */
     public Todo create(Todo object) {
         String sql = "INSERT INTO "
                 + "Todo(content, complete, difficulty, username) "
@@ -102,6 +126,11 @@ public class TodoDao {
         return object;
     }
 
+    /**
+     * Delete representation of Todo object found by current user and id from database
+     * @param key (database id)
+     * @return true if deletion succeeded; otherwise false
+     */
     public boolean delete(Integer key) {
         String sql = "DELETE FROM Todo WHERE username = ? AND id = ?";
 
@@ -125,6 +154,11 @@ public class TodoDao {
         }
     }
 
+    /**
+     * Set Todo, found by current user and id, as done (complete = true) in database
+     * @param key (database id)
+     * @return true if setting succeeded; otherwise false
+     */
     public boolean setDone(Integer key) {
         String sql = "UPDATE Todo SET complete = ? WHERE username = ? AND id = ?";
         int affected = 0;

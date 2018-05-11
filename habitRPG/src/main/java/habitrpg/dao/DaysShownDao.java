@@ -7,18 +7,29 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
- * @author peje
+ * Data access object for DaysShown objects that interfaces with a database
  */
 public class DaysShownDao {
 
     private Database database;
 
+    /**
+     * Constructs DAO for DaysShown objects and creates table for the object type 
+     * if it doesn't exist
+     * @param database (database to be accessed)
+     */
     public DaysShownDao(Database database) {
         this.database = database;
         createTable();
     }
 
+    /**
+     * Inserts a newly created DaysShown list for a Daily object into database
+     * @param days (list of days for the Daily to be shown on. 
+     * Weekdays in indexes 1-7 (Mon-Sun))
+     * @param key (database id)
+     * @return true if creation was successful; otherwise false
+     */
     public boolean create(boolean[] days, Integer key) {
         String sql = "INSERT INTO "
                 + "DaysShown(monday, tuesday, wednesday, thursday, friday, saturday, sunday, daily_id) "
@@ -44,6 +55,13 @@ public class DaysShownDao {
         return true;
     }
 
+    /**
+     * Query from database based on Daily id and create the list of days for 
+     * the Daily to be shown on
+     * @param key (database id)
+     * @return (boolean list of days for the Daily to be shown on. 
+     * Weekdays in indexes 1-7 (Mon-Sun))
+     */
     public boolean[] getDays(Integer key) {
         boolean[] days = new boolean[8];
         String sql = "SELECT monday, tuesday, wednesday, thursday, friday, saturday, sunday "
@@ -70,6 +88,11 @@ public class DaysShownDao {
         return days;
     }
 
+    /**
+     * Delete representation of DaysShown related to Daily with given id from database
+     * @param key (database id)
+     * @return true if deletion succeeded; otherwise false
+     */
     public boolean delete(int key) {
         String sql = "DELETE FROM DaysShown WHERE daily_id = ?";
         int deleted = 0;

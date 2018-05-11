@@ -8,18 +8,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
- * @author peje
+ * Data access object for User objects that interfaces with a database
+ * 
  */
 public class UserDao {
 
     private Database database;
 
+    /**
+     * Constructs DAO for User objects and creates table for object type 
+     * if it doesn't exist
+     * @param database (database to be accessed)
+     */
     public UserDao(Database database) {
         this.database = database;
         createTable();
     }
 
+    /**
+     * Query from database and create a single User object 
+     * @param key (database id = username)
+     * @return User object that was queried based on username; otherwise null
+     */
     public User getOne(String key) {
         User found = null;
         String sql = "SELECT username, name, exp, lvl, hp "
@@ -46,6 +56,11 @@ public class UserDao {
         return found;
     }
 
+    /**
+     * Inserts a newly created User object into database
+     * @param object (User object to be inserted)
+     * @return created User object
+     */
     public User create(User object) {
         String sql = "INSERT INTO "
                 + "User(username, name, exp, lvl, hp) "
@@ -67,6 +82,11 @@ public class UserDao {
         return object;
     }
     
+    /**
+     * Update values for experience, level and health for User
+     * @param object (User object to be modified)
+     * @return true if setting succeeded; otherwise false
+     */
     public boolean updateUser(User object) {
         String sql = "UPDATE User SET exp = ?, lvl = ?, hp = ? WHERE username = ?";
                 

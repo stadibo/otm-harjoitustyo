@@ -73,7 +73,7 @@ public class HabitService {
     public boolean untrack(Integer key) {
         boolean success = false;
         try {
-            success = habitDao.setDone(key);
+            success = habitDao.setUntracked(key);
         } catch (Exception e) {
         }
         return success;

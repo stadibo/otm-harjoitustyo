@@ -35,7 +35,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author peje
+ * Class for UI
  */
 public class TrackerUi extends Application {
 
@@ -55,9 +55,12 @@ public class TrackerUi extends Application {
     private VBox dailyNodes;
     private Label menuLabel = new Label();
     private Label userStatsLabel = new Label();
-
     private boolean deleteMode;
 
+    /**
+     * Initializes classes needed for application to function
+     * @throws Exception unable to initialize application
+     */
     @Override
     public void init() throws Exception {
 
@@ -78,6 +81,11 @@ public class TrackerUi extends Application {
 
     }
 
+    /**
+     * Creates a to-do node
+     * @param todo Todo object with values
+     * @return HBox with ui elements for to-do
+     */
     public Node createTodoNode(Todo todo) {
         HBox box = new HBox(10);
         Label label = new Label(todo.getContent());
@@ -119,6 +127,11 @@ public class TrackerUi extends Application {
         return box;
     }
 
+    /**
+     * Creates a habit node
+     * @param habit Habit object with values
+     * @return HBox with ui elements for habit
+     */
     public Node createHabitNode(Habit habit) {
         HBox box = new HBox(10);
         Label label = new Label(habit.getContent());
@@ -174,6 +187,11 @@ public class TrackerUi extends Application {
         return box;
     }
 
+    /**
+     * Creates a daily node
+     * @param daily Daily object with values
+     * @return HBox with ui elements for daily
+     */
     public Node createDailyNode(Daily daily) {
         HBox box = new HBox(10);
         Label label = new Label(daily.getContent());
@@ -221,6 +239,10 @@ public class TrackerUi extends Application {
         return box;
     }
 
+    /**
+     * Redraws list based on given parameter
+     * @param type 1:to-do, 2:habit, 3:daily
+     */
     public void redrawlist(int type) {
         switch (type) {
             case 1:
@@ -255,12 +277,13 @@ public class TrackerUi extends Application {
                     + userService.getLoggedUser().getLevel() 
                     + " | exp " + userService.getLoggedUser().getExperience());
     }
-
-    @Override
-    public void start(Stage primaryStage) {
-
-        // login                                                     -------------------------------
-        
+    
+    /**
+     * Create login ui elements and scene
+     * @param primaryStage main stage to show scenes on
+     * @return login scene
+     */
+    public Scene createLoginScene(Stage primaryStage) {
         GridPane loginGrid = new GridPane();
         loginGrid.setPadding(new Insets(10, 10, 10, 10));
         loginGrid.setVgap(8);
@@ -316,12 +339,15 @@ public class TrackerUi extends Application {
                 createButton);
 
         loginGrid.setAlignment(Pos.CENTER);
-
-        loginScene = new Scene(loginGrid, 1000, 600);
-
-        
-        // new user                                                -------------------------------
-        
+        return new Scene(loginGrid, 1000, 600);
+    }
+    
+    /**
+     * Create newUserCreation ui elements and scene
+     * @param primaryStage main stage to show scenes on
+     * @return newUser scene
+     */
+    public Scene createNewUserScene(Stage primaryStage) {
         GridPane newUserGrid = new GridPane();
         newUserGrid.setPadding(new Insets(10, 10, 10, 10));
         newUserGrid.setVgap(8);
@@ -359,8 +385,8 @@ public class TrackerUi extends Application {
                 userCreationMsg.setTextFill(Color.RED);
             } else if (userService.newUser(username, name)) {
                 userCreationMsg.setText("");
-                loginMessage.setText("new user created");
-                loginMessage.setTextFill(Color.GREEN);
+//                loginMessage.setText("new user created");
+//                loginMessage.setTextFill(Color.GREEN);
                 newUserInput.setText("");
                 newNameInput.setText("");
                 primaryStage.setScene(loginScene);
@@ -385,12 +411,15 @@ public class TrackerUi extends Application {
                 cancelNewUserButt);
 
         newUserGrid.setAlignment(Pos.CENTER);
-
-        newUserScene = new Scene(newUserGrid, 1000, 600);
-
-        
-        // create todo                                             --------------------------------
-        
+        return new Scene(newUserGrid, 1000, 600);
+    }
+    
+    /**
+     * Create newTodoCreation ui elements and scene
+     * @param primaryStage main stage to show scenes on
+     * @return newTodo scene
+     */
+    public Scene createTodoCreationScene(Stage primaryStage) {
         GridPane newTodoGrid = new GridPane();
         newTodoGrid.setPadding(new Insets(10, 10, 10, 10));
         newTodoGrid.setVgap(8);
@@ -468,11 +497,15 @@ public class TrackerUi extends Application {
                 todoCreationMsg);
 
         newTodoGrid.setAlignment(Pos.CENTER);
-        todoScene = new Scene(newTodoGrid, 1000, 600);
-
-        
-        // create habit                                            --------------------------------
-        
+        return new Scene(newTodoGrid, 1000, 600);
+    }
+    
+    /**
+     * Create newHabitCreation ui elements and scene
+     * @param primaryStage main stage to show scenes on
+     * @return newHabit scene
+     */
+    public Scene createHabitCreationScene(Stage primaryStage) {
         GridPane newHabitGrid = new GridPane();
         newHabitGrid.setPadding(new Insets(10, 10, 10, 10));
         newHabitGrid.setVgap(8);
@@ -552,11 +585,16 @@ public class TrackerUi extends Application {
                 habitCreationMsg);
 
         newHabitGrid.setAlignment(Pos.CENTER);
-        habitScene = new Scene(newHabitGrid, 1000, 600);
-
-        // create daily                                            --------------------------------
-
         
+        return new Scene(newHabitGrid, 1000, 600);
+    }
+    
+    /**
+     * Create newDailyCreation ui elements and scene
+     * @param primaryStage main stage to show scenes on
+     * @return newDaily scene
+     */
+    public Scene createDailyCreationScene(Stage primaryStage) {
         GridPane newDailyGrid = new GridPane();
         newDailyGrid.setPadding(new Insets(10, 10, 10, 10));
         newDailyGrid.setVgap(8);
@@ -682,11 +720,16 @@ public class TrackerUi extends Application {
                 daysShown);
 
         newDailyGrid.setAlignment(Pos.CENTER);
-        dailyScene = new Scene(newDailyGrid, 1000, 600);
-
-        // tracker scene                                            --------------------------------
         
-        
+        return new Scene(newDailyGrid, 1000, 600);
+    }
+    
+    /**
+     * Create trackerScene ui elements and scene
+     * @param primaryStage main stage to show scenes on
+     * @return trackerScene
+     */
+    public Scene createTrackerScene(Stage primaryStage) {
         Button createNewTodo = new Button("New to-do");
         Button createNewHabit = new Button("New habit");
         Button createNewDaily = new Button("New daily task");
@@ -726,7 +769,7 @@ public class TrackerUi extends Application {
         trackerPane.setPadding(new Insets(10, 10, 10, 10));
         trackerPane.getChildren().addAll(habits, dailies, todos);
 
-        trackerScene = new Scene(verticalLayout, 1000, 600);
+        
 
         menuLabel.setStyle("-fx-font-size: 20px;");
         userStatsLabel.setStyle("-fx-font-size: 20px;");
@@ -782,8 +825,6 @@ public class TrackerUi extends Application {
         dailyNodes.setMaxWidth(310);
         dailyNodes.setMinWidth(310);
 
-        verticalLayout.getChildren().addAll(menuPane, trackerPane);
-
         todoScrollbar.setContent(todoNodes);
         habitScrollbar.setContent(habitNodes);
         dailyScrollbar.setContent(dailyNodes);
@@ -791,6 +832,36 @@ public class TrackerUi extends Application {
         todoScrollbar.setMinWidth(320);
         habitScrollbar.setMinWidth(320);
         dailyScrollbar.setMinWidth(320);
+        
+        verticalLayout.getChildren().addAll(menuPane, trackerPane);
+        
+        return new Scene(verticalLayout, 1000, 600);
+    }
+
+    /**
+     * Setup ui scenes and primaryStage
+     * @param primaryStage main stage to show scenes on
+     */
+    @Override
+    public void start(Stage primaryStage) {
+
+        // login
+        loginScene = createLoginScene(primaryStage);
+        
+        // new user
+        newUserScene = createNewUserScene(primaryStage);
+        
+        // create todo
+        todoScene = createTodoCreationScene(primaryStage);
+        
+        // create habit
+        habitScene = createHabitCreationScene(primaryStage);
+
+        // create daily
+        dailyScene = createDailyCreationScene(primaryStage);
+
+        // tracker scene
+        trackerScene = createTrackerScene(primaryStage);
 
         // setup primary stage
         primaryStage.setTitle("Habit Tracker");

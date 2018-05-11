@@ -44,7 +44,7 @@ public class HabitServiceTest {
         habitDao.setUser(user);
         habitDao.create(new Habit("Read", 1));
         habitDao.create(new Habit("Run", 1));
-        habitDao.setDone(2);
+        habitDao.setUntracked(2);
     }
 
     @After

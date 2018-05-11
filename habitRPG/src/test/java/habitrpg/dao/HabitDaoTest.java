@@ -117,7 +117,7 @@ public class HabitDaoTest {
         Habit h = new Habit("yes", 1);
         habitDao.create(h);
         
-        assertEquals(true, habitDao.setDone(1));
+        assertEquals(true, habitDao.setUntracked(1));
         assertEquals(true, habitDao.getOne(1).isRetired());
     }
     
@@ -127,7 +127,7 @@ public class HabitDaoTest {
         habitDao = new HabitDao(db);
         habitDao.setUser(u);
         
-        assertEquals(false, habitDao.setDone(1));
+        assertEquals(false, habitDao.setUntracked(1));
     }
     
     @Test

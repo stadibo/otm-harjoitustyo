@@ -11,23 +11,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author peje
+ * Data access object for Daily objects that interfaces with a database
  */
 public class DailyDao {
 
     private Database database;
     private User user;
 
+    /**
+     * Constructs DAO for Daily objects and creates table for object type 
+     * if it doesn't exist
+     * @param database (database to be accessed)
+     */
     public DailyDao(Database database) {
         this.database = database;
         createTable();
     }
 
+    /**
+     * Sets current user
+     * @param user (owner of Daily objects to be queried)
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Query from database and create a single Daily object 
+     * @param key (database id)
+     * @return Daily object that was queried based on user and id; otherwise null
+     */
     public Daily getOne(Integer key) {
         Daily found = null;
         String sql = "SELECT id, content, complete, retired, difficulty, date "
@@ -55,6 +68,10 @@ public class DailyDao {
         return found;
     }
 
+    /**
+     * Query from database and create List of Daily objects
+     * @return List of Daily objects based on current user
+     */
     public List<Daily> getAll() {
         List<Daily> dailies = new ArrayList<>();
         String sql = "SELECT id, content, complete, retired, difficulty, date "
@@ -81,6 +98,12 @@ public class DailyDao {
         return dailies;
     }
 
+    /**
+     * Inserts a newly created Daily object into database
+     * @param object (A new default Daily object with missing user; 
+     * this is added in statement)
+     * @return created Daily object with User and id added
+     */
     public Daily create(Daily object) {
         String sql = "INSERT INTO "
                 + "Daily(content, complete, retired, difficulty, date, username) "
@@ -108,6 +131,11 @@ public class DailyDao {
         return object;
     }
 
+    /**
+     * Delete representation of Daily object found by current user and id from database
+     * @param key (database id)
+     * @return true if deletion succeeded; otherwise false
+     */
     public boolean delete(Integer key) {
         String sql = "DELETE FROM Daily WHERE username = ? AND id = ?";
         int deleted = 0;
@@ -129,6 +157,11 @@ public class DailyDao {
         }
     }
 
+    /**
+     * Set Daily, found by current user and id, as done (complete = true) in database
+     * @param key (database id)
+     * @return true if setting succeeded; otherwise false
+     */
     public boolean setDone(Integer key) {
         String sql = "UPDATE Daily SET complete = ? WHERE username = ? AND id = ?";
         int affected = 0;
@@ -151,6 +184,11 @@ public class DailyDao {
         }
     }
 
+    /**
+     * Set Daily, found by current user and id, as undone (complete = false) in database
+     * @param key (database id)
+     * @return true if setting succeeded; otherwise false
+     */
     public boolean setUndone(Integer key) {
         String sql = "UPDATE Daily SET complete = ? WHERE username = ? AND id = ?";
         int affected = 0;
@@ -173,6 +211,11 @@ public class DailyDao {
         }
     }
 
+    /**
+     * Set Daily, found by current user and id, as untracked (retired = false) in database
+     * @param key (database id)
+     * @return true if setting succeeded; otherwise false
+     */
     public boolean setUntracked(Integer key) {
         String sql = "UPDATE Daily SET retired = ? WHERE username = ? AND id = ?";
         int affected = 0;
@@ -195,6 +238,13 @@ public class DailyDao {
         }
     }
 
+    /**
+     * Updates the date for Daily, found by current user and id, to date 
+     * given as a parameter. The date should is given in a parseable format
+     * @param key (database id)
+     * @param date (date as string in a parseable format)
+     * @return true if setting succeeded; otherwise false
+     */
     public boolean updateDate(int key, String date) {
         String sql = "UPDATE Daily SET date = ? WHERE username = ? AND id = ?";
         int affected = 0;
