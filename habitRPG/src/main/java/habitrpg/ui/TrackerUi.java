@@ -95,13 +95,13 @@ public class TrackerUi extends Application {
         button.setOnAction(e -> {
             todoService.setDone(todo.getId());
             userService.addExp(todo.getDifficulty());
-            redrawlist(1);
+            redrawList(1);
         });
 
         Button deleteButton = new Button("del");
         deleteButton.setOnAction(e -> {
             todoService.deleteTodo(todo.getId());
-            redrawlist(1);
+            redrawList(1);
         });
         
         box.setPadding(new Insets(5, 5, 5, 5));
@@ -142,26 +142,26 @@ public class TrackerUi extends Application {
         button.setOnAction(e -> {
             habitService.addToOrRemoveFromStreak(habit.getId(), 1);
             userService.addExp(habit.getDifficulty());
-            redrawlist(2);
+            redrawList(2);
         });
         
         Button negativeButton = new Button("-");
         negativeButton.setOnAction(e -> {
             habitService.addToOrRemoveFromStreak(habit.getId(), -1);
             userService.experiencePenalty();
-            redrawlist(2);
+            redrawList(2);
         });
 
         Button deleteButton = new Button("del");
         deleteButton.setOnAction(e -> {
             habitService.deleteHabit(habit.getId());
-            redrawlist(2);
+            redrawList(2);
         });
 
         Button untrackButton = new Button("untrack");
         untrackButton.setOnAction(e -> {
             habitService.untrack(habit.getId());
-            redrawlist(2);
+            redrawList(2);
         });
         
         box.setPadding(new Insets(5, 5, 5, 5));
@@ -201,19 +201,19 @@ public class TrackerUi extends Application {
         button.setOnAction(e -> {
             dailyService.setDone(daily.getId());
             userService.addExp(daily.getDifficulty());
-            redrawlist(3);
+            redrawList(3);
         });
 
         Button deleteButton = new Button("del");
         deleteButton.setOnAction(e -> {
             dailyService.deleteDaily(daily.getId());
-            redrawlist(3);
+            redrawList(3);
         });
 
         Button untrackButton = new Button("untrack");
         untrackButton.setOnAction(e -> {
             dailyService.untrack(daily.getId());
-            redrawlist(3);
+            redrawList(3);
         });
 
         box.setPadding(new Insets(5, 5, 5, 5));
@@ -244,7 +244,7 @@ public class TrackerUi extends Application {
      * Redraws list based on given parameter
      * @param type 1:to-do, 2:habit, 3:daily
      */
-    public void redrawlist(int type) {
+    public void redrawList(int type) {
         switch (type) {
             case 1:
                 todoNodes.getChildren().clear();
@@ -316,9 +316,9 @@ public class TrackerUi extends Application {
                 menuLabel.setText(username + " : logged in");
                 userStatsLabel.setText("PROGRESS: level " + user.getLevel() 
                         + " | exp " + user.getExperience());
-                redrawlist(1);
-                redrawlist(2);
-                redrawlist(3);
+                redrawList(1);
+                redrawList(2);
+                redrawList(3);
                 primaryStage.setScene(trackerScene);
                 nameInput.setText("");
             } else {
@@ -474,7 +474,7 @@ public class TrackerUi extends Application {
                 todoCreationMsg.setText("");
                 newTodoInput.setText("");
                 difficultyBox.setValue("Easy");
-                redrawlist(1);
+                redrawList(1);
                 primaryStage.setScene(trackerScene);
             } else {
                 todoCreationMsg.setText("failed to create todo :(");
@@ -562,7 +562,7 @@ public class TrackerUi extends Application {
                 habitCreationMsg.setText("");
                 newHabitInput.setText("");
                 habitDifficultyBox.setValue("Easy");
-                redrawlist(2);
+                redrawList(2);
                 primaryStage.setScene(trackerScene);
             } else {
                 habitCreationMsg.setText("failed to create habit :(");
@@ -688,7 +688,7 @@ public class TrackerUi extends Application {
                 sat.setSelected(false);
                 sun.setSelected(false);
 
-                redrawlist(3);
+                redrawList(3);
                 primaryStage.setScene(trackerScene);
             } else {
                 dailyCreationMsg.setText("failed to create task :(");
@@ -793,9 +793,9 @@ public class TrackerUi extends Application {
             }
 
             deleteMode = !deleteMode;
-            redrawlist(1);
-            redrawlist(2);
-            redrawlist(3);
+            redrawList(1);
+            redrawList(2);
+            redrawList(3);
         });
 
         logoutButton.setOnAction(e -> {
