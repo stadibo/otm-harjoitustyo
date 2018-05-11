@@ -35,7 +35,7 @@ The nature these representations, but since their functionality is different eno
 - boolean untrack(Integer key)
 - boolean setDone(int key)
 
-_User/Todo/Habit/DailyService_ only access thier corresponding types of objects. This happens through the classes _User/Todo/Habit/DailyDao_ in the package habitrpg.dao responsible for persistent storage. Instancec of these DAO:s are created in the "Service" classes.
+_User/Todo/Habit/DailyService_ only access thier corresponding types of objects. This happens through the classes _User/Todo/Habit/DailyDao_ in the package habitrpg.dao responsible for persistent storage. Instances of these DAO:s are created in the "Service" classes.
 
 A class/package diagram describing the relations between the various parts of the software:
 
