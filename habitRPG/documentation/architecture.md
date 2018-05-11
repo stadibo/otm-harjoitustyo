@@ -47,9 +47,9 @@ The "database" classes in [habitrpg.dao] are responsible for saving data into a 
 
 These classes follow the [Data Access Object]() design pattern and can be replaced with another implementation if needed. The "DatabaseDao"-classes have abstractions and are not used directly by the software logic.
 
-## Database schema
+### Database schema
 
-
+Each DAO represents a table in the database. The schema or [Create table statement]() for the database.
 
 ### Main functionality
 
