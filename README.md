@@ -1,7 +1,7 @@
 # HabitRPG
 
 The idea of HabitRPG is to keep track of habits in fun way. Not only can you tick of completed task and mark a 
-habit done for the day, but also gain energy and experience in a RPG connected the tracker. This way your character in game
+habit done for the day, but also gain experience and levels in a way like in a RPG. This way your "character" in game
 will mirror you progressing, cultivating good habits and being productive.
 
 ## Documentation
@@ -13,6 +13,8 @@ will mirror you progressing, cultivating good habits and being productive.
 [Time tracking](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/time-tracking.md)
 
 [User guide](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/userGuide.md)
+
+[Testing document]()
 
 ## Releases
 
