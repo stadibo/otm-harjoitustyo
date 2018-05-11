@@ -14,7 +14,7 @@ will mirror you progressing, cultivating good habits and being productive.
 
 [User guide](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/userGuide.md)
 
-[Testing document]()
+[Testing document](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/documentation/testing_document.md)
 
 ## Releases
 
