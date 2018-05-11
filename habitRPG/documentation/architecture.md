@@ -39,7 +39,7 @@ _User/Todo/Habit/DailyService_ only access thier corresponding types of objects.
 
 A class/package diagram describing the relations between the various parts of the software:
 
-<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/logical_structure.png" width="700">
+<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/package_diagram2.png" width="700">
 
 ## Data persistence
 
