@@ -6,6 +6,22 @@ The structure of habitRPG adheres to the following structure, and the package st
 
 _habitrpg.ui_ contains a text based ui, _habitrpg.domain_ contains software logic, and _habitrpg.dao_ contains classes for interfacing with the database.
 
+## User interface
+
+The UI contains 6 different scenes
+- login
+- create new user
+- main tracker view with to-do:s, habits and daily tasks
+- create new to-do
+- create new habit
+- create new daily task
+
+each scene is implemented as a [Scene](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html)-object. Only one scene is shown at one time, contained in the applications' [stage](https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html). The user interface is built software wise in the class [habitrpg.ui.TrackerUi](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/ui/TrackerUi.java).
+
+The UI has mostly been isolated from the software logic and only calls for "Service"-class methods in [habitrpg.domain](https://github.com/stadibo/otm-harjoitustyo/tree/master/habitRPG/src/main/java/habitrpg/domain) when needed with appropriate parameters.
+
+When the state of a to-do/habit/daily list changes, e.g. a user logs in or a task is set done/deleted/created, the method [redrawList()](https://github.com/stadibo/otm-harjoitustyo/blob/a1b81a6c47b2a3b9c26c17af39222f0346c61746/habitRPG/src/main/java/habitrpg/ui/TrackerUi.java#L247) is called with corresponding parameter (1:to-do, 2:habit, 3:daily) which rerenders lists on the trackerScene with updated objects obtained from software logic.
+
 ## Software logic
 
 The logical datamodel of the software is made up of four classes: [User](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/User.java), [Todo](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/Todo.java), [Habit](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/Habit.java) and [Daily](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/Daily.java). In addition to these there is a utility class [Time](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/Time.java) for accessing the current date and formatting DataTime-objects. These main relations are representations of users and their various tasks/habits:
