@@ -54,3 +54,5 @@ Each DAO represents a table in the database. The schema or [Create table stateme
 ### Main functionality
 
 <img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Login.png" width="850">
+
+<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Create%20new%20user.png" width="850">
