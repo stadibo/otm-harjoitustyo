@@ -130,7 +130,7 @@ public class UserServiceTest {
     @Test
     public void levelNotGetLowerThanOne() {
         us.login("tester");
-        us.getLoggedUser().setExperience(100);
+        us.getLoggedUser().setExperience(50);
         us.getLoggedUser().setLevel(1);
         us.getLoggedUser().setHealth(200);
         us.experiencePenalty();

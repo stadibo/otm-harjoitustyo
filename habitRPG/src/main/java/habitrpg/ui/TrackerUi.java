@@ -55,6 +55,7 @@ public class TrackerUi extends Application {
     private VBox dailyNodes;
     private Label menuLabel = new Label();
     private Label userStatsLabel = new Label();
+    private Label loginMessage = new Label();
     private boolean deleteMode;
 
     /**
@@ -300,8 +301,7 @@ public class TrackerUi extends Application {
         Button createButton = new Button("Create new user");
         loginGrid.setConstraints(loginButton, 1, 1);
         loginGrid.setConstraints(createButton, 1, 2);
-
-        Label loginMessage = new Label();
+        
         loginGrid.setConstraints(loginMessage, 1, 3);
 
         loginButton.setOnAction(e -> {
@@ -385,8 +385,8 @@ public class TrackerUi extends Application {
                 userCreationMsg.setTextFill(Color.RED);
             } else if (userService.newUser(username, name)) {
                 userCreationMsg.setText("");
-//                loginMessage.setText("new user created");
-//                loginMessage.setTextFill(Color.GREEN);
+                loginMessage.setText("new user created");
+                loginMessage.setTextFill(Color.GREEN);
                 newUserInput.setText("");
                 newNameInput.setText("");
                 primaryStage.setScene(loginScene);
