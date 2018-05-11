@@ -26,7 +26,7 @@ When the state of a to-do/habit/daily list changes, e.g. a user logs in or a tas
 
 The logical datamodel of the software is made up of four classes: [User](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/User.java), [Todo](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/Todo.java), [Habit](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/Habit.java) and [Daily](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/Daily.java). In addition to these there is a utility class [Time](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/Time.java) for accessing the current date and formatting DataTime-objects. These main relations are representations of users and their various tasks/habits:
 
-<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Logical_datamodel2.png" width="600">
+<img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Logical_datamodel2.png" width="500">
 
 The nature these representations, but since their functionality is different enough it was more clear to also make separate classes responsible for managing these representations. These classes are: [UserService](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/UserService.java), [TodoService](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/TodoService.java), [HabitService](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/HabitService.java) and [DailyService](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/src/main/java/habitrpg/domain/DailyService.java). These classes provide methods for functions of the user interface. Some examples of these methods are:
 - boolean login(String username)
@@ -41,6 +41,16 @@ A class/package diagram describing the relations between the various parts of th
 
 <img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/logical_structure.png" width="700">
 
-### Functionality
+## Data persistence
+
+The "database" classes in [habitrpg.dao] are responsible for saving data into a database file called _tracker.db_.
+
+These classes follow the [Data Access Object]() design pattern and can be replaced with another implementation if needed. The "DatabaseDao"-classes have abstractions and are not used directly by the software logic.
+
+## Database schema
+
+
+
+### Main functionality
 
 <img src="https://raw.githubusercontent.com/stadibo/otm-harjoitustyo/master/habitRPG/documentation/img/Login.png" width="850">
